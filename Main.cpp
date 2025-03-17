@@ -1,11 +1,7 @@
 #include "raylib.h"
 #include "string"
 #include <vector>
-#include "ent_row.h"
-#include <map>
-#include <iostream>
-
-typedef entity_row entity_row_type;
+#include "ECS.h"
 
 //======== entry point =========//
 
@@ -38,24 +34,15 @@ int main(void)
 
 	SetTargetFPS(60);
 
-	std::map<int, entity_row_type> ECS_map {};
-
-	ECS_map.insert(
-		std::pair<int, entity_row_type> (1, 
-			entity_row(
-				1.0f,
-				{ 0.0f, 0.0f },
-				{ 0.0f, 0.0f },
-				{ 1.0f, 0.1f },
-				2,
-				false,
-				false
-			)
-		)
+	ECS_update(
+		1,
+		entity_row_type { 1.0f, {1.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f}, 12, false, false }
 	);
 
-	std::cout << std::to_string(ECS_map.at(1).m_mass) << std::endl;
-
+	ECS_update(
+		2,
+		entity_row_type{ 1.0f, {3.0f, 0.0f}, {1.0f, 2.0f}, {1.0f, 0.0f}, 12, true, false }
+	);
 
 	while (!WindowShouldClose())
 	{
