@@ -17,10 +17,23 @@ public:
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 
+	entity_row() {
+		m_mass = 1.0f;
+		m_color = PURPLE;
+		m_position = { 0.0f, 0.0f };
+		m_velocity = { 0.0f, 0.0f };
+		m_acceleration = { 0.0f, 0.0f };
+		m_shape = { {30.0f, 0.0f}, {-30.0f, 0.0f}, {0.0f, 30.0f} };
+		m_target_id = 0;
+		m_is_targeted = false;
+		m_has_gravity = false;
+	};
+
 	entity_row(
 		float mass, Color color, Vector2 position, Vector2 velocity, Vector2 acceleration,
 		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
-		) {
+	)
+	{
 		m_mass = mass;
 		m_color = color;
 		m_position = position;
