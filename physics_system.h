@@ -27,7 +27,7 @@ Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns g
 
 };
 
-void physics_update(int ID) {
+void physics_update(int ID) { // see comments in physics_system.h
 
 	// initializing local vars
 	float mass{ ECS_map[ID].m_mass };
@@ -36,17 +36,26 @@ void physics_update(int ID) {
 	Vector2 acceleration{ ECS_map[ID].m_acceleration };
 	Vector2 force{ ECS_map[ID].m_force };
 	
-	// kinematics
-	acceleration += acceleration + force / mass;
-	velocity += velocity + acceleration * dt;
-	position += position + velocity * dt + acceleration * 0.5 * dt * dt;
+	// updating physics components via kinematic equations
+	// this cascades changes in the force component to the accel, vel, and pos components
+	// to move physics objects, just change the force component of a given entity ID
+	// and call this system to move it around :)
+	if (!Vector2Equals(force, {0.0f, 0.0f})) { // if force is not the zero vector
+		acceleration += acceleration + force / mass;
+		velocity += velocity + acceleration * dt;
+		position += position + velocity * dt + acceleration * 0.5 * dt * dt;
+	};
 
 	// shoving components back into ECS
-	ECS_map[ID].m_mass = mass;
-	ECS_map[ID].m_position = position;
-	ECS_map[ID].m_velocity = velocity;
-	ECS_map[ID].m_acceleration = acceleration;
-	ECS_map[ID].m_force = force;
+	set_entity_components(
+		ID,
+		ECS_map[ID].m_name,
+		mass,
+		ECS_map[ID].m_color,
+		position, velocity, acceleration, force,
+		ECS_map[ID].m_shape,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
+	);
 
 };
 
