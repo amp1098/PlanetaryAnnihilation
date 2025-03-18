@@ -27,6 +27,16 @@ Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns g
 
 };
 
+float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
+	float moment{};
+
+	for (int i = 0; i < std::size(points); i++) {
+		moment += mass_of_each_point * Vector2LengthSqr(points[i]);
+	};
+
+	return moment;
+};
+
 void physics_update(int ID) { // see comments in physics_system.h
 
 	// initializing local vars
@@ -35,6 +45,11 @@ void physics_update(int ID) { // see comments in physics_system.h
 	Vector2 velocity{ ECS_map[ID].m_velocity };
 	Vector2 acceleration{ ECS_map[ID].m_acceleration };
 	Vector2 force{ ECS_map[ID].m_force };
+	std::vector<Vector2> shape{ ECS_map[ID].m_shape};
+	float angle{ ECS_map[ID].m_angle };
+	float angvel{ ECS_map[ID].m_angvel };
+	float angacc{ ECS_map[ID].m_angacc };
+	float torque{ ECS_map[ID].m_torque };
 	
 	// updating physics components via kinematic equations
 	// this cascades changes in the force component to the accel, vel, and pos components
@@ -49,6 +64,18 @@ void physics_update(int ID) { // see comments in physics_system.h
 	velocity += acceleration * dt;
 	position += velocity * dt + acceleration * 0.5 * dt * dt;
 
+	// angular kinematics (torques, angular velocity, etc)
+	// same principle as previous stuff
+
+	float moment{ moment_of_inertia(mass, shape) }; // moment of inertia used for torque stuff
+	if (!FloatEquals(torque, 0.0f)) {
+		angacc += torque / moment;
+	}
+	else angacc = 0.0f;
+
+	angvel += angacc * dt;
+	angle += angvel * dt + angacc * 0.5 * dt * dt;
+
 	// shoving components back into ECS
 	update_entity_components(
 		ID,
@@ -56,11 +83,12 @@ void physics_update(int ID) { // see comments in physics_system.h
 		mass,
 		ECS_map[ID].m_color,
 		position, velocity, acceleration, force,
+		angle, angvel, angacc, torque,
 		ECS_map[ID].m_shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
 
-	std::cout << velocity.y << std::endl;
+	std::cout << angvel << std::endl;
 
 };
 

@@ -7,7 +7,7 @@
 
 #include "physics_system.h" // updates positions of entities based on physical models (kinematics, etc)
 
-#include "control_system.h" // updates forces of entities based on keyboard inputs
+#include "control_system.h" // updates forces/torques of entities based on keyboard inputs
 
 #endif
 

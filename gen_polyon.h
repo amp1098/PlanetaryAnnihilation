@@ -28,8 +28,8 @@ public:
 			m_points[i].y = m_points[i].y - pivot.y;
 
 			// rotating about origin
-			m_points[i].x = cos(angle) * m_points[i].x + sin(angle) * m_points[i].y;
-			m_points[i].y = sin(angle) * m_points[i].x - cos(angle) * m_points[i].y;
+			m_points[i].x = cos(angle) * m_points[i].x - sin(angle) * m_points[i].y;
+			m_points[i].y = sin(angle) * m_points[i].x + cos(angle) * m_points[i].y;
 
 			// moving back
 			m_points[i].x = m_points[i].x + pivot.x;
