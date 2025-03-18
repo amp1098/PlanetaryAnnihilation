@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include "ent_row.h"
+#include <vector>
 
 // this is going to be a map from int keys to entity_row_type values
 /*
@@ -26,12 +27,12 @@ void ECS_update(int key, entity_row_type components) { // adds components to ECS
 	);
 };
 
-void set_entity_components(int ID, float mass,
+void set_entity_components(int ID, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration,
-	int target_id, bool is_targeted, bool has_gravity) {
+	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity) {
 	ECS_update(
 		ID,
-		{ mass, position, velocity, acceleration, target_id, is_targeted, has_gravity }
+		{ mass, color, position, velocity, acceleration, shape, target_id, is_targeted, has_gravity }
 	);
 };
 

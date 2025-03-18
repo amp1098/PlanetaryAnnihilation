@@ -1,0 +1,9 @@
+#ifndef SYSTEMS_H
+#define SYSTEMS_H
+
+// include all the systems here and maybe add some comments describing what they do
+
+#include "drawing_system.h" // draws entities to screen via draw_entity(ID)
+
+#endif
+

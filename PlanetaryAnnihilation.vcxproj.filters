@@ -35,5 +35,11 @@
     <ClInclude Include="gen_polyon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="drawing_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="systems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

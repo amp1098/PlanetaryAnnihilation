@@ -3,6 +3,7 @@
 #include <vector>
 #include "ECS.h"
 #include "ship.h"
+#include "systems.h"
 
 //======== entry point =========//
 
@@ -35,15 +36,12 @@ int main(void)
 
 	SetTargetFPS(60);
 
-	//ECS_update(
-	//	1,
-	//	entity_row_type { 1.0f, {1.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f}, 12, false, false }
-	//);
+	// adding a ship object
 
-	//ECS_update(
-	//	2,
-	//	entity_row_type{ 1.0f, {3.0f, 0.0f}, {1.0f, 2.0f}, {1.0f, 0.0f}, 12, true, false }
-	//);
+	ship playerShip (1, 1.0f, BLUE,
+		{ 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 86.0f} },
+		12, false);
 
 	while (!WindowShouldClose())
 	{
@@ -59,6 +57,8 @@ int main(void)
 		BeginDrawing();
 
 		ClearBackground(BLACK);
+
+		draw_entity(1);
 
 		BeginMode2D(camera);
 
