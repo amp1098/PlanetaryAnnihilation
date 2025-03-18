@@ -13,10 +13,10 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 
 	if (IsKeyDown(KEY_UP)) force += thrust; // push up
 	else if (IsKeyDown(KEY_DOWN)) force -= thrust; // push down
-	else force == Vector2Zero(); // force returns to zero otherwise
+	else force = Vector2Zero(); // force returns to zero otherwise
 
 
-	set_entity_components(
+	update_entity_components(
 		ID,
 		ECS_map[ID].m_name,
 		ECS_map[ID].m_mass,
@@ -25,8 +25,6 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		ECS_map[ID].m_shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
-
-	std::cout << ECS_map[ID].m_force.y << std::endl;
 
 };
 

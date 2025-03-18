@@ -40,14 +40,17 @@ void physics_update(int ID) { // see comments in physics_system.h
 	// this cascades changes in the force component to the accel, vel, and pos components
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
-	if (!Vector2Equals(force, {0.0f, 0.0f})) { // if force is not the zero vector
-		acceleration += acceleration + force / mass;
-		velocity += velocity + acceleration * dt;
-		position += position + velocity * dt + acceleration * 0.5 * dt * dt;
-	};
+
+	if (!Vector2Equals(force, Vector2Zero())) {
+		acceleration += force / mass;
+	}
+	else acceleration = Vector2Zero();
+	
+	velocity += acceleration * dt;
+	position += velocity * dt + acceleration * 0.5 * dt * dt;
 
 	// shoving components back into ECS
-	set_entity_components(
+	update_entity_components(
 		ID,
 		ECS_map[ID].m_name,
 		mass,
@@ -56,6 +59,8 @@ void physics_update(int ID) { // see comments in physics_system.h
 		ECS_map[ID].m_shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
+
+	std::cout << velocity.y << std::endl;
 
 };
 

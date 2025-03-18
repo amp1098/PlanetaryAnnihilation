@@ -26,10 +26,10 @@ int main(void)
 		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
 		12, false);
 
-	ship referenceShip(2, "Ship", 1.0f, WHITE,
-		{ 100.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
-		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
-		12, false);
+	//ship referenceShip(2, "Ship", 1.0f, WHITE,
+	//	{ 100.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+	//	{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
+	//	12, false);
 
 	Camera2D camera = { 0 };
 
@@ -46,7 +46,7 @@ int main(void)
 	{
 
 		// camera target follows player
-		camera.target = { playerShip.m_position.x, playerShip.m_position.y };
+		camera.target = { ECS_map[1].m_position.x, ECS_map[1].m_position.y};
 
 		// zoom (and zoom limiter)
 		camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
@@ -60,7 +60,9 @@ int main(void)
 		BeginMode2D(camera);
 
 		draw_entity(1);
-		draw_entity(2);
+		physics_update(1);
+		
+		DrawCircleV({300.0f, 200.0f}, 100.0f, BLUE); // reference to check for motion
 
 		thrust_check(1);
 
