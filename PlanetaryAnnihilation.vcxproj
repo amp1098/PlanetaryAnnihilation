@@ -139,6 +139,8 @@
   <ItemGroup>
     <ClInclude Include="ent_row.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="gen_polyon.h" />
+    <ClInclude Include="ship.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

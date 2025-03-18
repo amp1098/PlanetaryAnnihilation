@@ -26,4 +26,13 @@ void ECS_update(int key, entity_row_type components) { // adds components to ECS
 	);
 };
 
+void set_entity_components(int ID, float mass,
+	Vector2 position, Vector2 velocity, Vector2 acceleration,
+	int target_id, bool is_targeted, bool has_gravity) {
+	ECS_update(
+		ID,
+		{ mass, position, velocity, acceleration, target_id, is_targeted, has_gravity }
+	);
+};
+
 #endif

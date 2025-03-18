@@ -2,6 +2,7 @@
 #include "string"
 #include <vector>
 #include "ECS.h"
+#include "ship.h"
 
 //======== entry point =========//
 
@@ -34,15 +35,15 @@ int main(void)
 
 	SetTargetFPS(60);
 
-	ECS_update(
-		1,
-		entity_row_type { 1.0f, {1.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f}, 12, false, false }
-	);
+	//ECS_update(
+	//	1,
+	//	entity_row_type { 1.0f, {1.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f}, 12, false, false }
+	//);
 
-	ECS_update(
-		2,
-		entity_row_type{ 1.0f, {3.0f, 0.0f}, {1.0f, 2.0f}, {1.0f, 0.0f}, 12, true, false }
-	);
+	//ECS_update(
+	//	2,
+	//	entity_row_type{ 1.0f, {3.0f, 0.0f}, {1.0f, 2.0f}, {1.0f, 0.0f}, 12, true, false }
+	//);
 
 	while (!WindowShouldClose())
 	{
@@ -57,7 +58,7 @@ int main(void)
 
 		BeginDrawing();
 
-		ClearBackground(RAYWHITE);
+		ClearBackground(BLACK);
 
 		BeginMode2D(camera);
 

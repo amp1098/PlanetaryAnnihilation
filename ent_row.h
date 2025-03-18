@@ -2,6 +2,7 @@
 #define ENT_ROW_H
 
 #include <raylib.h>
+#include <vector>
 
 class entity_row { // contains components for physics objects
 public:
