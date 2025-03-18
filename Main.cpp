@@ -26,6 +26,11 @@ int main(void)
 		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
 		12, false);
 
+	ship referenceShip(2, "Ship", 1.0f, WHITE,
+		{ 100.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
+		12, false);
+
 	Camera2D camera = { 0 };
 
 	camera.target = { 1.0f, 2.0f };
@@ -55,6 +60,9 @@ int main(void)
 		BeginMode2D(camera);
 
 		draw_entity(1);
+		draw_entity(2);
+
+		thrust_check(1);
 
 		EndMode2D();
 
