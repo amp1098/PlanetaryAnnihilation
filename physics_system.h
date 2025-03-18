@@ -56,25 +56,23 @@ void physics_update(int ID) { // see comments in physics_system.h
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
 
-	if (!Vector2Equals(force, Vector2Zero())) {
-		acceleration += force / mass;
-	}
-	else acceleration = Vector2Zero();
-	
-	velocity += acceleration * dt;
-	position += velocity * dt + acceleration * 0.5 * dt * dt;
+	acceleration = force / mass;
+	velocity = acceleration * dt;
+	position = velocity * dt + acceleration * 0.5 * dt * dt;
 
 	// angular kinematics (torques, angular velocity, etc)
 	// same principle as previous stuff
 
 	float moment{ moment_of_inertia(mass, shape) }; // moment of inertia used for torque stuff
-	if (!FloatEquals(torque, 0.0f)) {
-		angacc += torque / moment;
-	}
-	else angacc = 0.0f;
 
-	angvel += angacc * dt;
-	angle += angvel * dt + angacc * 0.5 * dt * dt;
+	angacc = torque / moment;
+	angvel = angacc * dt;
+	angle = angvel * dt + angacc * 0 * dt * dt;
+
+	//rotating shape of entity
+	for (int i = 0; i < std::size(shape); i++) {
+		shape[i] = Vector2Rotate(shape[i], angle);
+	};
 
 	// shoving components back into ECS
 	update_entity_components(
@@ -84,11 +82,9 @@ void physics_update(int ID) { // see comments in physics_system.h
 		ECS_map[ID].m_color,
 		position, velocity, acceleration, force,
 		angle, angvel, angacc, torque,
-		ECS_map[ID].m_shape,
+		shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
-
-	std::cout << angvel << std::endl;
 
 };
 

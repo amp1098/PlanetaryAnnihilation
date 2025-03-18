@@ -71,6 +71,4 @@ void update_entity_components(
 	
 };
 
-
-
 #endif

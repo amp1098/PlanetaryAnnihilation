@@ -23,9 +23,11 @@ void draw_lines(std::vector<Vector2> points, Vector2 translate_distance, float r
 		points, color
 	);
 
+	vertices.rotate(rotate_angle, center_of_points(points)); // rotates about center of points
+
 	vertices.translate(translate_distance.x, translate_distance.y); // translates points
 
-	vertices.rotate(rotate_angle, center_of_points(points)); // rotates about center of points
+
 
 	vertices.draw();
 };
@@ -35,7 +37,10 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 	Vector2 translate{ ECS_map[ID].m_position };
 	float rotate_angle{ ECS_map[ID].m_angle };
 	Color color{ ECS_map[ID].m_color };
-
+	
+	/*for (int i = 0; i < std::size(points); i++) {
+		DrawCircleV(points[i] + translate, 5.0f, RED);
+	};*/
 	draw_lines(points, translate, rotate_angle, color);
 };
 

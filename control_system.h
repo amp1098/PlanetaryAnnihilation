@@ -8,22 +8,23 @@
 void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates force vector in ECS
 	
 	// initializing local vars
-	Vector2 force{ ECS_map[ID].m_force };
-	Vector2 thrust{ 0.0f, 10.0f };
+	float angle{ ECS_map[ID].m_angle };
+	Vector2 force{ ECS_map[ID].m_force};
+	Vector2 thrust{ 30.0f, 50.0f };
 
 	float torque{ ECS_map[ID].m_torque};
-	float turn_force{ 10.0f };
+	float turn_force{ 150.0f };
 
-	if (IsKeyDown(KEY_UP)) force += thrust; // push up
-	else if (IsKeyDown(KEY_DOWN)) force -= thrust; // push down
+	if (IsKeyDown(KEY_UP)) force = Vector2Rotate(thrust, angle); // push up
+	else if (IsKeyDown(KEY_DOWN)) force = Vector2Rotate(Vector2Negate(thrust), angle); // push down
 	else force = Vector2Zero(); // force returns to zero otherwise
 
-	if (IsKeyDown(KEY_RIGHT)) torque += turn_force; // push up
-	else if (IsKeyDown(KEY_LEFT)) torque -= turn_force; // push down
-	else force = Vector2Zero(); // force returns to zero otherwise
+	if (IsKeyDown(KEY_RIGHT)) torque = turn_force; // twist right
+	else if (IsKeyDown(KEY_LEFT)) torque = -turn_force; // twist left
+	else torque = 0.0f; // torque returns to zero otherwise
 
 
-	update_entity_components(
+	set_entity_components(
 		ID,
 		ECS_map[ID].m_name,
 		ECS_map[ID].m_mass,
@@ -34,6 +35,8 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
 
+	std::cout << "torque : " << ECS_map[ID].m_torque << std::endl;
+	std::cout << "force : " << ECS_map[ID].m_force.x << std::endl;
 };
 
 #endif
