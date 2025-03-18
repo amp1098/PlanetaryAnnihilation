@@ -21,8 +21,8 @@ int main(void)
 
 	// adding a ship object
 
-	ship playerShip(1, 1.0f, WHITE,
-		{ 100.0f, 100.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+	ship playerShip(1, "Ship", 1.0f, WHITE,
+		{ 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
 		12, false);
 

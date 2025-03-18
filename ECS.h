@@ -8,7 +8,7 @@
 
 // this is going to be a map from int keys to entity_row_type values
 /*
-example for object that is targeting another an object with ID == 1
+example for object that is targeting another an object with ID == 1 (doesnt show all components)
 ID | MASS |  POSITION  |  VELOCITY  |  ACCELERATION  |  TAR_OBJ_ID  | IS_TAR_BOOL | HAS_GRAVITY |
 24 | 1.0f | {0.0, 0.0} | {0.2, 1.0} |  {2.5, -3.1}   |       1      |   false     |   false     |
 */
@@ -27,13 +27,15 @@ void ECS_update(int key, entity_row_type components) { // adds components to ECS
 	);
 };
 
-void set_entity_components(int ID, float mass, Color color,
-	Vector2 position, Vector2 velocity, Vector2 acceleration,
+void set_entity_components(int ID, std::string name, float mass, Color color,
+	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity) {
 	ECS_update(
 		ID,
-		{ mass, color, position, velocity, acceleration, shape, target_id, is_targeted, has_gravity }
+		{ name, mass, color, position, velocity, acceleration, force, shape, target_id, is_targeted, has_gravity }
 	);
 };
+
+
 
 #endif

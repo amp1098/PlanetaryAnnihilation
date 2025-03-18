@@ -4,7 +4,8 @@
 #include "ECS.h"
 #include <raymath.h>
 
-float const G = 1000.0f;
+float const G = 1000.0f; // for gravity scaling
+float const dt = 0.01f; // for integration
 
 Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns gravity force vector from m1 to m2
 	float gravity_scalar;
@@ -28,19 +29,25 @@ Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns g
 
 void physics_update(int ID) {
 
-	m_force = vector_math.vec2add(// works with first item in planetoids vector
-		m_force,
-		univ_grav(m_drymass + m_fuelmass, m_planetoids[0].m_mass, m_position, m_planetoids[0].m_position)
-	);
+	// initializing local vars
+	float mass{ ECS_map[ID].m_mass };
+	Vector2 position{ ECS_map[ID].m_position };
+	Vector2 velocity{ ECS_map[ID].m_velocity };
+	Vector2 acceleration{ ECS_map[ID].m_acceleration };
+	Vector2 force{ ECS_map[ID].m_force };
+	
+	// kinematics
+	acceleration += acceleration + force / mass;
+	velocity += velocity + acceleration * dt;
+	position += position + velocity * dt + acceleration * 0.5 * dt * dt;
 
-	// updating acceleration via force / mass = acceleration
-	m_acceleration = vector_math.vec2scale(m_force, 1 / (m_fuelmass + m_drymass));
+	// shoving components back into ECS
+	ECS_map[ID].m_mass = mass;
+	ECS_map[ID].m_position = position;
+	ECS_map[ID].m_velocity = velocity;
+	ECS_map[ID].m_acceleration = acceleration;
+	ECS_map[ID].m_force = force;
 
-	// updating velocity via kinematic equations
-	m_velocity = vector_math.vec2add(m_velocity, vector_math.vec2scale(m_acceleration, dt));
-
-	// updating position via kinetmatic equations
-	m_position = vector_math.vec2add(m_position, vector_math.vec2add(vector_math.vec2scale(m_velocity, dt), vector_math.vec2scale(m_acceleration, dt * dt * 0.5)));
 };
 
 #endif // !PHYSICS_SYSTEM_H
