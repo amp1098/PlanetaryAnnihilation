@@ -69,8 +69,6 @@ void update_entity_components(
 		shape,
 		target_id, is_targeted, has_gravity
 	};
-
-	/*std::cout << "\r" << "ECS angle: " << angle << std::flush;*/
 	
 };
 

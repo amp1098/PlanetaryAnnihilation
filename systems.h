@@ -1,9 +1,6 @@
 #ifndef SYSTEMS_H
 #define SYSTEMS_H
 
-// include ECS here to get IDs and to update components
-
-
 // include all the systems here and maybe add some comments describing what they do
 
 #include "drawing_system.h" // draws entities to screen via draw_entity(ID)

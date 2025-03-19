@@ -26,18 +26,8 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 	else if (IsKeyDown(KEY_LEFT)) torque = -turn_force; // twist left
 	else torque = 0.0f; // torque returns to zero otherwise
 
-	//update_entity_components(
-	//	ID,
-	//	ECS_map[ID].m_name,
-	//	ECS_map[ID].m_mass,
-	//	ECS_map[ID].m_color,
-	//	ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, force,
-	//	ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, torque,
-	//	ECS_map[ID].m_shape,
-	//	ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
-	//);
-
-	ECS_map[ID] = entity_row(
+	update_entity_components(
+		ID,
 		ECS_map[ID].m_name,
 		ECS_map[ID].m_mass,
 		ECS_map[ID].m_color,
@@ -46,8 +36,6 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		ECS_map[ID].m_shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
-
-	/*std::cout << "\r" << "Control torque: " << torque << std::flush;*/
 };
 
 #endif

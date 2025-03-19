@@ -68,24 +68,7 @@ void physics_update(int ID) { // see comments in physics_system.h
 	angvel += angacc * dt;
 	angle += angvel * dt + angacc * 0 * dt * dt;
 
-	////rotating shape of entity
-	//for (int i = 0; i < std::size(shape); i++) {
-	//	shape[i] = Vector2Rotate(shape[i], angle);
-	//};
-
-	// shoving components back into ECS
-
-	ECS_map[ID] = entity_row(
-		ECS_map[ID].m_name,
-		mass,
-		ECS_map[ID].m_color,
-		position, velocity, acceleration, force,
-		angle, angvel, angacc, torque,
-		shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
-	);
-
-	/*update_entity_components(
+	update_entity_components(
 		ID,
 		ECS_map[ID].m_name,
 		mass,
@@ -94,7 +77,7 @@ void physics_update(int ID) { // see comments in physics_system.h
 		angle, angvel, angacc, torque,
 		shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
-	);*/
+	);
 
 
 };

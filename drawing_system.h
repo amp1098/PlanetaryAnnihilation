@@ -46,7 +46,5 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 	DrawLineV(translate, force * 10 + translate, WHITE);
 };
 
-//std::cout << m_position.x << std::endl;
-
 #endif
 
