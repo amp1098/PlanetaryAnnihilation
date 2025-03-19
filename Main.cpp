@@ -25,13 +25,8 @@ int main(void)
 		1, "Ship", 1.0f, WHITE,
 		{ 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
-		{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
+		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} },
 		12, false, false);
-
-	//ship referenceShip(2, "Ship", 1.0f, WHITE,
-	//	{ 100.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
-	//	{ {50.0f, 0.0f}, {-50.0f, 0.0f}, {0.0f, 95.0f} },
-	//	12, false);
 
 	Camera2D camera = { 0 };
 
@@ -61,12 +56,10 @@ int main(void)
 
 		BeginMode2D(camera);
 
-		draw_entity(1);
-		physics_update(1);
+		use_systems();
 		
 		DrawCircleV({300.0f, 200.0f}, 100.0f, BLUE); // reference to check for motion
 
-		thrust_check(1);
 
 		EndMode2D();
 

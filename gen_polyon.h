@@ -2,6 +2,7 @@
 #define GEN_POLYGON_H
 
 #include <raylib.h>
+#include <raymath.h>
 #include <vector>
 
 class gen_polygon { // used to draw unfilled polygons
@@ -28,8 +29,7 @@ public:
 			m_points[i].y = m_points[i].y - pivot.y;
 
 			// rotating about origin
-			m_points[i].x = cos(angle) * m_points[i].x - sin(angle) * m_points[i].y;
-			m_points[i].y = sin(angle) * m_points[i].x + cos(angle) * m_points[i].y;
+			m_points[i] = Vector2Rotate(m_points[i], angle);
 
 			// moving back
 			m_points[i].x = m_points[i].x + pivot.x;

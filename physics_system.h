@@ -5,7 +5,7 @@
 #include <raymath.h>
 
 float const G = 1000.0f; // for gravity scaling
-float const dt = 0.01f; // for integration
+float const dt = 0.1f; // for integration
 
 Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns gravity force vector from m1 to m2
 	float gravity_scalar;
@@ -38,8 +38,7 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 };
 
 void physics_update(int ID) { // see comments in physics_system.h
-
-	// initializing local vars
+	// initializing variables
 	float mass{ ECS_map[ID].m_mass };
 	Vector2 position{ ECS_map[ID].m_position };
 	Vector2 velocity{ ECS_map[ID].m_velocity };
@@ -57,8 +56,8 @@ void physics_update(int ID) { // see comments in physics_system.h
 	// and call this system to move it around :)
 
 	acceleration = force / mass;
-	velocity = acceleration * dt;
-	position = velocity * dt + acceleration * 0.5 * dt * dt;
+	velocity += acceleration * dt;
+	position += velocity * dt + acceleration * 0.5 * dt * dt;
 
 	// angular kinematics (torques, angular velocity, etc)
 	// same principle as previous stuff
@@ -66,17 +65,17 @@ void physics_update(int ID) { // see comments in physics_system.h
 	float moment{ moment_of_inertia(mass, shape) }; // moment of inertia used for torque stuff
 
 	angacc = torque / moment;
-	angvel = angacc * dt;
-	angle = angvel * dt + angacc * 0 * dt * dt;
+	angvel += angacc * dt;
+	angle += angvel * dt + angacc * 0 * dt * dt;
 
-	//rotating shape of entity
-	for (int i = 0; i < std::size(shape); i++) {
-		shape[i] = Vector2Rotate(shape[i], angle);
-	};
+	////rotating shape of entity
+	//for (int i = 0; i < std::size(shape); i++) {
+	//	shape[i] = Vector2Rotate(shape[i], angle);
+	//};
 
 	// shoving components back into ECS
-	update_entity_components(
-		ID,
+
+	ECS_map[ID] = entity_row(
 		ECS_map[ID].m_name,
 		mass,
 		ECS_map[ID].m_color,
@@ -85,6 +84,18 @@ void physics_update(int ID) { // see comments in physics_system.h
 		shape,
 		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 	);
+
+	/*update_entity_components(
+		ID,
+		ECS_map[ID].m_name,
+		mass,
+		ECS_map[ID].m_color,
+		position, velocity, acceleration, force,
+		angle, angvel, angacc, torque,
+		shape,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
+	);*/
+
 
 };
 

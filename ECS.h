@@ -58,6 +58,7 @@ void update_entity_components(
 	float angle, float angvel, float angacc, float torque,
 	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
 ) {
+
 	ECS_map[ID] =
 	{ // update components at known ID
 		name,
@@ -68,6 +69,8 @@ void update_entity_components(
 		shape,
 		target_id, is_targeted, has_gravity
 	};
+
+	/*std::cout << "\r" << "ECS angle: " << angle << std::flush;*/
 	
 };
 
