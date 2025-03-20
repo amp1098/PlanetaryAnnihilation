@@ -38,4 +38,6 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 	);
 };
 
+void click_check();
+
 #endif

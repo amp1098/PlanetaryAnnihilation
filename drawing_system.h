@@ -3,7 +3,7 @@
 
 #include <raylib.h>
 #include <raymath.h>
-#include "gen_polyon.h"
+#include "gen_polygon.h"
 #include "ECS.h"
 
 Vector2 center_of_points(std::vector<Vector2> points) { // finds vector average of Vector2 array

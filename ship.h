@@ -2,7 +2,7 @@
 #define SHIP_H
 
 #include <raylib.h>
-#include "gen_polyon.h"
+#include "gen_polygon.h"
 #include <iostream>
 #include <vector>
 #include "ECS.h"

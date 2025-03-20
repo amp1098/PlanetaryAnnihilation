@@ -1,0 +1,7 @@
+This is a file that will go over some ideas I'd like to implement into this program.
+
+--- Force / Torque Control System ---
+
+Suppose you have a 2D rotating object. To make the object point at a given angle, you can apply
+a torque. We can use a PID system to aim it. First, I am going to draw a point on the screen 
+where my cursor is when I click with the LMB. This will act as the target for my ship to aim at.

@@ -32,7 +32,7 @@
     <ClInclude Include="ship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gen_polyon.h">
+    <ClInclude Include="gen_polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="drawing_system.h">
@@ -44,5 +44,16 @@
     <ClInclude Include="physics_system.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="control_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickIcon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ideas.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
