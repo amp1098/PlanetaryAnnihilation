@@ -5,6 +5,7 @@
 #include "ship.h"
 #include "systems.h"
 #include <iostream>
+#include "ClickIcon.h"
 
 //======== entry point =========//
 
@@ -26,7 +27,7 @@ int main(void)
 		{ 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
 		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} },
-		12, false, false);
+		2, false, false);
 
 	Camera2D camera = { 0 };
 
@@ -49,6 +50,14 @@ int main(void)
 		camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
 		if (camera.zoom > 3.0f) camera.zoom = 3.0f;
 		else if (camera.zoom < 0.1f) camera.zoom = 0.1f;
+
+		// optimize later, this will have a cursor icon show up
+		
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) ClickIcon mouseHere(2, GetMousePosition());
+		else if (IsMouseButtonUp(MOUSE_BUTTON_LEFT)) ClickIcon mouseHere{ 2, {} };
+
+
+		// optimize later see above
 
 		BeginDrawing();
 

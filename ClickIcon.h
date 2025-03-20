@@ -49,7 +49,18 @@ public:
 			m_position, m_velocity, m_acceleration, m_force,
 			m_angle, m_angvel, m_angacc, m_torque,
 			m_shape,
-			m_target_id, m_is_targeted, m_has_gravity
+			m_target_id, m_is_targeted, m_has_gravity);
+	};
+
+	void undraw() {
+		m_position = {};
+
+		update_entity_components( // ECS gets updated upon object creation
+			m_ID, m_name, m_mass, m_color,
+			m_position, m_velocity, m_acceleration, m_force,
+			m_angle, m_angvel, m_angacc, m_torque,
+			m_shape,
+			m_target_id, m_is_targeted, m_has_gravity);
 	};
 };
 
