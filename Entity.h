@@ -1,36 +1,37 @@
-#ifndef ENT_ROW_H
-#define ENT_ROW_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <raylib.h>
 #include <vector>
 #include <string>
+#include "ECS.h"
 
-class entity_row { // contains components for physics objects
+class Entity { // Class for creating entities and storing them in ECS
 public:
-
-	bool m_show_on_screen; // acts as a way to destroy objects, sorta
+	bool m_show_on_screen;
+	int m_ID;
 	std::string m_name;
 	float m_mass;
 	Color m_color;
 
 	// LINEAR COMPONENTS
 	Vector2 m_position;
-	Vector2 m_velocity; // 0 vector for planetoids
-	Vector2 m_acceleration; // 0 vector for planetoids
-	Vector2 m_force; // 0 vector for planetoids
-	
-	// ANGULAR COMPONENTS (not Vector2 because game is 2d, length and sign is enough)
-	float m_angle; // 0 for planetoids
-	float m_angvel; // 0 for planetoids
-	float m_angacc; // 0 for planetoids
-	float m_torque; // 0 for planetoids
+	Vector2 m_velocity;
+	Vector2 m_acceleration;
+	Vector2 m_force;
+
+	// ANGULAR COMPONENTS
+	float m_angle;
+	float m_angvel;
+	float m_angacc;
+	float m_torque;
 
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
 	int m_target_id; // missiles and lasers target objects, planetoids do not
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 
-	entity_row() { // default constructor, does not take arguments
+	Entity() {//default constructor
 		m_show_on_screen = false;
 		m_name = "";
 		m_mass = 1.0f;
@@ -52,14 +53,14 @@ public:
 		m_has_gravity = false;
 	};
 
-	entity_row(
-		bool show_on_screen, std::string name, float mass, Color color,
+	Entity(
+		int ID, std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
 		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
 	)
 	{ // constructor, takes arguments
-		m_show_on_screen = show_on_screen;
+		m_ID = ID;
 		m_name = name;
 		m_mass = mass;
 		m_color = color;
@@ -78,6 +79,14 @@ public:
 		m_target_id = target_id;
 		m_is_targeted = is_targeted;
 		m_has_gravity = has_gravity;
+
+		set_entity_components( // ECS gets updated upon object creation
+			m_ID, m_show_on_screen, m_name, m_mass, m_color,
+			m_position, m_velocity, m_acceleration, m_force,
+			m_angle, m_angvel, m_angacc, m_torque,
+			m_shape,
+			m_target_id, m_is_targeted, m_has_gravity
+		);
 	};
 };
 

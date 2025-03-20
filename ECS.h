@@ -33,7 +33,7 @@ void ECS_update(int key, entity_row_type components) { // adds components to ECS
 };
 
 void set_entity_components(
-	int ID, std::string name, float mass, Color color,
+	bool show_on_screen, int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
@@ -41,6 +41,7 @@ void set_entity_components(
 	ECS_update(
 		ID,
 		{ 
+			show_on_screen,
 			name,
 			mass,
 			color,
@@ -53,7 +54,7 @@ void set_entity_components(
 };
 
 void update_entity_components(
-	int ID, std::string name, float mass, Color color,
+	bool show_on_screen, int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
@@ -61,6 +62,7 @@ void update_entity_components(
 
 	ECS_map[ID] =
 	{ // update components at known ID
+		show_on_screen,
 		name,
 		mass,
 		color,
