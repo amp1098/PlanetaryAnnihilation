@@ -34,7 +34,7 @@ int main(void)
 	Planetoid planet1(
 		2, "planet", 1000.0f, WHITE,
 		{0.0f, 0.0f},
-		circle_maker(500.0f, 15), false, true
+		circle_maker(500.0f, 30), false, false
 	);
 
 	Planetoid planet2(
