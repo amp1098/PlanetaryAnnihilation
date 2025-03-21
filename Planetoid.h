@@ -17,6 +17,10 @@ public:
 	// LINEAR COMPONENTS
 	Vector2 m_position;
 
+	// PHYSICS STUFF (KEEP SET TO ZERO)
+	Vector2 m_force{};
+	float m_torque{};
+
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
@@ -33,6 +37,11 @@ public:
 		m_color = color;
 
 		m_position = position;
+
+		m_force = { 0.0f, 0.0f };
+		m_torque = 0.0f;
+
+		m_shape = shape;
 
 		m_is_targeted = is_targeted;
 		m_has_gravity = has_gravity;

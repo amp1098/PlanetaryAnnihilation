@@ -16,7 +16,7 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		float turn_force{ 1500.0f };
 
 		//std::cout << "\r" << "Control angle: " << angle << std::flush;
-		std::cout << "\r" << "Control angvel: " << ECS_map[ID].m_torque << std::flush;
+		//std::cout << "\r" << "Control angvel: " << ECS_map[ID].m_torque << std::flush;
 
 		if (IsKeyDown(KEY_UP)) force = thrust; // push up
 		else if (IsKeyDown(KEY_DOWN)) force = Vector2Negate(thrust); // push down

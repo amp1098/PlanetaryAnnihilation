@@ -32,14 +32,16 @@ void draw_lines(std::vector<Vector2> points, Vector2 translate_distance, float r
 
 std::vector<Vector2> circle_maker(float radius, int vertices) { // returns a vector of Vector2s representing a circular polyon
 	std::vector<Vector2> result{};
-	for (int i = 1; i < vertices; i++) {
+
+	for (float i = 0; i < vertices; i++) {
 		result.push_back(
 			{ 
-				radius * cos((vertices / i ) * 2 * PI), // x component
-				radius* sin((vertices / i) * 2 * PI), // y component
+				radius * cos( (i / vertices) * (2 * PI) ), // x component
+				radius* sin( (i / vertices) * (2 * PI)), // y component
 			}
 		);
 	};
+
 	return result;
 };
 
@@ -53,6 +55,16 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 	/*for (int i = 0; i < std::size(points); i++) {
 		DrawCircleV(points[i] + translate, 5.0f, RED);
 	};*/
+
+	//if (ECS_map[ID].m_name == "Planetoid") {
+
+	//	for (int i = 0; i < 9; i++) {
+
+	//		std::cout << i << ": {" << points[i].x << "," << points[i].y << "}" << std::endl;
+
+	//	};
+
+	//};
 
 	draw_lines(points, translate, rotate_angle, color);
 

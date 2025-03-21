@@ -34,14 +34,14 @@ int main(void)
 	Planetoid planet1(
 		2, "planet", 1000.0f, WHITE,
 		{0.0f, 0.0f},
-		circle_maker(500.0f, 2), false, true
+		circle_maker(500.0f, 15), false, true
 	);
 
-	//Planetoid planet2(
-	//	4, "planet", 1000.0f, BLUE,
-	//	{ 0.0f, 0.0f },
-	//	circle_maker(500.0f, 10), false, true
-	//);
+	Planetoid planet2(
+		4, "planet", 10000.0f, WHITE,
+		{ 5000.0f, 5000.0f },
+		circle_maker(2000.0f, 500), false, true
+	);
 
 	Camera2D camera = { 0 };
 
@@ -56,7 +56,6 @@ int main(void)
 
 	while (!WindowShouldClose())
 	{
-
 		// camera target follows player
 		camera.target = { ECS_map[1].m_position.x, ECS_map[1].m_position.y};
 
