@@ -9,6 +9,7 @@
 class ClickIcon { // shape that is drawn when you click with the mouse
 public:
 
+	bool m_show_on_screen;
 	int m_ID{};
 	std::string m_name{"ClickIcon"};
 	float m_mass{0.0f};
@@ -32,11 +33,13 @@ public:
 	bool m_has_gravity{false}; // Planetoids have gravity, ships and stuff do not
 
 	ClickIcon() {// default constructor
+		m_show_on_screen = false;
 		m_ID = -1;
 		m_position = { 0.0f, 0.0f };
 	};
 
 	ClickIcon(int ID, Vector2 position) { // constructor
+		m_show_on_screen = true;
 		m_ID = ID;
 		m_position = position;
 
@@ -45,7 +48,7 @@ public:
 		DrawCircleV(m_position, 30.0f, GREEN);
 
 		set_entity_components( // ECS gets updated upon object creation
-			m_ID, m_name, m_mass, m_color,
+			m_ID, m_show_on_screen, m_name, m_mass, m_color,
 			m_position, m_velocity, m_acceleration, m_force,
 			m_angle, m_angvel, m_angacc, m_torque,
 			m_shape,
@@ -53,10 +56,10 @@ public:
 	};
 
 	void undraw() {
-		m_position = {};
+		m_show_on_screen = false;
 
 		update_entity_components( // ECS gets updated upon object creation
-			m_ID, m_name, m_mass, m_color,
+			m_ID, m_show_on_screen, m_name, m_mass, m_color,
 			m_position, m_velocity, m_acceleration, m_force,
 			m_angle, m_angvel, m_angacc, m_torque,
 			m_shape,

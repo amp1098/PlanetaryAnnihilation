@@ -9,7 +9,7 @@
 class Entity { // Class for creating entities and storing them in ECS
 public:
 	bool m_show_on_screen;
-	int m_ID;
+	int m_ID{};
 	std::string m_name;
 	float m_mass;
 	Color m_color;
@@ -32,6 +32,7 @@ public:
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 
 	Entity() {//default constructor
+		m_ID = 0;
 		m_show_on_screen = false;
 		m_name = "";
 		m_mass = 1.0f;
@@ -53,14 +54,15 @@ public:
 		m_has_gravity = false;
 	};
 
-	Entity(
-		int ID, std::string name, float mass, Color color,
-		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
-		float angle, float angvel, float angacc, float torque,
-		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
+	void set_components(
+		int ID = 0, bool show_on_screen = false, std::string name = "empty", float mass = 0.0f, Color color = PURPLE,
+		Vector2 position = { 0.0f, 0.0f }, Vector2 velocity = { 0.0f, 0.0f }, Vector2 acceleration = { 0.0f, 0.0f }, Vector2 force = { 0.0f, 0.0f },
+		float angle = 0.0f, float angvel = 0.0f, float angacc = 0.0f, float torque = 0.0f,
+		std::vector<Vector2> shape = { {0.0f, 0.0f} }, int target_id = 0, bool is_targeted = false, bool has_gravity = false
 	)
-	{ // constructor, takes arguments
+	{ // set components of entity
 		m_ID = ID;
+		m_show_on_screen = show_on_screen;
 		m_name = name;
 		m_mass = mass;
 		m_color = color;

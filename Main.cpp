@@ -22,12 +22,7 @@ int main(void)
 
 	// adding a ship object
 
-	ship playerShip(
-		1, "Ship", 1.0f, WHITE,
-		{ 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
-		0.0f, 0.0f, 0.0f, 0.0f,
-		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} },
-		2, false, false);
+	Ship playerShip();
 
 	Camera2D camera = { 0 };
 
