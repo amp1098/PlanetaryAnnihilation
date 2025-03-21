@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entity>
+	
+	<name> "Ship" </name>
+	<mass> 0.0f </mass>
+	<color> WHITE </color>
+	
+	<shape>
+		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} }
+	</shape>
+		
+	
+</entity>
