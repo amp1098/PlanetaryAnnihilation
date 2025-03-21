@@ -37,6 +37,7 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 	return moment;
 };
 
+
 void physics_update(int ID) { // see comments in physics_system.h
 	// initializing variables
 	float mass{ ECS_map[ID].m_mass };
@@ -54,6 +55,17 @@ void physics_update(int ID) { // see comments in physics_system.h
 	// this cascades changes in the force component to the accel, vel, and pos components
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
+
+	for (int i = 0; i < ECS_map.size(); i++) { // iterating through ID's
+		//std::cout << ECS_map[i].m_name << std::endl;
+
+		if (ECS_map[i].m_name == "Planetoid") { // check if entity is named "planet"
+
+			force += univ_grav(mass, ECS_map[i].m_mass, position, ECS_map[i].m_position); // add gravity to force vector
+
+		};
+
+	};
 
 	acceleration = force / mass;
 	velocity += acceleration * dt;

@@ -3,6 +3,7 @@
 #include <vector>
 #include "ECS.h"
 #include "ship.h"
+#include "Planetoid.h"
 #include "systems.h"
 #include <iostream>
 
@@ -20,13 +21,27 @@ int main(void)
 	int spacing = 0;
 
 	// adding a ship object
+	
+	int playerID = 1;
 
 	ship playerShip(
-		1, "Ship", 1.0f, WHITE,
-		{ 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
+		playerID, "ship", 1.0f, WHITE,
+		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
 		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} },
 		12, false, false);
+
+	Planetoid planet1(
+		2, "planet", 1000.0f, WHITE,
+		{0.0f, 0.0f},
+		circle_maker(500.0f, 2), false, true
+	);
+
+	//Planetoid planet2(
+	//	4, "planet", 1000.0f, BLUE,
+	//	{ 0.0f, 0.0f },
+	//	circle_maker(500.0f, 10), false, true
+	//);
 
 	Camera2D camera = { 0 };
 
@@ -57,9 +72,6 @@ int main(void)
 		BeginMode2D(camera);
 
 		use_systems();
-		
-		DrawCircleV({300.0f, 200.0f}, 100.0f, BLUE); // reference to check for motion
-
 
 		EndMode2D();
 

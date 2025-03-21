@@ -30,9 +30,9 @@ public:
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 
 	entity_row() { // default constructor, does not take arguments
-		m_name = "";
+		m_name = "default_construct_ignore";
 		m_mass = 1.0f;
-		m_color = PURPLE;
+		m_color = BLANK;
 
 		m_position = { 0.0f, 0.0f };
 		m_velocity = { 0.0f, 0.0f };
