@@ -50,12 +50,12 @@ float better_sign_function(float x) {
 
 float torque_to_angle(float target_angle, float current_angle, float moment) { // this will apply a torque to a rotating system such that its angle reaches a target angle
 	float torque_aim{}; // torque needed to aim at target angle from current angle
-	float damping{1000.0f}; // damping coefficient, wont change for now
+	float fudge_factor{1000.0f}; // fudging coefficient, wont change for now
 	
 	float angle_diff{ current_angle - target_angle };
 
-	torque_aim = - better_sign_function(angle_diff) * damping; // crap aiming algorithm, maybe use for stupid enemies
-	//torque_aim = damping * angle_diff / (2 * PI);
+	//torque_aim = - better_sign_function(angle_diff) * fudge_factor; // crap aiming algorithm, maybe use for stupid enemies
+	torque_aim = fudge_factor * angle_diff / (2 * PI);
 
 	return torque_aim;
 
