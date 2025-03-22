@@ -54,8 +54,8 @@ float torque_to_angle(float target_angle, float current_angle, float moment) { /
 	
 	float angle_diff{ current_angle - target_angle };
 
-	//torque_aim = - better_sign_function(angle_diff) * fudge_factor; // crap aiming algorithm, maybe use for stupid enemies
-	torque_aim = fudge_factor * angle_diff / (2 * PI);
+	torque_aim = - better_sign_function(angle_diff) * fudge_factor; // crap aiming algorithm, maybe use for stupid enemies
+	//torque_aim = fudge_factor * angle_diff / (2 * PI);
 
 	return torque_aim;
 
