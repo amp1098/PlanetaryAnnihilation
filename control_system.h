@@ -39,8 +39,4 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 	};
 };
 
-void move_to_angle(int ID) { // this will apply a torque to an entity such that its angle reaches a target angle
-
-};
-
 #endif

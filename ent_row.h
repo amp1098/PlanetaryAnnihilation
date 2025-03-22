@@ -5,6 +5,16 @@
 #include <vector>
 #include <string>
 
+// helper function to clamp angles to [0,2pi)
+
+float clamp_angle(float angle) {
+	angle = fmod(angle, 2 * PI);
+	if (angle < 0) {
+		angle += 2 * PI;
+	};
+	return angle;
+};
+
 class entity_row { // contains components for physics objects
 public:
 
@@ -66,7 +76,7 @@ public:
 		m_acceleration = acceleration;
 		m_force = force;
 
-		m_angle = angle;
+		m_angle = clamp_angle(angle); // must be 2pi periodic, floating point modulo restricts range to [0, 2pi)
 		m_angvel = angvel;
 		m_angacc = angacc;
 		m_torque = torque;

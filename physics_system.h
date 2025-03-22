@@ -37,7 +37,36 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 	return moment;
 };
 
+float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2
+	Vector2 vec_res{ vec1 - vec2 };
+
+	return clamp_angle( atan2(vec_res.y, vec_res.x) );
+};
+
+float better_sign_function(float x) {
+	x = 2 * std::signbit(x) - 1;
+	return x;
+};
+
+float torque_to_angle(float target_angle, float current_angle, float moment) { // this will apply a torque to a rotating system such that its angle reaches a target angle
+	float torque_aim{}; // torque needed to aim at target angle from current angle
+	float damping{1000.0f}; // damping coefficient, wont change for now
+	
+	float angle_diff{ current_angle - target_angle };
+
+	torque_aim = - better_sign_function(angle_diff) * damping; // crap aiming algorithm, maybe use for stupid enemies
+	//torque_aim = damping * angle_diff / (2 * PI);
+
+	return torque_aim;
+
+};
+
 void physics_update(int ID) { // updates physics components when called
+	// updating physics components via kinematic equations
+	// this cascades changes in the force component to the accel, vel, and pos components
+	// to move physics objects, just change the force component of a given entity ID
+	// and call this system to move it around :)
+
 	if (ECS_map[ID].m_name != "Planetoid") {
 		// initializing variables
 		float mass{ ECS_map[ID].m_mass };
@@ -50,11 +79,25 @@ void physics_update(int ID) { // updates physics components when called
 		float angvel{ ECS_map[ID].m_angvel };
 		float angacc{ ECS_map[ID].m_angacc };
 		float torque{ ECS_map[ID].m_torque };
+		int target_ID{ ECS_map[ID].m_target_id };
 
-		// updating physics components via kinematic equations
-		// this cascades changes in the force component to the accel, vel, and pos components
-		// to move physics objects, just change the force component of a given entity ID
-		// and call this system to move it around :)
+		// == TARGETING ==
+		if (target_ID != 0) { // if ID is 0, it's not targeting anything
+			Vector2 target_position{ ECS_map[target_ID].m_position };
+
+			// angle to target is the angle of the vector difference of targeting entity and targeted entity
+
+			float target_angle{
+				angle_of_vec_diff(position, target_position)
+			};
+
+			torque += torque_to_angle(angle, target_angle + PI, moment_of_inertia(mass, shape));
+
+			std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;
+		};
+		
+
+		// == GRAVITY ==
 
 		for (int i = 0; i < ECS_map.size(); i++) { // iterating through ID's
 			//std::cout << ECS_map[i].m_name << std::endl;
@@ -66,6 +109,8 @@ void physics_update(int ID) { // updates physics components when called
 			};
 
 		};
+
+		// == KINEMATICS ==
 
 		acceleration = force / mass;
 		velocity += acceleration * dt;
@@ -79,6 +124,8 @@ void physics_update(int ID) { // updates physics components when called
 		angacc = torque / moment;
 		angvel += angacc * dt;
 		angle += angvel * dt + angacc * 0 * dt * dt;
+
+		// == UPDATING ECS ==
 
 		update_entity_components(
 			ID,

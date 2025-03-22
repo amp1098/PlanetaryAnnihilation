@@ -29,18 +29,18 @@ int main(void)
 		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
 		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} },
-		12, false, false);
+		2, false, false);
 
 	Planetoid planet1(
 		2, "planet", 1000.0f, WHITE,
-		{0.0f, 0.0f},
-		circle_maker(500.0f, 30), false, false
+		{300.0f, 0.0f},
+		circle_maker(100.0f, 30), false, false
 	);
 
 	Planetoid planet2(
 		4, "planet", 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
-		circle_maker(2000.0f, 500), false, true
+		circle_maker(2000.0f, 500), false, false
 	);
 
 	Camera2D camera = { 0 };
