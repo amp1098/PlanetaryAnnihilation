@@ -48,23 +48,13 @@ float better_sign_function(float x) {
 	return x;
 };
 
-float torque_to_angle(float target_angle, float current_angle, float moment, float angvel) { // this will apply a torque to a rotating system such that its angle reaches a target angle
-	float torque_aim{}; // torque needed to aim at target angle from current angle
-	float angle_diff{ current_angle - target_angle};
-
-	////torque_aim = - better_sign_function(angle_diff) * fudge_factor; // crap aiming algorithm, maybe use for stupid enemies
-	//
-	//torque_aim = 1.0f;
-
-	//return torque_aim;
-
-};
-
 void physics_update(int ID) { // updates physics components when called
 	// updating physics components via kinematic equations
 	// this cascades changes in the force component to the accel, vel, and pos components
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
+
+	float spring_constant{ 100.0f }; // spring constant for damped rotations
 
 	if (ECS_map[ID].m_name != "Planetoid") {
 		// initializing variables
@@ -80,6 +70,8 @@ void physics_update(int ID) { // updates physics components when called
 		float torque{ ECS_map[ID].m_torque };
 		int target_ID{ ECS_map[ID].m_target_id };
 
+		float damping{2 * sqrt(spring_constant * moment_of_inertia(mass, shape))}; // see ideas.txt
+
 		// == TARGETING ==
 		if (target_ID != 0) { // if ID is 0, it's not targeting anything
 			Vector2 target_position{ ECS_map[target_ID].m_position };
@@ -90,7 +82,7 @@ void physics_update(int ID) { // updates physics components when called
 				angle_of_vec_diff(position, target_position)
 			};
 
-			torque += torque_to_angle(angle, target_angle, moment_of_inertia(mass, shape), angvel);
+			torque += -spring_constant * (angle - target_angle) - damping * angvel; // see ideas.txt
 
 			std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;
 		};

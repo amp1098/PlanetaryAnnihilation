@@ -16,7 +16,7 @@ https://farside.ph.utexas.edu/teaching/301/lectures/node139.html <== torsion pen
 
 So if we model our situation like this, the force equation is
 
-T (torque) = - k (torsion constant) * x (angular position) - D (damping) * x
+T (torque) = - k (torsion constant) * x (angular position) - D (damping) * angvel (angular velocity)
 
 which when converted to a differential equation, noting that
 
