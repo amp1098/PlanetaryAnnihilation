@@ -149,6 +149,7 @@
     <ClInclude Include="polygons.h" />
     <ClInclude Include="systems.h" />
     <ClInclude Include="ship.h" />
+    <ClInclude Include="useful_functions.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ideas.txt" />

@@ -31,14 +31,21 @@ int main(void)
 		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
 		polygons::poly_ship(),
-		2, false, false);
+		0, false, false, true);
 
-	missile testMissile(
+	missile testMissile1(
 		3, "missile", 1.0f, YELLOW,
-		{ 400.0f, 800.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+		{ 300.0f, 800.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 		0.0f, 0.0f, 0.0f, 0.0f,
 		polygons::poly_missile(),
-		1, false, false);
+		playerID, false, false, true);
+
+	missile testMissile2(
+		5, "missile", 1.0f, YELLOW,
+		{ 1000.0f, 1200.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+		0.0f, 0.0f, 0.0f, 0.0f,
+		polygons::poly_missile(),
+		playerID, false, false, true);
 
 	Planetoid planet1(
 		2, "planet", 1000.0f, WHITE,
@@ -49,7 +56,7 @@ int main(void)
 	Planetoid planet2(
 		4, "planet", 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
-		circle_maker(2000.0f, 500), false, false
+		circle_maker(2000.0f, 500), false, true
 	);
 
 	Camera2D camera = { 0 };
@@ -79,7 +86,7 @@ int main(void)
 
 		BeginMode2D(camera);
 
-		use_systems();
+		use_systems(); // entitiy's components are updated through systems
 
 		EndMode2D();
 

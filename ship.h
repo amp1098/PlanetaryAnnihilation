@@ -30,12 +30,13 @@ public:
 	int m_target_id; // missiles and lasers target objects, planetoids do not
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
+	bool m_is_movable;
 
 	ship(
 		int ID, std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
-		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
+		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 	)
 	{ // constructor, takes arguments
 		m_ID = ID;
@@ -57,13 +58,14 @@ public:
 		m_target_id = target_id;
 		m_is_targeted = is_targeted;
 		m_has_gravity = has_gravity;
+		m_is_movable = is_movable;
 
 		set_entity_components( // ECS gets updated upon object creation
 			m_ID, m_name, m_mass, m_color,
 			m_position, m_velocity, m_acceleration, m_force,
 			m_angle, m_angvel, m_angacc, m_torque,
 			m_shape,
-			m_target_id, m_is_targeted, m_has_gravity
+			m_target_id, m_is_targeted, m_has_gravity, m_is_movable
 		);
 	};
 

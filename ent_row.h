@@ -38,6 +38,7 @@ public:
 	int m_target_id; // missiles and lasers target objects, planetoids do not
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
+	bool m_is_movable; // physics objects are moveable, planetoids are not
 
 	entity_row() { // default constructor, does not take arguments
 		m_name = "default_construct_ignore";
@@ -58,13 +59,14 @@ public:
 		m_target_id = 0;
 		m_is_targeted = false;
 		m_has_gravity = false;
+		m_is_movable = false;
 	};
 
 	entity_row(
 		std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
-		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
+		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 	)
 	{ // constructor, takes arguments
 		m_name = name;
@@ -85,6 +87,7 @@ public:
 		m_target_id = target_id;
 		m_is_targeted = is_targeted;
 		m_has_gravity = has_gravity;
+		m_is_movable = is_movable;
 	};
 };
 

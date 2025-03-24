@@ -3,6 +3,7 @@
 
 #include "ECS.h"
 #include <raymath.h>
+#include "useful_functions.h"
 
 float const G = 1000.0f; // for gravity scaling
 float const dt = 0.1f; // for integration
@@ -30,8 +31,10 @@ Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns g
 float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
 	float moment{};
 
+	Vector2 center_of_points{}; // we can subtract this from each element in points to move to {0,0}
+
 	for (int i = 0; i < std::size(points); i++) {
-		moment += mass_of_each_point * Vector2LengthSqr(points[i]);
+		moment += mass_of_each_point * Vector2LengthSqr(points[i] - center_of_points);
 	};
 
 	return moment;
@@ -99,7 +102,6 @@ void physics_update(int ID) { // updates physics components when called
 				force += univ_grav(mass, ECS_map[i].m_mass, position, ECS_map[i].m_position); // add gravity to force vector
 
 			};
-
 		};
 
 		// == KINEMATICS ==
@@ -127,7 +129,7 @@ void physics_update(int ID) { // updates physics components when called
 			position, velocity, acceleration, force,
 			angle, angvel, angacc, torque,
 			shape,
-			ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
+			ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable
 		);
 	};
 };

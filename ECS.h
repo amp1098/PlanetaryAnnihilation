@@ -36,7 +36,7 @@ void set_entity_components(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
+	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 ) { // create new entity at ID
 	ECS_update(
 		ID,
@@ -47,7 +47,7 @@ void set_entity_components(
 			position, velocity, acceleration, force,
 			angle, angvel, angacc, torque,
 			shape,
-			target_id, is_targeted, has_gravity
+			target_id, is_targeted, has_gravity, is_movable
 		}
 	);
 };
@@ -56,7 +56,7 @@ void update_entity_components(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity
+	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 ) {
 
 	ECS_map[ID] =
@@ -67,9 +67,8 @@ void update_entity_components(
 		position, velocity, acceleration, force,
 		angle, angvel, angacc, torque,
 		shape,
-		target_id, is_targeted, has_gravity
+		target_id, is_targeted, has_gravity, is_movable
 	};
-	
 };
 
 void destroy_entity(int ID) { // removes entity from ECS

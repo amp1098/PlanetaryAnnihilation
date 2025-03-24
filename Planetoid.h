@@ -24,7 +24,7 @@ public:
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
-
+	bool m_is_movable;
 	Planetoid(
 		int ID, std::string name, float mass, Color color,
 		Vector2 position,
@@ -45,13 +45,14 @@ public:
 
 		m_is_targeted = is_targeted;
 		m_has_gravity = has_gravity;
+		m_is_movable = false;
 
 		set_entity_components( // ECS gets updated upon object creation
 			m_ID, m_name, m_mass, m_color,
 			m_position, {0.0f, 0.0f}, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 			0.0f, 0.0f, 0.0f, 0.0f,
 			m_shape,
-			0, m_is_targeted, m_has_gravity
+			0, m_is_targeted, m_has_gravity, m_is_movable
 		);
 	};
 

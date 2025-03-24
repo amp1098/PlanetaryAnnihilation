@@ -21,7 +21,7 @@ void use_systems() {
 
 		draw_entity(ID); // drawing to screen
 		thrust_check(ID); // checking for keyboard inputs
-		set_angle(ID); // debugging targeting system
+		missile_control(ID); // makes missiles move
 		physics_update(ID); // updating physics components
 	};
 };

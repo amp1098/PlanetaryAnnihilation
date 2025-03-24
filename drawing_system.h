@@ -5,18 +5,7 @@
 #include <raymath.h>
 #include "gen_polygon.h"
 #include "ECS.h"
-
-Vector2 center_of_points(std::vector<Vector2> points) { // finds vector average of Vector2 array
-	Vector2 result{};
-
-	for (int i = 0; i < std::size(points); i++) { // summing vectors
-		result = result + points[i];
-	};
-	
-	result = result / std::size(points); // scaling down according to size of array
-
-	return result;
-};
+#include "useful_functions.h"
 
 void draw_lines(std::vector<Vector2> points, Vector2 translate_distance, float rotate_angle, Color color) {
 	gen_polygon vertices(
@@ -58,20 +47,6 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 	float rotate_angle{ ECS_map[ID].m_angle };
 	Color color{ ECS_map[ID].m_color };
 	int target_ID{ECS_map[ID].m_target_id};
-	
-	/*for (int i = 0; i < std::size(points); i++) {
-		DrawCircleV(points[i] + translate, 5.0f, RED);
-	};*/
-
-	//if (ECS_map[ID].m_name == "Planetoid") {
-
-	//	for (int i = 0; i < 9; i++) {
-
-	//		std::cout << i << ": {" << points[i].x << "," << points[i].y << "}" << std::endl;
-
-	//	};
-
-	//};
 
 	draw_lines(points, translate, rotate_angle, color);
 

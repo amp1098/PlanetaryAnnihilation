@@ -34,27 +34,56 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 			ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, force,
 			ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, torque,
 			ECS_map[ID].m_shape,
-			ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
+			ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable
 		);
 	};
 };
 
-void set_angle(int ID) {
-	if (ECS_map[ID].m_name == "ship") {
+void missile_control(int ID) { // applies linear force until velocity relative to target reaches a certain value
+	if (ECS_map[ID].m_name == "missile") { // maybe add "movable" component later and check for that
+		// initializing local vars
+		float angle{ ECS_map[ID].m_angle };
+		Vector2 force{ ECS_map[ID].m_force };
+		Vector2 thrust{ cos(ECS_map[ID].m_angle) * 30.0f, sin(ECS_map[ID].m_angle) * 30.0f };
 
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-			update_entity_components(
-				ID,
-				ECS_map[ID].m_name,
-				ECS_map[ID].m_mass,
-				ECS_map[ID].m_color,
-				ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
-				0, 0, 0, 0,
-				ECS_map[ID].m_shape,
-				ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
-			);
-		};
+		float torque{ ECS_map[ID].m_torque };
+		float turn_force{ 1500.0f };
+		
+		if (abs(ECS_map[ID].m_angvel) <= 0.1f) force = thrust; // engines won't push if turning fast
+		else force = { 0.0f, 0.0f };
+
+		torque = turn_force; // twist right
+
+
+		update_entity_components(
+			ID,
+			ECS_map[ID].m_name,
+			ECS_map[ID].m_mass,
+			ECS_map[ID].m_color,
+			ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, force,
+			ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, torque,
+			ECS_map[ID].m_shape,
+			ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable
+		);
 	};
 };
+
+//void set_angle(int ID) {
+//	if (ECS_map[ID].m_name == "ship") {
+//
+//		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+//			update_entity_components(
+//				ID,
+//				ECS_map[ID].m_name,
+//				ECS_map[ID].m_mass,
+//				ECS_map[ID].m_color,
+//				ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
+//				0, 0, 0, 0,
+//				ECS_map[ID].m_shape,
+//				ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
+//			);
+//		};
+//	};
+//};
 
 #endif
