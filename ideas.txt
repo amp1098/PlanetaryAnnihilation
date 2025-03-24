@@ -2,6 +2,48 @@ This is a file that will go over some ideas I'd like to implement into this prog
 
 --- Force / Torque Control System ---
 
-Suppose you have a 2D rotating object. To make the object point at a given angle, you can apply
+~~Suppose you have a 2D rotating object. To make the object point at a given angle, you can apply
 a torque. We can use a PID system to aim it. First, I am going to draw a point on the screen 
-where my cursor is when I click with the LMB. This will act as the target for my ship to aim at.
+where my cursor is when I click with the LMB. This will act as the target for my ship to aim at.~~
+
+
+We can model the ship as a torsion pendulum. The idea is that we want the pendulum
+to have a critically damped oscillation towards a target angle. The moment of inertia, angular
+position/velocity/acceleration are all fully known. We can use an applied torque to efficiently
+dissipate the rotational energy such that the ship points to the target.
+
+https://farside.ph.utexas.edu/teaching/301/lectures/node139.html <== torsion pendulum model
+
+So if we model our situation like this, the force equation is
+
+T (torque) = - k (torsion constant) * x (angular position) - D (damping) * x
+
+which when converted to a differential equation, noting that
+
+w^2 = k/I and h = D/I
+
+we write
+
+d^2/dt^2 x = -w^2 * x - h * d/dt x
+
+which has a solution like a damped oscillator,
+
+x(t) = Ae^((-h/2)x) * cos(wt-phi (phase))
+
+Plotting this with arbitrary A and phi values reveals that it is indeed the correct motion.
+We look at the damping ratio (I'm gonna say zeta = Z)
+
+Z = D / (2I*w)
+  = D / (2I*sqrt(K/I))
+  = D / (2*sqrt(KI))		<== we pushed the I into the sqrt and canceled the 1/I
+
+and note that if Z = 1, then we have critical damping. So, if Z = 1,
+
+1 = D / (2*sqrt(KI))
+D = 2*sqrt(KI)
+
+So it seems that we can just make the damping force 2*sqrt(KI). If we make K higher,
+then I bet the system will damp out faster; however if its too high, we'll get
+errors due to the time discretization.
+
+
