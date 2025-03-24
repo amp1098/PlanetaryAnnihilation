@@ -54,7 +54,7 @@ void physics_update(int ID) { // updates physics components when called
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
 
-	float spring_constant{ 100.0f }; // spring constant for damped rotations
+	float spring_constant{ 10000.0f }; // spring constant for damped rotations
 
 	if (ECS_map[ID].m_name != "Planetoid") {
 		// initializing variables
