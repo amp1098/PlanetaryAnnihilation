@@ -39,4 +39,22 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 	};
 };
 
+void set_angle(int ID) {
+	if (ECS_map[ID].m_name == "ship") {
+
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+			update_entity_components(
+				ID,
+				ECS_map[ID].m_name,
+				ECS_map[ID].m_mass,
+				ECS_map[ID].m_color,
+				ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
+				4.39, 0, 0, 0,
+				ECS_map[ID].m_shape,
+				ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
+			);
+		};
+	};
+};
+
 #endif

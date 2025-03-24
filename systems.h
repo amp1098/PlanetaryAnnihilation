@@ -21,6 +21,7 @@ void use_systems() {
 
 		draw_entity(ID); // drawing to screen
 		thrust_check(ID); // checking for keyboard inputs
+		set_angle(ID); // debugging targeting system
 		physics_update(ID); // updating physics components
 	};
 };

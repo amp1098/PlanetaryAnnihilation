@@ -40,7 +40,7 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2
 	Vector2 vec_res{ vec1 - vec2 };
 
-	return clamp_angle( atan2(vec_res.y, vec_res.x) );
+	return clamp_angle( atan2(vec_res.y, vec_res.x) + PI);
 };
 
 float better_sign_function(float x) {
@@ -52,7 +52,7 @@ float torque_to_angle(float target_angle, float current_angle, float moment) { /
 	float torque_aim{}; // torque needed to aim at target angle from current angle
 	float fudge_factor{1000.0f}; // fudging coefficient, wont change for now
 	
-	float angle_diff{ current_angle - target_angle };
+	float angle_diff{ current_angle - target_angle};
 
 	torque_aim = - better_sign_function(angle_diff) * fudge_factor; // crap aiming algorithm, maybe use for stupid enemies
 	//torque_aim = fudge_factor * angle_diff / (2 * PI);
@@ -91,7 +91,7 @@ void physics_update(int ID) { // updates physics components when called
 				angle_of_vec_diff(position, target_position)
 			};
 
-			torque += torque_to_angle(angle, target_angle + PI, moment_of_inertia(mass, shape));
+			torque += torque_to_angle(angle, target_angle, moment_of_inertia(mass, shape));
 
 			std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;
 		};
