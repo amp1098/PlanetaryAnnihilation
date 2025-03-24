@@ -4,6 +4,7 @@
 #include "ECS.h"
 #include <raymath.h>
 #include <iostream>
+#include "useful_functions.h"
 
 void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates force vector in ECS
 	if (ECS_map[ID].m_name == "ship") { // maybe add "movable" component later and check for that
@@ -44,7 +45,7 @@ void missile_control(int ID) { // applies linear force until velocity relative t
 		// initializing local vars
 		float angle{ ECS_map[ID].m_angle };
 		Vector2 force{ ECS_map[ID].m_force };
-		Vector2 thrust{ cos(ECS_map[ID].m_angle) * 30.0f, sin(ECS_map[ID].m_angle) * 30.0f };
+		Vector2 thrust{ cos(ECS_map[ID].m_angle) * 20.0f, sin(ECS_map[ID].m_angle) * 20.0f };
 
 		float torque{ ECS_map[ID].m_torque };
 		float turn_force{ 1500.0f };

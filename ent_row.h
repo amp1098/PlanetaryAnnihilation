@@ -4,16 +4,7 @@
 #include <raylib.h>
 #include <vector>
 #include <string>
-
-// helper function to clamp angles to [0,2pi)
-
-float clamp_angle(float angle) {
-	angle = fmod(angle, 2 * PI);
-	if (angle < 0) {
-		angle += 2 * PI;
-	};
-	return angle;
-};
+#include "useful_functions.h"
 
 class entity_row { // contains components for physics objects
 public:
