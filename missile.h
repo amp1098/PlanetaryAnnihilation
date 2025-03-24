@@ -73,6 +73,10 @@ public:
 		destroy_entity(m_ID);
 	};
 
+	void remove() const {
+		destroy_entity(m_ID);
+	};
+
 };
 
 #endif

@@ -2,9 +2,7 @@
 #include "string"
 #include <vector>
 #include "ECS.h"
-#include "ship.h"
-#include "missile.h"
-#include "Planetoid.h"
+#include "entities.h"
 #include "systems.h"
 #include <iostream>
 #include "polygons.h"
@@ -56,7 +54,7 @@ int main(void)
 	Planetoid planet2(
 		4, "planet", 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
-		circle_maker(2000.0f, 500), false, true
+		circle_maker(5000.0f, 500), false, true
 	);
 
 	Camera2D camera = { 0 };
