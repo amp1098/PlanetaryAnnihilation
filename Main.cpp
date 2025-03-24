@@ -6,6 +6,7 @@
 #include "Planetoid.h"
 #include "systems.h"
 #include <iostream>
+#include "polygons.h"
 
 //======== entry point =========//
 
@@ -28,7 +29,7 @@ int main(void)
 		playerID, "ship", 1.0f, WHITE,
 		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
-		{ {-30.0f, -40.0f}, {-30.0f, 40.0f}, {60.0f, 0.0f} },
+		polygons::poly_ship(),
 		2, false, false);
 
 	Planetoid planet1(

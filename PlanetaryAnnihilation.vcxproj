@@ -145,6 +145,7 @@
     <ClInclude Include="gen_polygon.h" />
     <ClInclude Include="physics_system.h" />
     <ClInclude Include="Planetoid.h" />
+    <ClInclude Include="polygons.h" />
     <ClInclude Include="systems.h" />
     <ClInclude Include="ship.h" />
   </ItemGroup>
