@@ -49,7 +49,7 @@ void set_angle(int ID) {
 				ECS_map[ID].m_mass,
 				ECS_map[ID].m_color,
 				ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
-				4.39, 0, 0, 0,
+				0, 0, 0, 0,
 				ECS_map[ID].m_shape,
 				ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity
 			);

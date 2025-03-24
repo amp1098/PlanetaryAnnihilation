@@ -1,5 +1,5 @@
-#ifndef SHIP_H
-#define SHIP_H
+#ifndef MISSILE_H
+#define MISSILE_H
 
 #include <raylib.h>
 #include "gen_polygon.h"
@@ -7,7 +7,7 @@
 #include <vector>
 #include "ECS.h"
 
-class ship { // spaceship class
+class missile { // missile class, aims at target and is pushed until it gets close to target
 public:
 	int m_ID;
 	std::string m_name;
@@ -31,7 +31,7 @@ public:
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 
-	ship(
+	missile(
 		int ID, std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
@@ -67,7 +67,7 @@ public:
 		);
 	};
 
-	~ship() { // destructor, object removal also  removes it from ECS
+	~missile() { // destructor, object removal also  removes it from ECS
 		destroy_entity(m_ID);
 	};
 

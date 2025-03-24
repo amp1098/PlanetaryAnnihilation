@@ -54,8 +54,6 @@ void physics_update(int ID) { // updates physics components when called
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
 
-	float spring_constant{ 10000.0f }; // spring constant for damped rotations
-
 	if (ECS_map[ID].m_name != "Planetoid") {
 		// initializing variables
 		float mass{ ECS_map[ID].m_mass };
@@ -70,10 +68,13 @@ void physics_update(int ID) { // updates physics components when called
 		float torque{ ECS_map[ID].m_torque };
 		int target_ID{ ECS_map[ID].m_target_id };
 
-		float damping{2 * sqrt(spring_constant * moment_of_inertia(mass, shape))}; // see ideas.txt
-
 		// == TARGETING ==
 		if (target_ID != 0) { // if ID is 0, it's not targeting anything
+
+			float spring_constant{ 10000.0f }; // spring constant for damped rotations
+
+			float damping{ 2 * sqrt(spring_constant * moment_of_inertia(mass, shape)) }; // see ideas.txt
+
 			Vector2 target_position{ ECS_map[target_ID].m_position };
 
 			// angle to target is the angle of the vector difference of targeting entity and targeted entity

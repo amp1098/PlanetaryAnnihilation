@@ -72,4 +72,8 @@ void update_entity_components(
 	
 };
 
+void destroy_entity(int ID) { // removes entity from ECS
+	ECS_map.erase(ID);
+};
+
 #endif

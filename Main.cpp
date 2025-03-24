@@ -3,6 +3,7 @@
 #include <vector>
 #include "ECS.h"
 #include "ship.h"
+#include "missile.h"
 #include "Planetoid.h"
 #include "systems.h"
 #include <iostream>
@@ -31,6 +32,13 @@ int main(void)
 		0.0f, 0.0f, 0.0f, 0.0f,
 		polygons::poly_ship(),
 		2, false, false);
+
+	missile testMissile(
+		3, "missile", 1.0f, YELLOW,
+		{ 400.0f, 800.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
+		0.0f, 0.0f, 0.0f, 0.0f,
+		polygons::poly_missile(),
+		1, false, false);
 
 	Planetoid planet1(
 		2, "planet", 1000.0f, WHITE,
