@@ -11,3 +11,12 @@ Vector2 center_of_points(std::vector<Vector2> points) { // finds vector average 
 
 	return result;
 };
+
+
+float clamp_angle(float angle) { // helper function to clamp angles to [0,2pi)
+	angle = fmod(angle, 2 * PI);
+	if (angle < 0) {
+		angle += 2 * PI;
+	};
+	return angle;
+};
