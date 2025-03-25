@@ -18,14 +18,14 @@ ID | MASS |  POSITION  |  VELOCITY  |  ACCELERATION  |  TAR_OBJ_ID  | IS_TAR_BOO
 24 | 1.0f | {0.0, 0.0} | {0.2, 1.0} |  {2.5, -3.1}   |       1      |   false     |   false     |
 */
 
-typedef entity_row entity_row_type;
+typedef EntityRow entity_row_type;
 
 std::map<int, entity_row_type> ECS_map;
 
 void ECS_update(int key, entity_row_type components) { // adds components to ECS, should be called when a new entity is made
 	ECS_map.insert(
 		std::pair<int, entity_row_type>(key,
-			entity_row(
+			EntityRow(
 				components
 			)
 		)

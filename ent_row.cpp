@@ -1,0 +1,56 @@
+#include <raylib.h>
+#include <vector>
+#include <string>
+#include "useful_functions.h"
+#include "ent_row.h"
+
+
+EntityRow::EntityRow() { // default constructor, does not take arguments
+	m_name = "default_construct_ignore";
+	m_mass = 1.0f;
+	m_color = BLANK;
+
+	m_position = { 0.0f, 0.0f };
+	m_velocity = { 0.0f, 0.0f };
+	m_acceleration = { 0.0f, 0.0f };
+	m_force = { 0.0f, 0.0f };
+
+	m_angle = 0.0f;
+	m_angvel = 0.0f;
+	m_angacc = 0.0f;
+	m_torque = 0.0f;
+
+	m_shape = { {30.0f, 0.0f}, {-30.0f, 0.0f}, {0.0f, 30.0f} };
+	m_target_id = 0;
+	m_is_targeted = false;
+	m_has_gravity = false;
+	m_is_movable = false;
+};
+
+EntityRow::EntityRow(
+	std::string name, float mass, Color color,
+	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
+	float angle, float angvel, float angacc, float torque,
+	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
+)
+{ // constructor, takes arguments
+	m_name = name;
+	m_mass = mass;
+	m_color = color;
+
+	m_position = position;
+	m_velocity = velocity;
+	m_acceleration = acceleration;
+	m_force = force;
+
+	m_angle = clamp_angle(angle); // must be 2pi periodic, floating point modulo restricts range to [0, 2pi)
+	m_angvel = angvel;
+	m_angacc = angacc;
+	m_torque = torque;
+
+	m_shape = shape;
+	m_target_id = target_id;
+	m_is_targeted = is_targeted;
+	m_has_gravity = has_gravity;
+	m_is_movable = is_movable;
+};
