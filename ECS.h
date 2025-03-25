@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <map>
-#include "ent_row.h"
 #include <vector>
+
+#include "ent_row.h"
 
 /*
 TODO: Throw exception if ID arg in set_entity_component already exists in ECS
@@ -20,59 +21,32 @@ ID | MASS |  POSITION  |  VELOCITY  |  ACCELERATION  |  TAR_OBJ_ID  | IS_TAR_BOO
 
 typedef EntityRow entity_row_type;
 
-std::map<int, entity_row_type> ECS_map;
+class ECS { // contains ECS map variable and methods for storing/manipulating entity components
+public:
+	std::map<int, entity_row_type> ECS_map; // ECS map variable, int -> EntityRow obj
 
-void ECS_update(int key, entity_row_type components) { // adds components to ECS, should be called when a new entity is made
-	ECS_map.insert(
-		std::pair<int, entity_row_type>(key,
-			EntityRow(
-				components
-			)
-		)
+	ECS();
+
+	void ECS_update(int key, entity_row_type components);
+
+	void set_entity_components(
+		int ID, std::string name, float mass, Color color,
+		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
+		float angle, float angvel, float angacc, float torque,
+		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 	);
-};
 
-void set_entity_components(
-	int ID, std::string name, float mass, Color color,
-	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
-	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
-) { // create new entity at ID
-	ECS_update(
-		ID,
-		{ 
-			name,
-			mass,
-			color,
-			position, velocity, acceleration, force,
-			angle, angvel, angacc, torque,
-			shape,
-			target_id, is_targeted, has_gravity, is_movable
-		}
+	void update_entity_components(
+		int ID, std::string name, float mass, Color color,
+		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
+		float angle, float angvel, float angacc, float torque,
+		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 	);
+
+	void destroy_entity(int ID);
+
 };
 
-void update_entity_components(
-	int ID, std::string name, float mass, Color color,
-	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
-	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
-) {
 
-	ECS_map[ID] =
-	{ // update components at known ID
-		name,
-		mass,
-		color,
-		position, velocity, acceleration, force,
-		angle, angvel, angacc, torque,
-		shape,
-		target_id, is_targeted, has_gravity, is_movable
-	};
-};
-
-void destroy_entity(int ID) { // removes entity from ECS
-	ECS_map.erase(ID);
-};
 
 #endif

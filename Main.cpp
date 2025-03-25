@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include "string"
 #include <vector>
-#include "ECS.h"
+#include "ECS_obj.h"
 #include "entities.h"
 #include "systems.h"
 #include <iostream>
@@ -11,6 +11,7 @@
 
 int main(void)
 {
+
 	const int sWidth = 2000;
 	const int sHeight = 1600;
 
@@ -69,9 +70,10 @@ int main(void)
 	SetTargetFPS(60);
 
 	while (!WindowShouldClose())
+
 	{
 		// camera target follows player
-		camera.target = { ECS_map[1].m_position.x, ECS_map[1].m_position.y};
+		camera.target = { ECS_obj.ECS_map[1].m_position.x, ECS_obj.ECS_map[1].m_position.y};
 
 		// zoom (and zoom limiter)
 		camera.zoom += ((float)GetMouseWheelMove() * 0.05f);

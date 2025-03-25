@@ -5,7 +5,7 @@
 #include "gen_polygon.h"
 #include <iostream>
 #include <vector>
-#include "ECS.h"
+#include "ECS_obj.h"
 
 class Planetoid { // Planetoid class
 public:
@@ -47,7 +47,7 @@ public:
 		m_has_gravity = has_gravity;
 		m_is_movable = false;
 
-		set_entity_components( // ECS gets updated upon object creation
+		ECS_obj.set_entity_components( // ECS gets updated upon object creation
 			m_ID, m_name, m_mass, m_color,
 			m_position, {0.0f, 0.0f}, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 			0.0f, 0.0f, 0.0f, 0.0f,

@@ -1,7 +1,7 @@
 #ifndef PHYSICS_SYSTEM_H
 #define PHYSICS_SYSTEM_H
 
-#include "ECS.h"
+#include "ECS_obj.h"
 #include <raymath.h>
 #include "useful_functions.h"
 
@@ -57,19 +57,19 @@ void physics_update(int ID) { // updates physics components when called
 	// to move physics objects, just change the force component of a given entity ID
 	// and call this system to move it around :)
 
-	if (ECS_map[ID].m_name != "Planetoid") {
+	if (ECS_obj.ECS_map[ID].m_name != "Planetoid") {
 		// initializing variables
-		float mass{ ECS_map[ID].m_mass };
-		Vector2 position{ ECS_map[ID].m_position };
-		Vector2 velocity{ ECS_map[ID].m_velocity };
-		Vector2 acceleration{ ECS_map[ID].m_acceleration };
-		Vector2 force{ ECS_map[ID].m_force };
-		std::vector<Vector2> shape{ ECS_map[ID].m_shape };
-		float angle{ ECS_map[ID].m_angle };
-		float angvel{ ECS_map[ID].m_angvel };
-		float angacc{ ECS_map[ID].m_angacc };
-		float torque{ ECS_map[ID].m_torque };
-		int target_ID{ ECS_map[ID].m_target_id };
+		float mass{ ECS_obj.ECS_map[ID].m_mass };
+		Vector2 position{ ECS_obj.ECS_map[ID].m_position };
+		Vector2 velocity{ ECS_obj.ECS_map[ID].m_velocity };
+		Vector2 acceleration{ ECS_obj.ECS_map[ID].m_acceleration };
+		Vector2 force{ ECS_obj.ECS_map[ID].m_force };
+		std::vector<Vector2> shape{ ECS_obj.ECS_map[ID].m_shape };
+		float angle{ ECS_obj.ECS_map[ID].m_angle };
+		float angvel{ ECS_obj.ECS_map[ID].m_angvel };
+		float angacc{ ECS_obj.ECS_map[ID].m_angacc };
+		float torque{ ECS_obj.ECS_map[ID].m_torque };
+		int target_ID{ ECS_obj.ECS_map[ID].m_target_id };
 
 		// == TARGETING ==
 		if (target_ID != 0) { // if ID is 0, it's not targeting anything
@@ -78,7 +78,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			float damping{ 2 * sqrt(spring_constant * moment_of_inertia(mass, shape)) }; // see ideas.txt
 
-			Vector2 target_position{ ECS_map[target_ID].m_position };
+			Vector2 target_position{ ECS_obj.ECS_map[target_ID].m_position };
 
 			// angle to target is the angle of the vector difference of targeting entity and targeted entity
 
@@ -94,12 +94,12 @@ void physics_update(int ID) { // updates physics components when called
 
 		// == GRAVITY ==
 
-		for (int i = 0; i < ECS_map.size(); i++) { // iterating through ID's
+		for (int i = 0; i < ECS_obj.ECS_map.size(); i++) { // iterating through ID's
 			//std::cout << ECS_map[i].m_name << std::endl;
 
-			if (ECS_map[i].m_has_gravity) { // check if entity has gravity attraction enabled
+			if (ECS_obj.ECS_map[i].m_has_gravity) { // check if entity has gravity attraction enabled
 
-				force += univ_grav(mass, ECS_map[i].m_mass, position, ECS_map[i].m_position); // add gravity to force vector
+				force += univ_grav(mass, ECS_obj.ECS_map[i].m_mass, position, ECS_obj.ECS_map[i].m_position); // add gravity to force vector
 
 			};
 		};
@@ -121,15 +121,15 @@ void physics_update(int ID) { // updates physics components when called
 
 		// == UPDATING ECS ==
 
-		update_entity_components(
+		ECS_obj.update_entity_components(
 			ID,
-			ECS_map[ID].m_name,
+			ECS_obj.ECS_map[ID].m_name,
 			mass,
-			ECS_map[ID].m_color,
+			ECS_obj.ECS_map[ID].m_color,
 			position, velocity, acceleration, force,
 			angle, angvel, angacc, torque,
 			shape,
-			ECS_map[ID].m_target_id, ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable
+			ECS_obj.ECS_map[ID].m_target_id, ECS_obj.ECS_map[ID].m_is_targeted, ECS_obj.ECS_map[ID].m_has_gravity, ECS_obj.ECS_map[ID].m_is_movable
 		);
 	};
 };

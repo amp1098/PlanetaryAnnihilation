@@ -5,7 +5,7 @@
 #include "gen_polygon.h"
 #include <iostream>
 #include <vector>
-#include "ECS.h"
+#include "ECS_obj.h"
 
 class missile { // missile class, aims at target and is pushed until it gets close to target
 public:
@@ -60,7 +60,7 @@ public:
 		m_has_gravity = has_gravity;
 		m_is_movable = is_movable;
 
-		set_entity_components( // ECS gets updated upon object creation
+		ECS_obj.set_entity_components( // ECS gets updated upon object creation
 			m_ID, m_name, m_mass, m_color,
 			m_position, m_velocity, m_acceleration, m_force,
 			m_angle, m_angvel, m_angacc, m_torque,
@@ -70,11 +70,11 @@ public:
 	};
 
 	~missile() { // destructor, object removal also  removes it from ECS
-		destroy_entity(m_ID);
+		ECS_obj.destroy_entity(m_ID);
 	};
 
 	void remove() const {
-		destroy_entity(m_ID);
+		ECS_obj.destroy_entity(m_ID);
 	};
 
 };

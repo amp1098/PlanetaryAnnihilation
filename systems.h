@@ -12,8 +12,8 @@
 void use_systems() {
 //for each entity in the ECS, update the components with the available systems
 	for (
-		std::map<int, entity_row_type>::iterator iter = ECS_map.begin();
-		iter != ECS_map.end();
+		std::map<int, entity_row_type>::iterator iter = ECS_obj.ECS_map.begin();
+		iter != ECS_obj.ECS_map.end();
 		++iter
 		) { // iterating through key-value pairs in ECS_map
 		int ID = iter->first; // dereferencing iterator pointer, unsure how this works
