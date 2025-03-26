@@ -4,23 +4,17 @@
 #include <vector>
 #include <raylib.h>
 
-class polygons { // used to easily call vectors of Vector2 objects for entity shapes
-public:
+class Polygons { // used to easily call vectors of Vector2 objects for entity shapes
 
 	std::vector<Vector2> vertices{};
 
-	polygons() {};
+public:
 
-	static std::vector<Vector2> poly_ship() { // return ship polygon
-		return { { -30.0f, -40.0f }, { -30.0f, 40.0f }, { 60.0f, 0.0f } };
-	};
+	Polygons();
 
-	static std::vector<Vector2> poly_missile() { // return ship polygon
-		return { 
-			{ 0.0f, 10.0f }, { -45.0f, 10.0f }, { -45.0f, -10.0f }, { 0.0f, -10.0f },
-			{ 25.0f, 0.0f },
-		};
-	};
+	static std::vector<Vector2> poly_ship();
+
+	static std::vector<Vector2> poly_missile();
 
 };
 

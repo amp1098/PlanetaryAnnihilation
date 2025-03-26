@@ -54,6 +54,9 @@
     <ClCompile Include="Planetoid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Polygons.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -89,7 +92,7 @@
     <ClInclude Include="Planetoid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="polygons.h">
+    <ClInclude Include="Polygons.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ECS_obj.h">

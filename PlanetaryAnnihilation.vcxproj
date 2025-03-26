@@ -141,6 +141,7 @@
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="physics_system.cpp" />
     <ClCompile Include="Planetoid.cpp" />
+    <ClCompile Include="Polygons.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="systems.cpp" />
     <ClCompile Include="useful_functions.cpp" />
@@ -160,7 +161,7 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="physics_system.h" />
     <ClInclude Include="Planetoid.h" />
-    <ClInclude Include="polygons.h" />
+    <ClInclude Include="Polygons.h" />
     <ClInclude Include="systems.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="useful_functions.h" />
