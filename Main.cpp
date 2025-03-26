@@ -47,13 +47,13 @@ int main(void)
 		playerID, false, false, true);
 
 	Planetoid planet1(
-		2, "planet", 1000.0f, WHITE,
+		2, 1000.0f, WHITE,
 		{300.0f, 0.0f},
 		circle_maker(100.0f, 30), false, false
 	);
 
 	Planetoid planet2(
-		4, "planet", 10000.0f, WHITE,
+		4, 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
 		circle_maker(5000.0f, 500), false, true
 	);

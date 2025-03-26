@@ -140,6 +140,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="physics_system.cpp" />
+    <ClCompile Include="Planetoid.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="systems.cpp" />
     <ClCompile Include="useful_functions.cpp" />
