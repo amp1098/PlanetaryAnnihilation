@@ -1,12 +1,12 @@
 #include <raylib.h>
 #include <raymath.h>
-#include "gen_polygon.h"
+#include "GeneralPolygon.h"
 #include "ECS_obj.h"
 #include "useful_functions.h"
 #include "drawing_system.h"
 
 void draw_lines(std::vector<Vector2> points, Vector2 translate_distance, float rotate_angle, Color color) {
-	gen_polygon vertices(
+	GeneralPolygon vertices(
 		points, color
 	);
 

@@ -4,10 +4,8 @@
 #include <vector>
 #include <raylib.h>
 #include <raymath.h>
-#include "gen_polygon.h"
 
 Vector2 center_of_points(std::vector<Vector2> points);
-
 
 // helper function to clamp angles to [0,2pi)
 

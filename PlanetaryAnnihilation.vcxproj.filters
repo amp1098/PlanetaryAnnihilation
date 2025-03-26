@@ -42,6 +42,9 @@
     <ClCompile Include="systems.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneralPolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -56,7 +59,7 @@
     <ClInclude Include="ship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gen_polygon.h">
+    <ClInclude Include="GeneralPolygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="drawing_system.h">

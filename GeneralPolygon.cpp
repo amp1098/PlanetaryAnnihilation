@@ -1,0 +1,36 @@
+#include "GeneralPolygon.h"
+
+
+GeneralPolygon::GeneralPolygon(std::vector<Vector2> points, Color color) {
+	m_points = points;
+	m_color = color;
+};
+
+void GeneralPolygon::translate(float dX, float dY) {
+	for (int i = 0; i < std::size(m_points); i++) {
+		m_points[i].x += dX;
+		m_points[i].y += dY;
+	};
+};
+
+void GeneralPolygon::rotate(float angle, Vector2 pivot) { // rotate one point about another point
+	for (int i = 0; i < std::size(m_points); i++) {
+		// moving to pivot
+		m_points[i].x = m_points[i].x - pivot.x;
+		m_points[i].y = m_points[i].y - pivot.y;
+
+		// rotating about origin
+		m_points[i] = Vector2Rotate(m_points[i], angle);
+
+		// moving back
+		m_points[i].x = m_points[i].x + pivot.x;
+		m_points[i].y = m_points[i].y + pivot.y;
+	};
+};
+
+void GeneralPolygon::draw() { // must be called in BeginDrawing() --> EndDrawing() loop
+	for (int i = 0; i < std::size(m_points); i++) { // count from 0 to m_numPoints - 1
+		int j = (i + 1) % std::size(m_points); // modulo makes sure j never goes over number of points in shape
+		DrawLineV(m_points[i], m_points[j], m_color); // draw line between Vector2 objects in points container
+	}
+};
