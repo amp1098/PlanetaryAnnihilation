@@ -3,8 +3,8 @@
 
 // include entity classes here
 
-#include "ship.h"
-#include "missile.h"
+#include "Ship.h"
+#include "Missile.h"
 #include "Planetoid.h"
 
 #endif // !ENTITIES_H
