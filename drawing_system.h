@@ -19,20 +19,20 @@ void draw_lines(std::vector<Vector2> points, Vector2 translate_distance, float r
 	vertices.draw();
 };
 
-std::vector<Vector2> circle_maker(float radius, int vertices) { // returns a vector of Vector2s representing a circular polyon
-	std::vector<Vector2> result{};
-
-	for (float i = 0; i < vertices; i++) {
-		result.push_back(
-			{ 
-				radius * cos( (i / vertices) * (2 * PI) ), // x component
-				radius* sin( (i / vertices) * (2 * PI)), // y component
-			}
-		);
-	};
-
-	return result;
-};
+//std::vector<Vector2> circle_maker(float radius, int vertices) { // returns a vector of Vector2s representing a circular polyon
+//	std::vector<Vector2> result{};
+//
+//	for (float i = 0; i < vertices; i++) {
+//		result.push_back(
+//			{ 
+//				radius * cos( (i / vertices) * (2 * PI) ), // x component
+//				radius* sin( (i / vertices) * (2 * PI)), // y component
+//			}
+//		);
+//	};
+//
+//	return result;
+//};
 
 float angle_of_vec_diff_dbug(Vector2 vec1, Vector2 vec2) { // remove later, already in physics system, for debugging
 	Vector2 vec_res{ vec1 - vec2 };

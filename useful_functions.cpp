@@ -20,3 +20,18 @@ float clamp_angle(float angle) { // helper function to clamp angles to [0,2pi)
 	};
 	return angle;
 };
+
+std::vector<Vector2> circle_maker(float radius, int vertices) { // returns a vector of Vector2s representing a circular polyon
+	std::vector<Vector2> result{};
+
+	for (float i = 0; i < vertices; i++) {
+		result.push_back(
+			{
+				radius* static_cast<float>(cos((i / vertices) * (2 * PI))), // x component
+				radius * static_cast<float>(sin((i / vertices) * (2 * PI))) // y component
+			}
+			);
+	};
+
+	return result;
+};

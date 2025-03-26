@@ -3,6 +3,6 @@
 
 #include "ECS.h"
 using EntityComponentSystem::ECS;
-ECS ECS_obj; // this object stores entity data, referenced throughout game using ECS_obj.ECS_map
+extern ECS ECS_obj; // this object stores entity data, referenced throughout game files
 
 #endif // !ECS_MAP_H
