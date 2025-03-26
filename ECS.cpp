@@ -81,9 +81,9 @@ be able to iterate over both of them despite how 1 and 324 are not consecutive i
 */
 
 int ECS::number_of_entities() const { // returns number of entities stored in ECS
-	return std::size(ECS_map);
+	return static_cast<int>(std::size(ECS_map));
 };
 
 void ECS::destroy_entity(int ID) { // removes entity from ECS
-	ECS_map.erase(ID);
+	static_cast<int>(ECS_map.erase(ID));
 };
