@@ -73,7 +73,7 @@ int main(void)
 
 	{
 		// camera target follows player
-		camera.target = { ECS_obj.ECS_map[1].m_position.x, ECS_obj.ECS_map[1].m_position.y};
+		camera.target = { ECS_obj.get_entity_components(1).m_position.x, ECS_obj.get_entity_components(1).m_position.y};
 
 		// zoom (and zoom limiter)
 		camera.zoom += ((float)GetMouseWheelMove() * 0.05f);

@@ -6,6 +6,8 @@
 #include "ent_row.h"
 #include "ECS.h"
 
+using EntityComponentSystem::ECS;
+
 ECS::ECS() {
 	ECS_map = {};
 };
@@ -40,6 +42,10 @@ void ECS::set_entity_components(
 	);
 };
 
+entity_row_type ECS::get_entity_components(int ID) {
+	return ECS_map[ID];
+};
+
 void ECS::update_entity_components(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
@@ -57,6 +63,25 @@ void ECS::update_entity_components(
 		shape,
 		target_id, is_targeted, has_gravity, is_movable
 	};
+};
+
+std::map<int, entity_row_type>::iterator ECS::start_of_ECS() { // used to start iterators over ECS
+	return ECS_map.begin();
+};
+
+std::map<int, entity_row_type>::iterator ECS::end_of_ECS() { // used to end iterators over ECS
+	return ECS_map.end();
+};
+
+/*
+NOTE: The reason why I'm not just iterating through the ECS with a simple counter
+(i.e., for (int i=0;i<number_of_entities;i++)) is because I want to allow for
+any IDs to be used. For example, if I only have two entities of ID 1 and 324, I should
+be able to iterate over both of them despite how 1 and 324 are not consecutive integers.
+*/
+
+int ECS::number_of_entities() const { // returns number of entities stored in ECS
+	return std::size(ECS_map);
 };
 
 void ECS::destroy_entity(int ID) { // removes entity from ECS

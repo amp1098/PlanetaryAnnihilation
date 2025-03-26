@@ -41,20 +41,20 @@ float angle_of_vec_diff_dbug(Vector2 vec1, Vector2 vec2) { // remove later, alre
 };
 
 void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
-	std::vector<Vector2> points{ ECS_obj.ECS_map[ID].m_shape };
-	Vector2 translate{ ECS_obj.ECS_map[ID].m_position };
-	Vector2 force{ ECS_obj.ECS_map[ID].m_force };
-	float rotate_angle{ ECS_obj.ECS_map[ID].m_angle };
-	Color color{ ECS_obj.ECS_map[ID].m_color };
-	int target_ID{ ECS_obj.ECS_map[ID].m_target_id};
+	std::vector<Vector2> points{ ECS_obj.get_entity_components(ID).m_shape };
+	Vector2 translate{ ECS_obj.get_entity_components(ID).m_position };
+	Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
+	float rotate_angle{ ECS_obj.get_entity_components(ID).m_angle };
+	Color color{ ECS_obj.get_entity_components(ID).m_color };
+	int target_ID{ ECS_obj.get_entity_components(ID).m_target_id};
 
 	draw_lines(points, translate, rotate_angle, color);
 
 	DrawLineV(translate, force * 10 + translate, color);
 
-	if (ECS_obj.ECS_map[ID].m_name == "ship" && target_ID != 0) {
+	if (ECS_obj.get_entity_components(ID).m_name == "ship" && target_ID != 0) {
 		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, rotate_angle) + translate, BLUE); // ship angle
-		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, angle_of_vec_diff_dbug(ECS_obj.ECS_map[target_ID].m_position, translate)) + translate, BLUE); // target angle
+		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, angle_of_vec_diff_dbug(ECS_obj.get_entity_components(target_ID).m_position, translate)) + translate, BLUE); // target angle
 	};
 };
 

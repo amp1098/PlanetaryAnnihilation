@@ -2,7 +2,7 @@
 #define ECS_OBJ_H
 
 #include "ECS.h"
-
-ECS ECS_obj;
+using EntityComponentSystem::ECS;
+ECS ECS_obj; // this object stores entity data, referenced throughout game using ECS_obj.ECS_map
 
 #endif // !ECS_MAP_H

@@ -12,12 +12,14 @@
 void use_systems() {
 //for each entity in the ECS, update the components with the available systems
 	for (
-		std::map<int, entity_row_type>::iterator iter = ECS_obj.ECS_map.begin();
-		iter != ECS_obj.ECS_map.end();
+		std::map<int, entity_row_type>::iterator iter = ECS_obj.start_of_ECS();
+		iter != ECS_obj.end_of_ECS();
 		++iter
 		) { // iterating through key-value pairs in ECS_map
 		int ID = iter->first; // dereferencing iterator pointer, unsure how this works
 		// ignoring the values
+
+	//for (int ID = 0; ID < ECS_obj.number_of_entities(); ID++) { // iterating through IDs in ECS
 
 		draw_entity(ID); // drawing to screen
 		thrust_check(ID); // checking for keyboard inputs
