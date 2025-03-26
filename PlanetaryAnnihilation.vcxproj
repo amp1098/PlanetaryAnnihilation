@@ -136,6 +136,7 @@
     <ClCompile Include="ECS_obj.cpp" />
     <ClCompile Include="ent_row.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="physics_system.cpp" />
     <ClCompile Include="useful_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
