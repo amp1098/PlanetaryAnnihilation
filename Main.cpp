@@ -25,7 +25,7 @@ int main(void)
 	
 	int playerID = 1;
 
-	ship playerShip(
+	Ship playerShip(
 		playerID, "ship", 1.0f, WHITE,
 		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
@@ -62,7 +62,7 @@ int main(void)
 
 	camera.target = { 1.0f, 2.0f };
 
-	camera.target = { playerShip.m_position.x, playerShip.m_position.y };
+	camera.target = { playerShip.get_components().m_position.x, playerShip.get_components().m_position.y};
 	camera.offset = { sWidth / 2.0f, sHeight / 2.0f };
 	camera.rotation = 0.0f;
 	camera.zoom = 1.0f;
