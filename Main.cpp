@@ -32,14 +32,14 @@ int main(void)
 		polygons::poly_ship(),
 		0, false, false, true);
 
-	missile testMissile1(
+	Missile testMissile1(
 		3, "missile", 1.0f, YELLOW,
 		{ 300.0f, 800.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 		0.0f, 0.0f, 0.0f, 0.0f,
 		polygons::poly_missile(),
 		playerID, false, false, true);
 
-	missile testMissile2(
+	Missile testMissile2(
 		5, "missile", 1.0f, YELLOW,
 		{ 1000.0f, 1200.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 		0.0f, 0.0f, 0.0f, 0.0f,

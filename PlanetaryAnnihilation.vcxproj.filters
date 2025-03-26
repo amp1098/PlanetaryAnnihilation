@@ -45,6 +45,9 @@
     <ClCompile Include="GeneralPolygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -89,7 +92,7 @@
     <ClInclude Include="entities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="missile.h">
+    <ClInclude Include="Missile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="useful_functions.h">
