@@ -11,9 +11,13 @@ class Entity { // general entity class
 
 public:
 
+	Entity();
+
 	Entity(int ID, entity_row_type components);
 
 	entity_row_type get_components();
+
+	~Entity();
 
 	void remove() const;
 

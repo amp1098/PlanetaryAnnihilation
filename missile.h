@@ -39,11 +39,11 @@ public:
 		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 	);
 
-	entity_row_type get_components();
+	//entity_row_type get_components();
 
-	~Missile();
+	//~Missile();
 
-	void remove() const;
+	//void remove() const;
 };
 
 #endif

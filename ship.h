@@ -6,8 +6,9 @@
 #include <iostream>
 #include <vector>
 #include "ECS_obj.h"
+#include "Entity.h"
 
-class Ship { // spaceship class
+class Ship : public Entity { // spaceship class
 
 	int m_ID;
 	std::string m_name;
@@ -41,11 +42,11 @@ public:
 		std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
 	);
 
-	entity_row_type get_components();
+	//entity_row_type get_components();
 
-	~Ship();
+	//~Ship();
 
-	void remove() const;
+	//void remove() const;
 };
 
 #endif

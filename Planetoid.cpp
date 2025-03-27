@@ -31,14 +31,14 @@ Planetoid::Planetoid(
 	);
 };
 
-entity_row_type Planetoid::get_components() {
-	return ECS_obj.get_entity_components(m_ID);
-};
-
-Planetoid::~Planetoid() { // destructor, object removal also  removes it from ECS
-	ECS_obj.destroy_entity(m_ID);
-};
-
-void Planetoid::remove() const {
-	ECS_obj.destroy_entity(m_ID);
-};
+//entity_row_type Planetoid::get_components() {
+//	return ECS_obj.get_entity_components(m_ID);
+//};
+//
+//Planetoid::~Planetoid() { // destructor, object removal also  removes it from ECS
+//	ECS_obj.destroy_entity(m_ID);
+//};
+//
+//void Planetoid::remove() const {
+//	ECS_obj.destroy_entity(m_ID);
+//};
