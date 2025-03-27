@@ -89,9 +89,6 @@
     <ClInclude Include="control_system.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ClickIcon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Planetoid.h">
       <Filter>Header Files</Filter>
     </ClInclude>

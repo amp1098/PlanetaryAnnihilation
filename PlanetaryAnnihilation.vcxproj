@@ -151,7 +151,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClickIcon.h" />
     <ClInclude Include="control_system.h" />
     <ClInclude Include="drawing_system.h" />
     <ClInclude Include="ECS_obj.h" />

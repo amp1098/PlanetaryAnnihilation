@@ -30,15 +30,3 @@ Planetoid::Planetoid(
 		0, m_is_targeted, m_has_gravity, m_is_movable
 	);
 };
-
-//entity_row_type Planetoid::get_components() {
-//	return ECS_obj.get_entity_components(m_ID);
-//};
-//
-//Planetoid::~Planetoid() { // destructor, object removal also  removes it from ECS
-//	ECS_obj.destroy_entity(m_ID);
-//};
-//
-//void Planetoid::remove() const {
-//	ECS_obj.destroy_entity(m_ID);
-//};

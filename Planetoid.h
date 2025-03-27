@@ -32,13 +32,6 @@ public:
 		Vector2 position,
 		std::vector<Vector2> shape, bool is_targeted, bool has_gravity
 	);
-
-	//entity_row_type get_components();
-
-	//~Planetoid();
-
-	//void remove() const;
-
 };
 
 #endif
