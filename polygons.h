@@ -16,6 +16,8 @@ public:
 
 	static std::vector<Vector2> poly_missile();
 
+	static std::vector<Vector2> poly_groundlaser();
+
 };
 
 #endif

@@ -1,13 +1,13 @@
-#include "Missile.h"
+#include "GroundLaser.h"
 
-Missile::Missile(
+GroundLaser::GroundLaser(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	std::vector<Vector2> shape, int target_id, int parent_id,
 	bool is_targeted, bool has_gravity, bool is_movable
-)
-{ // constructor, takes arguments
+) 
+{
 	m_ID = ID;
 	m_name = name;
 	m_mass = mass;
@@ -25,7 +25,6 @@ Missile::Missile(
 
 	m_shape = shape;
 	m_target_id = target_id;
-	m_parent_id = parent_id;
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;

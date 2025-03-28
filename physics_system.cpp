@@ -127,7 +127,8 @@ void physics_update(int ID) { // updates physics components when called
 			position, velocity, acceleration, force,
 			angle, angvel, angacc, torque,
 			shape,
-			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable
+			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
+			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable
 		);
 	};
 };

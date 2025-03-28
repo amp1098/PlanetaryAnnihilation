@@ -27,6 +27,7 @@ Planetoid::Planetoid(
 		m_position, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 		0.0f, 0.0f, 0.0f, 0.0f,
 		m_shape,
-		0, m_is_targeted, m_has_gravity, m_is_movable
+		0, 0,
+		m_is_targeted, m_has_gravity, m_is_movable
 	);
 };

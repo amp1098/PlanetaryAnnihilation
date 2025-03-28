@@ -11,3 +11,10 @@ std::vector<Vector2> Polygons::poly_missile() { // return missile polygon
 		{ 25.0f, 0.0f },
 	};
 };
+
+std::vector<Vector2> Polygons::poly_groundlaser() { // return missile polygon
+	return {
+		{ 0.0f, 10.0f }, { -45.0f, 10.0f }, { -45.0f, -10.0f }, { 0.0f, -10.0f },
+		{ 0, 5.0f }, { 45.0f, 5.0f }, { 45.0f, -5.0f }, { 0, -5.0f },
+	};
+};

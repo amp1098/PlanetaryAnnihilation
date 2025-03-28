@@ -1,11 +1,6 @@
 #ifndef PLANETOID_H
 #define PLANETOID_H
 
-#include <raylib.h>
-#include "GeneralPolygon.h"
-#include <iostream>
-#include <vector>
-#include "ECS_obj.h"
 #include "Entity.h"
 
 class Planetoid : public Entity { // Planetoid class

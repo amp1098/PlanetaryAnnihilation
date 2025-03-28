@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "useful_functions.h"
-#include "ent_row.h"
+#include "EntityRow.h"
 
 
 EntityRow::EntityRow() { // default constructor, does not take arguments
@@ -22,6 +22,7 @@ EntityRow::EntityRow() { // default constructor, does not take arguments
 
 	m_shape = { {30.0f, 0.0f}, {-30.0f, 0.0f}, {0.0f, 30.0f} };
 	m_target_id = 0;
+	m_parent_id = 0;
 	m_is_targeted = false;
 	m_has_gravity = false;
 	m_is_movable = false;
@@ -31,7 +32,7 @@ EntityRow::EntityRow(
 	std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
+	std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
 )
 { // constructor, takes arguments
 	m_name = name;
@@ -50,6 +51,7 @@ EntityRow::EntityRow(
 
 	m_shape = shape;
 	m_target_id = target_id;
+	m_parent_id = parent_id;
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;

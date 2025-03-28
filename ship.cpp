@@ -4,7 +4,7 @@ Ship::Ship(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, bool is_targeted, bool has_gravity, bool is_movable
+	std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
 )
 { // constructor, takes arguments
 	m_ID = ID;
@@ -24,6 +24,7 @@ Ship::Ship(
 
 	m_shape = shape;
 	m_target_id = target_id;
+	m_parent_id = parent_id;
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;
@@ -33,6 +34,7 @@ Ship::Ship(
 		m_position, m_velocity, m_acceleration, m_force,
 		m_angle, m_angvel, m_angacc, m_torque,
 		m_shape,
-		m_target_id, m_is_targeted, m_has_gravity, m_is_movable
+		m_target_id, m_parent_id,
+		m_is_targeted, m_has_gravity, m_is_movable
 	);
 };
