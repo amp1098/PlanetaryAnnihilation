@@ -6,8 +6,9 @@
 #include <iostream>
 #include <vector>
 #include "ECS_obj.h"
+#include "Entity.h"
 
-class Missile { // missile class, aims at target and is pushed until it gets close to target
+class Missile : public Entity { // missile class, aims at target and is pushed until it gets close to target
 public:
 	int m_ID;
 	std::string m_name;

@@ -6,8 +6,9 @@
 #include <iostream>
 #include <vector>
 #include "ECS_obj.h"
+#include "Entity.h"
 
-class Planetoid { // Planetoid class
+class Planetoid : public Entity { // Planetoid class
 
 	int m_ID;
 	std::string m_name;
