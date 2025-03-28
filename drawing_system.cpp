@@ -26,6 +26,7 @@ float angle_of_vec_diff_dbug(Vector2 vec1, Vector2 vec2) { // remove later, alre
 void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 	std::vector<Vector2> points{ ECS_obj.get_entity_components(ID).m_shape };
 	Vector2 translate{ ECS_obj.get_entity_components(ID).m_position };
+	Vector2 velocity{ ECS_obj.get_entity_components(ID).m_velocity };
 	Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
 	float rotate_angle{ ECS_obj.get_entity_components(ID).m_angle };
 	Color color{ ECS_obj.get_entity_components(ID).m_color };
@@ -33,7 +34,9 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 
 	draw_lines(points, translate, rotate_angle, color);
 
-	DrawLineV(translate, force * 10 + translate, color);
+	DrawLineV(translate, force * 10 + translate, RED);
+
+	DrawLineV(translate, velocity + translate, BLUE);
 
 	if (ECS_obj.get_entity_components(ID).m_name == "ship" && target_ID != 0) {
 		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, rotate_angle) + translate, BLUE); // ship angle
