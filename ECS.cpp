@@ -26,7 +26,8 @@ void ECS::set_entity_components(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
+	std::vector<Vector2> shape, int target_id, int parent_id, 
+	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 ) { // create new entity at ID
 	ECS_update(
 		ID,
@@ -38,7 +39,7 @@ void ECS::set_entity_components(
 			angle, angvel, angacc, torque,
 			shape,
 			target_id, parent_id, 
-			is_targeted, has_gravity, is_movable
+			is_targeted, has_gravity, is_movable, is_spawned
 		}
 	);
 };
@@ -51,11 +52,12 @@ void ECS::update_entity_components(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
-) {
+	std::vector<Vector2> shape, int target_id, int parent_id, 
+	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
+) { // Update components at known ID
 
 	ECS_map[ID] =
-	{ // update components at known ID
+	{ 
 		name,
 		mass,
 		color,
@@ -63,7 +65,7 @@ void ECS::update_entity_components(
 		angle, angvel, angacc, torque,
 		shape,
 		target_id, parent_id,
-		is_targeted, has_gravity, is_movable
+		is_targeted, has_gravity, is_movable, is_spawned
 	};
 };
 

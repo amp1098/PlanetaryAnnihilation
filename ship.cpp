@@ -4,7 +4,8 @@ Ship::Ship(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
+	std::vector<Vector2> shape, int target_id, int parent_id, 
+	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 )
 { // constructor, takes arguments
 	m_ID = ID;
@@ -28,6 +29,7 @@ Ship::Ship(
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;
+	m_is_spawned = is_spawned;
 
 	ECS_obj.set_entity_components( // ECS gets updated upon object creation
 		m_ID, m_name, m_mass, m_color,
@@ -35,6 +37,6 @@ Ship::Ship(
 		m_angle, m_angvel, m_angacc, m_torque,
 		m_shape,
 		m_target_id, m_parent_id,
-		m_is_targeted, m_has_gravity, m_is_movable
+		m_is_targeted, m_has_gravity, m_is_movable, m_is_spawned
 	);
 };

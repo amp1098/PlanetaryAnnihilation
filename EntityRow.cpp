@@ -26,13 +26,15 @@ EntityRow::EntityRow() { // default constructor, does not take arguments
 	m_is_targeted = false;
 	m_has_gravity = false;
 	m_is_movable = false;
+	m_is_spawned = false;
 };
 
 EntityRow::EntityRow(
 	std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
+	std::vector<Vector2> shape, int target_id, int parent_id, 
+	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 )
 { // constructor, takes arguments
 	m_name = name;
@@ -55,4 +57,5 @@ EntityRow::EntityRow(
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;
+	m_is_spawned = is_spawned;
 };

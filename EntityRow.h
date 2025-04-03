@@ -32,6 +32,7 @@ public:
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 	bool m_is_movable; // physics objects are moveable, planetoids are not
+	bool m_is_spawned; // objects are only updated if they're spawned
 
 	EntityRow();
 
@@ -39,7 +40,8 @@ public:
 		std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
-		std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
+		std::vector<Vector2> shape, int target_id, int parent_id, 
+		bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 	);
 };
 

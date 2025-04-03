@@ -6,6 +6,8 @@
 
 #include "control_system.h" // updates forces/torques of entities based on keyboard inputs
 
+#include "spawning_system.h" // moves entities to spawned locaitons
+
 void use_systems() {
 	//for each entity in the ECS, update the components with the available systems
 	for (
@@ -18,9 +20,14 @@ void use_systems() {
 
 	//for (int ID = 0; ID < ECS_obj.number_of_entities(); ID++) { // iterating through IDs in ECS
 
-		draw_entity(ID); // drawing to screen
-		thrust_check(ID); // checking for keyboard inputs
-		missile_control(ID); // makes missiles move
-		physics_update(ID); // updating physics components
+		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
+			draw_entity(ID); // drawing to screen
+			thrust_check(ID); // checking for keyboard inputs
+			missile_control(ID); // makes missiles move
+			physics_update(ID); // updating physics components
+			random_spawn_on_planetoid(ID); // spawns objects on planetoids
+		};
+
+		
 	};
 };

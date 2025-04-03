@@ -6,7 +6,7 @@ GroundLaser::GroundLaser(
 	float angle, float angvel, float angacc, float torque,
 	std::vector<Vector2> shape, int target_id, int parent_id,
 	bool is_targeted, bool has_gravity, bool is_movable
-) 
+)
 {
 	m_ID = ID;
 	m_name = name;
@@ -25,6 +25,7 @@ GroundLaser::GroundLaser(
 
 	m_shape = shape;
 	m_target_id = target_id;
+	m_parent_id = parent_id;
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;

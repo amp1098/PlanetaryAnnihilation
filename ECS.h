@@ -35,7 +35,8 @@ namespace EntityComponentSystem {
 			int ID, std::string name, float mass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
-			std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
+			std::vector<Vector2> shape, int target_id, int parent_id, 
+			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
 		entity_row_type get_entity_components(int ID);
@@ -44,7 +45,8 @@ namespace EntityComponentSystem {
 			int ID, std::string name, float mass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
-			std::vector<Vector2> shape, int target_id, int parent_id, bool is_targeted, bool has_gravity, bool is_movable
+			std::vector<Vector2> shape, int target_id, int parent_id, 
+			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
 		std::map<int, entity_row_type>::iterator start_of_ECS();
