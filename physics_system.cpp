@@ -119,16 +119,39 @@ void physics_update(int ID) { // updates physics components when called
 
 		// == UPDATING ECS ==
 
-		ECS_obj.update_entity_components(
-			ID,
-			ECS_obj.get_entity_components(ID).m_name,
-			mass,
-			ECS_obj.get_entity_components(ID).m_color,
-			position, velocity, acceleration, force,
-			angle, angvel, angacc, torque,
-			shape,
-			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
-			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
-		);
+		// only update linear physical components if entity is_movable == true
+
+		if (ECS_obj.get_entity_components(ID).m_is_movable) {
+
+			ECS_obj.update_entity_components(
+				ID,
+				ECS_obj.get_entity_components(ID).m_name,
+				mass,
+				ECS_obj.get_entity_components(ID).m_color,
+				position, velocity, acceleration, force,
+				angle, angvel, angacc, torque,
+				shape,
+				ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
+				ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
+
+			);
+
+		};
+
+		// this stuff should be executed IFF the entity is rotatable (may be easier to add a m_is_static component)
+
+		else {
+			ECS_obj.update_entity_components(
+				ID,
+				ECS_obj.get_entity_components(ID).m_name,
+				mass,
+				ECS_obj.get_entity_components(ID).m_color,
+				ECS_obj.get_entity_components(ID).m_position, ECS_obj.get_entity_components(ID).m_velocity, ECS_obj.get_entity_components(ID).m_acceleration, ECS_obj.get_entity_components(ID).m_force,
+				angle, angvel, angacc, torque,
+				shape,
+				ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
+				ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
+		};
+
 	};
 };

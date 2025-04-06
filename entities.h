@@ -6,5 +6,6 @@
 #include "Ship.h"
 #include "Missile.h"
 #include "Planetoid.h"
+#include "GroundLaser.h"
 
 #endif // !ENTITIES_H
