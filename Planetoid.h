@@ -21,12 +21,13 @@ class Planetoid : public Entity { // Planetoid class
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 	bool m_is_movable;
+	bool m_is_spawned;
 
 public:
 	Planetoid(
 		int ID, float mass, Color color,
 		Vector2 position,
-		std::vector<Vector2> shape, bool is_targeted, bool has_gravity
+		std::vector<Vector2> shape, bool is_targeted, bool has_gravity, bool is_spawned
 	);
 };
 

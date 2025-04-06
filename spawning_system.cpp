@@ -19,7 +19,7 @@ void random_spawn_on_planetoid(int ID) { // find an entity and put it on a plane
 			ECS_obj.get_entity_components(ID).m_angle, ECS_obj.get_entity_components(ID).m_angvel, ECS_obj.get_entity_components(ID).m_angacc, ECS_obj.get_entity_components(ID).m_torque,
 			ECS_obj.get_entity_components(ID).m_shape,
 			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
-			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable
+			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
 		);
 	};
 	

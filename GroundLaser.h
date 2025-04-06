@@ -29,6 +29,7 @@ class GroundLaser : public Entity { // Is on radius of Planetoid, aims at Ships,
 	bool m_is_targeted; // anything can be targeted
 	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
 	bool m_is_movable;
+	bool m_is_spawned;
 
 public:
 
@@ -38,7 +39,7 @@ public:
 		float angle, float angvel, float angacc, float torque,
 		std::vector<Vector2> shape, 
 		int target_id, int parent_id,
-		bool is_targeted, bool has_gravity, bool is_movable
+		bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 	);
 };
 

@@ -31,7 +31,7 @@ int main(void)
 		0.0f, 0.0f, 0.0f, 0.0f,
 		Polygons::poly_groundlaser(),
 		0, 0,
-		false, false, true);
+		false, false, true, true);
 
 	Missile testMissile1(
 		3, "missile", 1.0f, YELLOW,
@@ -39,7 +39,7 @@ int main(void)
 		0.0f, 0.0f, 0.0f, 0.0f,
 		Polygons::poly_missile(),
 		playerID, 0,
-		false, false, true);
+		false, false, true, true);
 
 	Missile testMissile2(
 		5, "missile", 1.0f, YELLOW,
@@ -47,18 +47,18 @@ int main(void)
 		0.0f, 0.0f, 0.0f, 0.0f,
 		Polygons::poly_missile(),
 		playerID, 0,
-		false, false, true);
+		false, false, true, true);
 
 	Planetoid planet1(
 		2, 1000.0f, WHITE,
 		{300.0f, 0.0f},
-		circle_maker(100.0f, 30), false, false
+		circle_maker(100.0f, 30), false, false, true
 	);
 
 	Planetoid planet2(
 		4, 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
-		circle_maker(5000.0f, 500), false, true
+		circle_maker(5000.0f, 500), false, true, true
 	);
 
 	Camera2D camera = { 0 };

@@ -3,7 +3,7 @@
 Planetoid::Planetoid(
 	int ID, float mass, Color color,
 	Vector2 position,
-	std::vector<Vector2> shape, bool is_targeted, bool has_gravity
+	std::vector<Vector2> shape, bool is_targeted, bool has_gravity, bool is_spawned
 )
 { // constructor, takes arguments
 	m_ID = ID;
@@ -28,6 +28,6 @@ Planetoid::Planetoid(
 		0.0f, 0.0f, 0.0f, 0.0f,
 		m_shape,
 		0, 0,
-		m_is_targeted, m_has_gravity, m_is_movable
+		m_is_targeted, m_has_gravity, m_is_movable, m_is_spawned
 	);
 };
