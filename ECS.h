@@ -51,41 +51,41 @@ namespace EntityComponentSystem {
 
 		/*Setters for all components*/
 
-		void set_name(std::string name);
+		void set_name(int ID, std::string name);
 
-		void set_mass(float mass);
+		void set_mass(int ID, float mass);
 
-		void set_color(Color color);
+		void set_color(int ID, Color color);
 
-		void set_position(Vector2 position);
+		void set_position(int ID, Vector2 position);
 
-		void set_velocity(Vector2 velocity);
+		void set_velocity(int ID, Vector2 velocity);
 
-		void set_acceleration(Vector2 acceleration);
+		void set_acceleration(int ID, Vector2 acceleration);
 
-		void set_force(Vector2 force);
+		void set_force(int ID, Vector2 force);
 
-		void set_angle(float angle);
+		void set_angle(int ID, float angle);
 
-		void set_angvel(float angvel);
+		void set_angvel(int ID, float angvel);
 
-		void set_angacc(float angacc);
+		void set_angacc(int ID, float angacc);
 
-		void set_torque(float torque);
+		void set_torque(int ID, float torque);
 
-		void set_shape(std::vector<Vector2> shape);
+		void set_shape(int ID, std::vector<Vector2> shape);
 
-		void set_target_id(int target_id);
+		void set_target_id(int ID, int target_id);
 
-		void set_parent_id(int parent_id);
+		void set_parent_id(int ID, int parent_id);
 
-		void set_is_targeted(bool is_targeted);
+		void set_is_targeted(int ID, bool is_targeted);
 
-		void set_has_gravity(bool has_gravity);
+		void set_has_gravity(int ID, bool has_gravity);
 
-		void set_is_movable(bool is_movable);
+		void set_is_movable(int ID, bool is_movable);
 
-		void set_is_spawned(bool is_spawned);
+		void set_is_spawned(int ID, bool is_spawned);
 
 		std::map<int, entity_row_type>::iterator start_of_ECS();
 
