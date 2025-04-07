@@ -72,7 +72,7 @@ void physics_update(int ID) { // updates physics components when called
 		// == TARGETING ==
 		if (target_ID != 0) { // if ID is 0, it's not targeting anything
 
-			float spring_constant{ 10000.0f }; // spring constant for damped rotations
+			float spring_constant{ 30000.0f }; // spring constant for damped rotations
 
 			float damping{ 2 * sqrt(spring_constant * moment_of_inertia(mass, shape)) }; // see ideas.txt
 
@@ -93,6 +93,7 @@ void physics_update(int ID) { // updates physics components when called
 		// == GRAVITY ==
 
 		for (int i = 0; i < ECS_obj.number_of_entities(); i++) { // iterating through ID's
+
 			//std::cout << ECS_map[i].m_name << std::endl;
 
 			if (ECS_obj.get_entity_components(i).m_has_gravity) { // check if entity has gravity attraction enabled
@@ -100,12 +101,15 @@ void physics_update(int ID) { // updates physics components when called
 				force += univ_grav(mass, ECS_obj.get_entity_components(i).m_mass, position, ECS_obj.get_entity_components(i).m_position); // add gravity to force vector
 
 			};
+
 		};
 
 		// == KINEMATICS ==
 
 		acceleration = force / mass;
+
 		velocity += acceleration * dt;
+
 		position += velocity * dt + acceleration * 0.5 * dt * dt;
 
 		// angular kinematics (torques, angular velocity, etc)
@@ -114,7 +118,9 @@ void physics_update(int ID) { // updates physics components when called
 		float moment{ moment_of_inertia(mass, shape) }; // moment of inertia used for torque stuff
 
 		angacc = torque / moment;
+
 		angvel += angacc * dt;
+
 		angle += angvel * dt + angacc * 0 * dt * dt;
 
 		// == UPDATING ECS ==

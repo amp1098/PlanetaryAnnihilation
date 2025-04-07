@@ -6,7 +6,9 @@ void random_spawn_on_planetoid(int ID) { // find an entity and put it on a plane
 
 	std::vector<Vector2> planetoid_shape{ ECS_obj.get_entity_components(planetoid_ID).m_shape };
 
-	int random_index{ static_cast<int>(std::rand() % std::size(planetoid_shape)) }; // rand. num. 0 -> # of shape points
+	//int random_index{ static_cast<int>(std::rand() % std::size(planetoid_shape)) }; // rand. num. 0 -> # of shape points
+
+	int random_index{ 300 };
 
 	Vector2 translate{ planetoid_shape[random_index] }; // random point from shape, spawn location
 

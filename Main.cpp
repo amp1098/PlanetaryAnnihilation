@@ -52,17 +52,17 @@ int main(void)
 	Planetoid planet1(
 		2, 1000.0f, WHITE,
 		{300.0f, 0.0f},
-		circle_maker(100.0f, 30), false, false, true
+		circle_maker(100.0f, 30), false, true, true
 	);
 
 	Planetoid planet2(
 		4, 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
-		circle_maker(5000.0f, 500), false, true, true
+		circle_maker(5000.0f, 500), false, false, true
 	);
 
 	GroundLaser laser1(
-		6, "groundlaser", 100.0f, WHITE, false
+		6, "groundlaser", 10.0f, WHITE, false
 	);
 
 	Camera2D camera = { 0 };

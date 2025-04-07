@@ -21,12 +21,12 @@ GroundLaser::GroundLaser(
 	m_angacc = 0.0f;
 	m_torque = 0.0f;
 
-	m_shape = Polygons::poly_groundlaser();
+	m_shape = Polygons::poly_missile();
 	m_target_id = 1;  // player ID
 	m_parent_id = 4;  // main planet ID
 	m_is_targeted = false;
 	m_has_gravity = false;
-	m_is_movable = false;
+	m_is_movable = true;
 	m_is_spawned = is_spawned;
 
 	ECS_obj.set_entity_components( // ECS gets updated upon object creation
