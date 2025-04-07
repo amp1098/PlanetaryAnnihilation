@@ -35,14 +35,18 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 	};
 };
 
-void missile_control(int ID) { // applies linear force until velocity relative to target reaches a certain value
-	if (ECS_obj.get_entity_components(ID).m_name == "missile") { // maybe add "movable" component later and check for that
+void missile_control(int ID) { // aims at target and thrusts
+	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
+
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
+
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
+
 		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 30.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 30.0f };
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
+
 		float turn_force{ 1500.0f };
 
 		if (abs(ECS_obj.get_entity_components(ID).m_angvel) <= 0.1f) force = thrust; // engines won't push if turning fast
@@ -50,41 +54,35 @@ void missile_control(int ID) { // applies linear force until velocity relative t
 
 		torque = turn_force; // twist right
 
+		ECS_obj.set_force(ID, force);
 
-		ECS_obj.update_entity_components(
-			ID,
-			ECS_obj.get_entity_components(ID).m_name,
-			ECS_obj.get_entity_components(ID).m_mass,
-			ECS_obj.get_entity_components(ID).m_color,
-			ECS_obj.get_entity_components(ID).m_position, ECS_obj.get_entity_components(ID).m_velocity, ECS_obj.get_entity_components(ID).m_acceleration, force,
-			ECS_obj.get_entity_components(ID).m_angle, ECS_obj.get_entity_components(ID).m_angvel, ECS_obj.get_entity_components(ID).m_angacc, torque,
-			ECS_obj.get_entity_components(ID).m_shape,
-			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
-			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
-		);
+		ECS_obj.set_torque(ID, torque);
+
 	};
 };
 
 void groundlaser_control(int ID) { // applies linear force until velocity relative to target reaches a certain value
-	if (ECS_obj.get_entity_components(ID).m_name == "groundlaser") { // maybe add "movable" component later and check for that
+	if (ECS_obj.get_entity_components(ID).m_name == "groundlaser") {
 		// initializing local vars
+
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 
+		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
+
+		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 30.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 30.0f };
+
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
+
 		float turn_force{ 1500.0f };
+
+		if (abs(ECS_obj.get_entity_components(ID).m_angvel) <= 0.1f) force = thrust; // engines won't push if turning fast
+		else force = { 0.0f, 0.0f };
 
 		torque = turn_force; // twist right
 
-		ECS_obj.update_entity_components(
-			ID,
-			ECS_obj.get_entity_components(ID).m_name,
-			ECS_obj.get_entity_components(ID).m_mass,
-			ECS_obj.get_entity_components(ID).m_color,
-			ECS_obj.get_entity_components(ID).m_position, ECS_obj.get_entity_components(ID).m_velocity, ECS_obj.get_entity_components(ID).m_acceleration, ECS_obj.get_entity_components(ID).m_force,
-			ECS_obj.get_entity_components(ID).m_angle, ECS_obj.get_entity_components(ID).m_angvel, ECS_obj.get_entity_components(ID).m_angacc, torque,
-			ECS_obj.get_entity_components(ID).m_shape,
-			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
-			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
-		);
+		ECS_obj.set_force(ID, force);
+
+		ECS_obj.set_torque(ID, torque);
+
 	};
 };

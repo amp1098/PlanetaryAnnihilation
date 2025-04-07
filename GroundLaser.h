@@ -8,27 +8,18 @@
 class GroundLaser : public Entity { // Is on radius of Planetoid, aims at Ships, emits Laserbeam
 	int m_ID;
 	std::string m_name;
-	float m_mass;
-	Color m_color;
-
-	// LINEAR COMPONENTS
-	Vector2 m_position;
-	Vector2 m_velocity;
-	Vector2 m_acceleration;
-	Vector2 m_force;
+	float m_mass{};
+	Color m_color{};
 
 	// ANGULAR COMPONENTS
-	float m_angle;
-	float m_angvel;
-	float m_angacc;
-	float m_torque;
+	float m_angle{};
+	float m_angvel{};
+	float m_angacc{};
+	float m_torque{};
 
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
-	int m_target_id; // missiles and lasers target objects, planetoids do not
-	int m_parent_id; // ID of parent entity (eg Planetoids are parents of GroundLasers)
-	bool m_is_targeted; // anything can be targeted
-	bool m_has_gravity; // Planetoids have gravity, ships and stuff do not
-	bool m_is_movable;
+	int m_target_id{}; // missiles and lasers target objects, planetoids do not
+	int m_parent_id{}; // ID of parent entity (eg Planetoids are parents of GroundLasers)
 	bool m_is_spawned;
 
 public:

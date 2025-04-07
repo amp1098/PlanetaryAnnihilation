@@ -11,33 +11,30 @@ GroundLaser::GroundLaser(
 	m_mass = mass;
 	m_color = color;
 
-	m_position = { 0.0f, 0.0f };
-	m_velocity = { 0.0f, 0.0f };
-	m_acceleration = { 0.0f, 0.0f };
-	m_force = { 0.0f, 0.0f };
-
 	m_angle = 0.0f;
 	m_angvel = 0.0f;
 	m_angacc = 0.0f;
 	m_torque = 0.0f;
 
-	m_shape = Polygons::poly_missile();
-	m_target_id = 1;  // player ID
-	m_parent_id = 4;  // main planet ID
-	m_is_targeted = false;
-	m_has_gravity = false;
-	m_is_movable = true;
+	m_parent_id = 0;
+	m_target_id = 0;
+
+	m_shape = Polygons::poly_groundlaser();
+
 	m_is_spawned = is_spawned;
 
-	ECS_obj.set_entity_components( // ECS gets updated upon object creation
-		m_ID, m_name, m_mass, m_color,
-		m_position, m_velocity, m_acceleration, m_force,
-		m_angle, m_angvel, m_angacc, m_torque,
-		m_shape,
-		m_target_id, m_parent_id,
-		m_is_targeted, m_has_gravity, m_is_movable, m_is_spawned
-	);
+	ECS_obj.set_name(ID, name);
 
+	ECS_obj.set_mass(ID, mass);
 
+	ECS_obj.set_color(ID, color);
+
+	ECS_obj.set_shape(ID, Polygons::poly_groundlaser());
+
+	ECS_obj.set_target_id(ID, 1); // temp, should find player entity
+
+	ECS_obj.set_parent_id(ID, 4); // also temp, should be more dynamic, currently uses big planet ID
+
+	ECS_obj.set_is_spawned(ID, is_spawned);
 	
 };

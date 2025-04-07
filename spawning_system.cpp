@@ -2,6 +2,7 @@
 
 void random_spawn_on_planetoid(int ID) { // find an entity and put it on a planetoid
 
+
 	int planetoid_ID{ ECS_obj.get_entity_components(ID).m_parent_id };
 
 	std::vector<Vector2> planetoid_shape{ ECS_obj.get_entity_components(planetoid_ID).m_shape };
@@ -16,7 +17,7 @@ void random_spawn_on_planetoid(int ID) { // find an entity and put it on a plane
 
 		ECS_obj.set_is_spawned(ID, true);
 
-		ECS_obj.set_position(ID, translate + ECS_obj.get_entity_components(planetoid_ID).m_position);
+		ECS_obj.set_position(ID, translate + ECS_obj.get_entity_components(planetoid_ID).m_position);  // move it to point on planetoid shape
 
 	};
 

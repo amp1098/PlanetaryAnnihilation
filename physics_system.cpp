@@ -58,15 +58,25 @@ void physics_update(int ID) { // updates physics components when called
 		// initializing variables
 
 		float mass{ ECS_obj.get_entity_components(ID).m_mass };
+
 		Vector2 position{ ECS_obj.get_entity_components(ID).m_position };
+
 		Vector2 velocity{ ECS_obj.get_entity_components(ID).m_velocity };
+
 		Vector2 acceleration{ ECS_obj.get_entity_components(ID).m_acceleration };
+
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
+
 		std::vector<Vector2> shape{ ECS_obj.get_entity_components(ID).m_shape };
+
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
+
 		float angvel{ ECS_obj.get_entity_components(ID).m_angvel };
+
 		float angacc{ ECS_obj.get_entity_components(ID).m_angacc };
+
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
+
 		int target_ID{ ECS_obj.get_entity_components(ID).m_target_id };
 
 		// == TARGETING ==

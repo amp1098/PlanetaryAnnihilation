@@ -19,17 +19,21 @@ void use_systems() {
 		// ignoring the values
 
 		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
-			draw_entity(ID); // drawing to screen
-			thrust_check(ID); // checking for keyboard inputs
-			missile_control(ID); // makes missiles move
-			physics_update(ID); // updating physics components
 
-			if (!ECS_obj.get_entity_components(ID).m_is_spawned) { // only executes if not spawned yet
+			if (!ECS_obj.get_entity_components(ID).m_is_spawned) { // spawns entity if is_spawned is false
 				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
 				random_spawn_on_planetoid(ID); // spawns objects on planetoids
 				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
 
 			};
+
+			draw_entity(ID); // drawing to screen
+			thrust_check(ID); // checking for keyboard inputs
+			missile_control(ID); // makes missiles move
+			groundlaser_control(ID); // makes groundlasers aim
+			physics_update(ID); // updating physics components
+
+			
 		};
 
 		
