@@ -34,7 +34,8 @@ class GroundLaser : public Entity { // Is on radius of Planetoid, aims at Ships,
 public:
 
 	GroundLaser(
-		int ID, std::string name, float mass, Color color
+		int ID, std::string name, float mass, Color color,
+		bool is_spawned
 	);
 };
 

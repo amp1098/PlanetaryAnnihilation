@@ -9,4 +9,6 @@ void thrust_check(int ID);
 
 void missile_control(int ID);
 
+void groundlaser_control(int ID);
+
 #endif

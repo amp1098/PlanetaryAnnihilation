@@ -86,7 +86,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			torque += -spring_constant * (angle - target_angle) - damping * angvel; // see ideas.txt
 
-			std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;
+			/*std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;*/
 		};
 
 
@@ -136,7 +136,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			);
 
-		};
+		}
 
 		// this stuff should be executed IFF the entity is rotatable (may be easier to add a m_is_static component)
 
@@ -151,7 +151,11 @@ void physics_update(int ID) { // updates physics components when called
 				shape,
 				ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
 				ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
+
+			);
+
 		};
 
 	};
+
 };

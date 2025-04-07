@@ -64,3 +64,27 @@ void missile_control(int ID) { // applies linear force until velocity relative t
 		);
 	};
 };
+
+void groundlaser_control(int ID) { // applies linear force until velocity relative to target reaches a certain value
+	if (ECS_obj.get_entity_components(ID).m_name == "groundlaser") { // maybe add "movable" component later and check for that
+		// initializing local vars
+		float angle{ ECS_obj.get_entity_components(ID).m_angle };
+
+		float torque{ ECS_obj.get_entity_components(ID).m_torque };
+		float turn_force{ 1500.0f };
+
+		torque = turn_force; // twist right
+
+		ECS_obj.update_entity_components(
+			ID,
+			ECS_obj.get_entity_components(ID).m_name,
+			ECS_obj.get_entity_components(ID).m_mass,
+			ECS_obj.get_entity_components(ID).m_color,
+			ECS_obj.get_entity_components(ID).m_position, ECS_obj.get_entity_components(ID).m_velocity, ECS_obj.get_entity_components(ID).m_acceleration, ECS_obj.get_entity_components(ID).m_force,
+			ECS_obj.get_entity_components(ID).m_angle, ECS_obj.get_entity_components(ID).m_angvel, ECS_obj.get_entity_components(ID).m_angacc, torque,
+			ECS_obj.get_entity_components(ID).m_shape,
+			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
+			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
+		);
+	};
+};

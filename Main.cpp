@@ -29,7 +29,7 @@ int main(void)
 		playerID, "ship", 1.0f, WHITE,
 		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
-		Polygons::poly_groundlaser(),
+		Polygons::poly_ship(),
 		0, 0,
 		false, false, true, true);
 
@@ -62,7 +62,7 @@ int main(void)
 	);
 
 	GroundLaser laser1(
-		6, "laser1", 100.0f, WHITE
+		6, "groundlaser", 100.0f, WHITE, false
 	);
 
 	Camera2D camera = { 0 };

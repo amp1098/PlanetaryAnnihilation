@@ -25,7 +25,7 @@ void use_systems() {
 			thrust_check(ID); // checking for keyboard inputs
 			missile_control(ID); // makes missiles move
 			physics_update(ID); // updating physics components
-			//random_spawn_on_planetoid(ID); // spawns objects on planetoids
+			random_spawn_on_planetoid(ID); // spawns objects on planetoids
 		};
 
 		
