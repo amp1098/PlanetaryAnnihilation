@@ -13,21 +13,28 @@ Planetoid::Planetoid(
 
 	m_position = position;
 
-	m_force = { 0.0f, 0.0f };
-	m_torque = 0.0f;
-
 	m_shape = shape;
 
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = false;
+	m_is_spawned = is_spawned;
 
-	ECS_obj.set_entity_components( // ECS gets updated upon object creation
-		m_ID, m_name, m_mass, m_color,
-		m_position, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
-		0.0f, 0.0f, 0.0f, 0.0f,
-		m_shape,
-		0, 0,
-		m_is_targeted, m_has_gravity, m_is_movable, m_is_spawned
-	);
+	ECS_obj.set_name(m_ID, "Planetoid");
+
+	ECS_obj.set_mass(m_ID, mass);
+
+	ECS_obj.set_color(m_ID, color);
+
+	ECS_obj.set_position(m_ID, position);
+
+	ECS_obj.set_shape(m_ID, shape);
+
+	ECS_obj.set_is_targeted(m_ID, is_targeted);
+
+	ECS_obj.set_has_gravity(m_ID, has_gravity);
+
+	ECS_obj.set_is_movable(m_ID, false);
+
+	ECS_obj.set_is_spawned(m_ID, is_spawned);
 };

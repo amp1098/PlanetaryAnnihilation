@@ -18,14 +18,18 @@ void use_systems() {
 		int ID = iter->first; // dereferencing iterator pointer, unsure how this works
 		// ignoring the values
 
-	//for (int ID = 0; ID < ECS_obj.number_of_entities(); ID++) { // iterating through IDs in ECS
-
 		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
 			draw_entity(ID); // drawing to screen
 			thrust_check(ID); // checking for keyboard inputs
 			missile_control(ID); // makes missiles move
 			physics_update(ID); // updating physics components
-			random_spawn_on_planetoid(ID); // spawns objects on planetoids
+
+			if (!ECS_obj.get_entity_components(ID).m_is_spawned) { // only executes if not spawned yet
+				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
+				random_spawn_on_planetoid(ID); // spawns objects on planetoids
+				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
+
+			};
 		};
 
 		
