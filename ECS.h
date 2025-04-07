@@ -49,6 +49,44 @@ namespace EntityComponentSystem {
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
+		/*Setters for all components*/
+
+		void set_name(std::string name);
+
+		void set_mass(float mass);
+
+		void set_color(Color color);
+
+		void set_position(Vector2 position);
+
+		void set_velocity(Vector2 velocity);
+
+		void set_acceleration(Vector2 acceleration);
+
+		void set_force(Vector2 force);
+
+		void set_angle(float angle);
+
+		void set_angvel(float angvel);
+
+		void set_angacc(float angacc);
+
+		void set_torque(float torque);
+
+		void set_shape(std::vector<Vector2> shape);
+
+		void set_target_id(int target_id);
+
+		void set_parent_id(int parent_id);
+
+		void set_is_targeted(bool is_targeted);
+
+		void set_has_gravity(bool has_gravity);
+
+		void set_is_movable(bool is_movable);
+
+		void set_is_spawned(bool is_spawned);
+
 		std::map<int, entity_row_type>::iterator start_of_ECS();
 
 		std::map<int, entity_row_type>::iterator end_of_ECS();
