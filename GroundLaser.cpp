@@ -37,4 +37,7 @@ GroundLaser::GroundLaser(
 		m_target_id, m_parent_id,
 		m_is_targeted, m_has_gravity, m_is_movable, m_is_spawned
 	);
+
+
+	
 };
