@@ -99,7 +99,6 @@ void physics_update(int ID) { // updates physics components when called
 			/*std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;*/
 		};
 
-
 		// == GRAVITY ==
 
 		for (int i = 0; i < ECS_obj.number_of_entities(); i++) { // iterating through ID's

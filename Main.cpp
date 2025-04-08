@@ -61,9 +61,12 @@ int main(void)
 		circle_maker(5000.0f, 500), false, true, true
 	);
 
-	GroundLaser laser1(
-		6, "groundlaser", 1.0f, WHITE, false
-	);
+	for (int i = 0; i < 20; i++) {
+		GroundLaser laser(
+			i + 6, "groundlaser", 1.0f, WHITE, false
+		);
+	};
+	
 
 	Camera2D camera = { 0 };
 
