@@ -8,6 +8,8 @@
 
 #include "spawning_system.h" // moves entities to spawned locaitons
 
+#include "collision_system.h" // checks for collisiosn 
+
 void use_systems() {
 	//for each entity in the ECS, update the components with the available systems
 	for (
