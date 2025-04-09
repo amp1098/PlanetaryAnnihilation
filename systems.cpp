@@ -8,9 +8,10 @@
 
 #include "spawning_system.h" // moves entities to spawned locaitons
 
-#include "collision_system.h" // checks for collisiosn 
+#include "collision_system.h" // checks for collisions
 
 void use_systems() {
+
 	//for each entity in the ECS, update the components with the available systems
 	for (
 		std::map<int, entity_row_type>::iterator iter = ECS_obj.start_of_ECS();
@@ -34,6 +35,8 @@ void use_systems() {
 			missile_control(ID); // makes missiles move
 			groundlaser_control(ID); // makes groundlasers aim
 			physics_update(ID); // updating physics components
+
+			check_collision_planetoid(ID, 6);
 
 			
 		};
