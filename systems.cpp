@@ -24,9 +24,9 @@ void use_systems() {
 		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
 
 			if (!ECS_obj.get_entity_components(ID).m_is_spawned) { // spawns entity if is_spawned is false
-				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
+				
 				random_spawn_on_planetoid(ID); // spawns objects on planetoids
-				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
+				
 
 			};
 

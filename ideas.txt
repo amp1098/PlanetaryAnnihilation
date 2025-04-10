@@ -46,4 +46,24 @@ So it seems that we can just make the damping force 2*sqrt(KI). If we make K hig
 then I bet the system will damp out faster; however if its too high, we'll get
 errors due to the time discretization.
 
+=== COLLISIONS ===
+
+I have created a collision detection system using some of Raylib's stuff. I'm a bit stuck
+on how to handle the collisions... Consider a polygon representing a planetoid entity and
+a polygon representing a ship. A proper collision system would ensure that the ship polygon
+is not inside of the planetoid polygon, either by using impulses or simply forcing the position
+of the ship to be where it entered the planetoid.
+
+If I were to use impulses (short, high-intensity forces), I'd have to ensure that they don't
+make things fly around.
+
+A good solution could also be to use harmonic oscillators. The idea is that during a collision,
+a virtual (high k) spring is created between the contact points. This naturally forces the objects
+apart.
+
+Another solution is to implement constraints in my engine. I'll need to do some research for this.
+
+The easiest solution is to just say "planetoid collisoin == delete entity". I can have a system to
+handle health. When an entity's health == 0, it is deleted. When the player's health == 0, the game 
+ends.
 

@@ -49,9 +49,9 @@ int return_id_colliding_planetoid(int ent_id) { // returns of ID of planetoid en
 
 			result = ids[index];
 
-			std::cout << "ID: " << ids[0] << std::endl;
+			//std::cout << "ID: " << ids[0] << std::endl;
 
-			std::cout << "Result: " << result << std::endl;
+			//std::cout << "Result: " << result << std::endl;
 
 		};
 
@@ -60,3 +60,5 @@ int return_id_colliding_planetoid(int ent_id) { // returns of ID of planetoid en
 	return result;
 
 };
+
+

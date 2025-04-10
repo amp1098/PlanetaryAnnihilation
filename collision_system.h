@@ -10,4 +10,5 @@ bool check_collision_planetoid(int ent_id, int planetoid_id);
 
 int return_id_colliding_planetoid(int ent_id);
 
+
 #endif
