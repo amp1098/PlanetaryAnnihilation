@@ -29,7 +29,7 @@ int main(void)
 		playerID, "ship", 1.0f, WHITE,
 		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
 		0.0f, 0.0f, 0.0f, 0.0f,
-		Polygons::poly_ship(),
+		100.0f, Polygons::poly_ship(),
 		0, 0,
 		false, false, true, true);
 
@@ -37,7 +37,7 @@ int main(void)
 		3, "missile", 1.0f, YELLOW,
 		{ 300.0f, 800.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 		0.0f, 0.0f, 0.0f, 0.0f,
-		Polygons::poly_missile(),
+		1.0f, Polygons::poly_missile(),
 		playerID, 0,
 		false, false, true, true);
 
@@ -45,7 +45,7 @@ int main(void)
 		5, "missile", 1.0f, YELLOW,
 		{ 1000.0f, 1200.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
 		0.0f, 0.0f, 0.0f, 0.0f,
-		Polygons::poly_missile(),
+		1.0f, Polygons::poly_missile(),
 		playerID, 0,
 		false, false, true, true);
 
@@ -63,7 +63,7 @@ int main(void)
 
 	for (int i = 0; i < 20; i++) {
 		GroundLaser laser(
-			i + 6, "groundlaser", 1.0f, WHITE, false
+			i + 6, "groundlaser", 1.0f, WHITE, 10.0f, false
 		);
 	};
 	

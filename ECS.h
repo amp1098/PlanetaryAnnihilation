@@ -35,7 +35,7 @@ namespace EntityComponentSystem {
 			int ID, std::string name, float mass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
-			std::vector<Vector2> shape, int target_id, int parent_id, 
+			float health, std::vector<Vector2> shape, int target_id, int parent_id, 
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
@@ -45,7 +45,7 @@ namespace EntityComponentSystem {
 			int ID, std::string name, float mass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
-			std::vector<Vector2> shape, int target_id, int parent_id, 
+			float health, std::vector<Vector2> shape, int target_id, int parent_id, 
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
@@ -72,6 +72,8 @@ namespace EntityComponentSystem {
 		void set_angacc(int ID, float angacc);
 
 		void set_torque(int ID, float torque);
+
+		void set_health(int ID, float health);
 
 		void set_shape(int ID, std::vector<Vector2> shape);
 

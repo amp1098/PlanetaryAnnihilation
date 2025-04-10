@@ -22,6 +22,7 @@ class Ship : public Entity { // spaceship class
 	float m_angacc;
 	float m_torque;
 
+	float m_health;
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
 	int m_target_id; // missiles and lasers target objects, planetoids do not
 	int m_parent_id;
@@ -36,7 +37,7 @@ public:
 		int ID, std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
-		std::vector<Vector2> shape, int target_id, int parent_id, 
+		float health, std::vector<Vector2> shape, int target_id, int parent_id, 
 		bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 	);
 };

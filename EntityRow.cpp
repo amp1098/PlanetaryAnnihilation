@@ -20,6 +20,7 @@ EntityRow::EntityRow() { // default constructor, does not take arguments
 	m_angacc = 0.0f;
 	m_torque = 0.0f;
 
+	m_health = 100.0f;
 	m_shape = { {30.0f, 0.0f}, {-30.0f, 0.0f}, {0.0f, 30.0f} };
 	m_target_id = 0;
 	m_parent_id = 0;
@@ -33,7 +34,7 @@ EntityRow::EntityRow(
 	std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, int parent_id, 
+	float health, std::vector<Vector2> shape, int target_id, int parent_id, 
 	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 )
 { // constructor, takes arguments
@@ -51,6 +52,7 @@ EntityRow::EntityRow(
 	m_angacc = angacc;
 	m_torque = torque;
 
+	m_health = health;
 	m_shape = shape;
 	m_target_id = target_id;
 	m_parent_id = parent_id;

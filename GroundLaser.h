@@ -17,6 +17,7 @@ class GroundLaser : public Entity { // Is on radius of Planetoid, aims at Ships,
 	float m_angacc{};
 	float m_torque{};
 
+	float m_health{};
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
 	int m_target_id{}; // missiles and lasers target objects, planetoids do not
 	int m_parent_id{}; // ID of parent entity (eg Planetoids are parents of GroundLasers)
@@ -25,7 +26,7 @@ class GroundLaser : public Entity { // Is on radius of Planetoid, aims at Ships,
 public:
 
 	GroundLaser(
-		int ID, std::string name, float mass, Color color,
+		int ID, std::string name, float mass, Color color, float health,
 		bool is_spawned
 	);
 };

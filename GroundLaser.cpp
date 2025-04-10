@@ -2,7 +2,7 @@
 #include "polygons.h"
 
 GroundLaser::GroundLaser(
-	int ID, std::string name, float mass, Color color, 
+	int ID, std::string name, float mass, Color color, float health,
 	bool is_spawned
 )
 {
@@ -18,6 +18,8 @@ GroundLaser::GroundLaser(
 
 	m_parent_id = 0;
 	m_target_id = 0;
+
+	m_health = 10.0f;
 
 	m_shape = Polygons::poly_groundlaser();
 

@@ -4,7 +4,7 @@ Missile::Missile(
 	int ID, std::string name, float mass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
-	std::vector<Vector2> shape, int target_id, int parent_id,
+	float health, std::vector<Vector2> shape, int target_id, int parent_id,
 	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 )
 { // constructor, takes arguments
@@ -23,6 +23,7 @@ Missile::Missile(
 	m_angacc = angacc;
 	m_torque = torque;
 
+	m_health = health;
 	m_shape = shape;
 	m_target_id = target_id;
 	m_parent_id = parent_id;
@@ -35,7 +36,7 @@ Missile::Missile(
 		m_ID, m_name, m_mass, m_color,
 		m_position, m_velocity, m_acceleration, m_force,
 		m_angle, m_angvel, m_angacc, m_torque,
-		m_shape,
+		m_health, m_shape,
 		m_target_id, m_parent_id,
 		m_is_targeted, m_has_gravity, m_is_movable, m_is_spawned
 	);

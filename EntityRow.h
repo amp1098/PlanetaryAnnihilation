@@ -26,6 +26,7 @@ public:
 	float m_angacc; // 0 for planetoids
 	float m_torque; // 0 for planetoids
 
+	float m_health; // when this reaches 0, the object should be deleted
 	std::vector<Vector2> m_shape; // vector of Vector2 objects describing entity vertices
 	int m_target_id; // missiles and lasers target objects, planetoids do not
 	int m_parent_id; // ID of parent entity (eg Planetoids are parents of GroundLasers)
@@ -40,7 +41,7 @@ public:
 		std::string name, float mass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
-		std::vector<Vector2> shape, int target_id, int parent_id, 
+		float health, std::vector<Vector2> shape, int target_id, int parent_id,
 		bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 	);
 };
