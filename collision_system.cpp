@@ -16,10 +16,14 @@ bool check_collision_planetoid(int ent_id, int planetoid_id) { // Returns true i
 	for (int i = 0; i < std::size(entity_shape); i++) { // iterating through indices in entity_shape
 
 		if (CheckCollisionPointPoly(entity_shape[i] + entity_position, (Vector2*)planetoid_shape.data(), std::size(planetoid_shape))) {
-			
-			std::cout << "collision: " << entity_shape[i].x << std::endl;
-			
+
 			return true;
+
+		}
+
+		else {
+
+			return false;
 
 		};
 
@@ -33,15 +37,17 @@ int return_id_colliding_planetoid(int ent_id) { // returns of ID of planetoid en
 
 	int result{ 0 };
 
-	ids = ECS_obj.return_ids_with_name("planetoids");
+	ids = ECS_obj.return_ids_with_name("Planetoid");
 
-	for (int id = 0; id < std::size(ids); id++) {
+	for (int index = 0; index < std::size(ids); index++) {
 
-		if (check_collision_planetoid(ent_id, id)) {
+		if (check_collision_planetoid(ent_id, ids[index])) {
 
-			result = id;
+			result = ids[index];
 
-			std::cout << result << std::endl;
+			std::cout << "ID: " << ids[0] << std::endl;
+
+			std::cout << "Result: " << result << std::endl;
 
 		};
 

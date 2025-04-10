@@ -36,11 +36,12 @@ void use_systems() {
 			groundlaser_control(ID); // makes groundlasers aim
 			physics_update(ID); // updating physics components
 
-			check_collision_planetoid(ID, 6);
+			
 
 			
 		};
-
 		
+		return_id_colliding_planetoid(1);
+
 	};
 };

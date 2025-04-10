@@ -49,11 +49,11 @@ int main(void)
 		playerID, 0,
 		false, false, true, true);
 
-	Planetoid planet1(
-		2, 1000.0f, WHITE,
-		{300.0f, 0.0f},
-		circle_maker(100.0f, 30), false, false, true
-	);
+	//Planetoid planet1(
+	//	2, 1000.0f, WHITE,
+	//	{300.0f, 0.0f},
+	//	circle_maker(100.0f, 30), false, false, true
+	//);
 
 	Planetoid planet2(
 		4, 10000.0f, WHITE,
