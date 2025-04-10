@@ -95,6 +95,8 @@ namespace EntityComponentSystem {
 
 		void destroy_entity(int ID);
 
+		std::vector<int> return_ids_with_name(std::string name);
+
 	};
 };
 

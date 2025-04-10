@@ -8,7 +8,10 @@
 
 #include "spawning_system.h" // moves entities to spawned locaitons
 
+#include "collision_system.h" // checks for collisions
+
 void use_systems() {
+
 	//for each entity in the ECS, update the components with the available systems
 	for (
 		std::map<int, entity_row_type>::iterator iter = ECS_obj.start_of_ECS();
@@ -21,9 +24,9 @@ void use_systems() {
 		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
 
 			if (!ECS_obj.get_entity_components(ID).m_is_spawned) { // spawns entity if is_spawned is false
-				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
+				
 				random_spawn_on_planetoid(ID); // spawns objects on planetoids
-				std::cout << "ID : " << ID << " spawned? : " << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
+				
 
 			};
 
@@ -34,8 +37,11 @@ void use_systems() {
 			physics_update(ID); // updating physics components
 
 			
-		};
 
+			
+		};
 		
+		return_id_colliding_planetoid(1);
+
 	};
 };
