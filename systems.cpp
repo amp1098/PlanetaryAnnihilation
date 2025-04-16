@@ -41,7 +41,7 @@ void use_systems() {
 			
 		};
 		
-		return_id_colliding_planetoid(1);
+		collision_health_response(1);  // static for now, just handling playerID collisions
 
 	};
 };

@@ -32,14 +32,31 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 	Color color{ ECS_obj.get_entity_components(ID).m_color };
 	int target_ID{ ECS_obj.get_entity_components(ID).m_target_id };
 
+	// uncomment to debug forces on objects
+
 	draw_lines(points, translate, rotate_angle, color);
 
-	DrawLineV(translate, force * 10 + translate, RED);
+	//DrawLineV(translate, force * 10 + translate, RED);
 
-	DrawLineV(translate, velocity + translate, BLUE);
+	//DrawLineV(translate, velocity + translate, BLUE);
 
 	if (ECS_obj.get_entity_components(ID).m_name == "ship" && target_ID != 0) {
 		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, rotate_angle) + translate, BLUE); // ship angle
 		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, angle_of_vec_diff_dbug(ECS_obj.get_entity_components(target_ID).m_position, translate)) + translate, BLUE); // target angle
+	};
+
+	if (ECS_obj.get_entity_components(ID).m_name == "ship") {
+
+		float health = ECS_obj.get_entity_components(ID).m_health;
+
+		std::cout << health << std::endl;
+
+		DrawText(
+			TextFormat("Health: %01f ", health),
+			ECS_obj.get_entity_components(ID).m_position.x,
+			ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+			30,
+			RED
+		);
 	};
 };
