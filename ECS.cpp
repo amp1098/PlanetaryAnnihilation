@@ -354,6 +354,25 @@ void ECS::destroy_entity(int ID) { // removes entity from ECS
 	static_cast<int>(ECS_map.erase(ID));
 };
 
+std::vector<int> ECS::return_all_ids() {
+	std::vector<int> ids{};
+
+	for ( // iterating through ECS
+		std::map<int, entity_row_type>::iterator iter = ECS_map.begin();
+		iter != ECS_map.end();
+		++iter
+		) { 
+
+		int ID = iter->first;
+
+		ids.push_back(ID); // appending ID to ids vector
+
+
+	}
+
+	return ids;
+};
+
 std::vector<int> ECS::return_ids_with_name(std::string name) {
 	std::vector<int> ids{};
 

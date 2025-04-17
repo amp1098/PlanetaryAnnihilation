@@ -34,7 +34,7 @@ void missile_control(int ID) { // aims at target and thrusts
 
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
 
-		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 50.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 50.0f };
+		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 100.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 100.0f };
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 

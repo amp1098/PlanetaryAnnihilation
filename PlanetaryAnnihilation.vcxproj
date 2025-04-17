@@ -138,6 +138,7 @@
     <ClCompile Include="ECS_obj.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityRow.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GeneralPolygon.cpp" />
     <ClCompile Include="GroundLaser.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityRow.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="GeneralPolygon.h" />
     <ClInclude Include="GroundLaser.h" />
     <ClInclude Include="Missile.h" />

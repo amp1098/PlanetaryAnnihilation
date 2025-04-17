@@ -1,7 +1,6 @@
-#include "Missile.h"
-#include "polygons.h"
+#include "explosion.h"
 
-Missile::Missile(
+Explosion::Explosion(
 	int ID, std::string name, float fuelmass, Color color, float health,
 	bool is_spawned
 )
@@ -12,7 +11,7 @@ Missile::Missile(
 	m_fuelmass = fuelmass;
 	m_color = color;
 
-	m_position = {100.0f, 50.0f};
+	m_position = { 100.0f, 50.0f };
 	m_velocity = { 0.0f, 0.0f };
 	m_acceleration = { 0.0f, 0.0f };
 	m_force = { 0.0f, 0.0f };
@@ -23,12 +22,12 @@ Missile::Missile(
 	m_torque = 0.0f;
 
 	m_health = health;
-	m_shape = Polygons::poly_missile();
+	m_shape = Polygons::poly_explosion();
 	m_target_id = 1;
 	m_parent_id = 0;
 	m_is_targeted = false;
 	m_has_gravity = false;
-	m_is_movable = true;
+	m_is_movable = false;
 	m_is_spawned = is_spawned;
 
 	ECS_obj.set_name(ID, name);
