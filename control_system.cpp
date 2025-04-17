@@ -10,9 +10,6 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 		float turn_force{ 1500.0f };
 
-		//std::cout << "\r" << "Control angle: " << angle << std::flush;
-		//std::cout << "\r" << "Control angvel: " << get_entity_components(ID).m_torque << std::flush;
-
 		if (IsKeyDown(KEY_UP)) force = thrust; // push up
 		else if (IsKeyDown(KEY_DOWN)) force = Vector2Negate(thrust); // push down
 		else force = Vector2Zero(); // force returns to zero otherwise
@@ -21,17 +18,21 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		else if (IsKeyDown(KEY_LEFT)) torque = -turn_force; // twist left
 		else torque = 0.0f; // torque returns to zero otherwise
 
-		ECS_obj.update_entity_components(
-			ID,
-			ECS_obj.get_entity_components(ID).m_name,
-			ECS_obj.get_entity_components(ID).m_mass,
-			ECS_obj.get_entity_components(ID).m_color,
-			ECS_obj.get_entity_components(ID).m_position, ECS_obj.get_entity_components(ID).m_velocity, ECS_obj.get_entity_components(ID).m_acceleration, force,
-			ECS_obj.get_entity_components(ID).m_angle, ECS_obj.get_entity_components(ID).m_angvel, ECS_obj.get_entity_components(ID).m_angacc, torque,
-			ECS_obj.get_entity_components(ID).m_health, ECS_obj.get_entity_components(ID).m_shape,
-			ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
-			ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
-		);
+		ECS_obj.set_force(ID, force);
+
+		ECS_obj.set_torque(ID, torque);
+
+		//ECS_obj.update_entity_components(
+		//	ID,
+		//	ECS_obj.get_entity_components(ID).m_name,
+		//	ECS_obj.get_entity_components(ID).m_mass,
+		//	ECS_obj.get_entity_components(ID).m_color,
+		//	ECS_obj.get_entity_components(ID).m_position, ECS_obj.get_entity_components(ID).m_velocity, ECS_obj.get_entity_components(ID).m_acceleration, force,
+		//	ECS_obj.get_entity_components(ID).m_angle, ECS_obj.get_entity_components(ID).m_angvel, ECS_obj.get_entity_components(ID).m_angacc, torque,
+		//	ECS_obj.get_entity_components(ID).m_health, ECS_obj.get_entity_components(ID).m_shape,
+		//	ECS_obj.get_entity_components(ID).m_target_id, ECS_obj.get_entity_components(ID).m_parent_id,
+		//	ECS_obj.get_entity_components(ID).m_is_targeted, ECS_obj.get_entity_components(ID).m_has_gravity, ECS_obj.get_entity_components(ID).m_is_movable, ECS_obj.get_entity_components(ID).m_is_spawned
+		//);
 	};
 };
 

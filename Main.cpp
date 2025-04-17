@@ -26,12 +26,7 @@ int main(void)
 	int playerID = 1;
 
 	Ship playerShip(
-		playerID, "ship", 1.0f, WHITE,
-		{ 100.0f, 600.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, {0.0f, 0.0f},
-		0.0f, 0.0f, 0.0f, 0.0f,
-		100.0f, Polygons::poly_ship(),
-		0, 0,
-		false, false, true, true);
+		playerID, "ship", 1.0f, WHITE, 100.0f, false);
 
 	Missile testMissile1(
 		3, "missile", 1.0f, YELLOW,
