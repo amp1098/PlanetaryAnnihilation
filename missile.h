@@ -8,6 +8,7 @@ public:
 	int m_ID;
 	std::string m_name;
 	float m_mass;
+	float m_fuelmass;
 	Color m_color;
 
 	// LINEAR COMPONENTS
@@ -32,7 +33,7 @@ public:
 	bool m_is_spawned;
 
 	Missile(
-		int ID, std::string name, float mass, Color color, float health,
+		int ID, std::string name, float fuelmass, Color color, float health,
 		bool is_spawned
 	);
 };

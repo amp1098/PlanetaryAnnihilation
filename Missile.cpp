@@ -2,13 +2,14 @@
 #include "polygons.h"
 
 Missile::Missile(
-	int ID, std::string name, float mass, Color color, float health,
+	int ID, std::string name, float fuelmass, Color color, float health,
 	bool is_spawned
 )
 { // constructor, takes arguments
 	m_ID = ID;
 	m_name = name;
-	m_mass = mass;
+	m_mass = 3.0f;
+	m_fuelmass = fuelmass;
 	m_color = color;
 
 	m_position = {100.0f, 50.0f};
@@ -32,7 +33,9 @@ Missile::Missile(
 
 	ECS_obj.set_name(ID, name);
 
-	ECS_obj.set_mass(ID, mass);
+	ECS_obj.set_mass(ID, m_mass);
+
+	ECS_obj.set_fuelmass(ID, fuelmass);
 
 	ECS_obj.set_color(ID, color);
 

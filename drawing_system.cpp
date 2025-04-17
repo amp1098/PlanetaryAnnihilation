@@ -49,14 +49,25 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
 
 		float health = ECS_obj.get_entity_components(ID).m_health;
 
-		std::cout << health << std::endl;
-
 		DrawText(
 			TextFormat("Health: %01f ", health),
 			ECS_obj.get_entity_components(ID).m_position.x,
 			ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
 			30,
 			RED
+		);
+	};
+
+	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
+
+		float fuelmass = ECS_obj.get_entity_components(ID).m_fuelmass;
+
+		DrawText(
+			TextFormat("Fuelmass: %01f ", fuelmass),
+			ECS_obj.get_entity_components(ID).m_position.x,
+			ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+			30,
+			GREEN
 		);
 	};
 };

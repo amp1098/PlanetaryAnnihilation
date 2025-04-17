@@ -33,10 +33,6 @@ int main(void)
 		3, "missile", 1.0f, GREEN, 10.0f, false
 	);
 
-	//Missile testMissile2(
-	//	5, "missile", 1.0f, GREEN, 100.0f, false
-	//);
-
 	Planetoid planet2(
 		4, 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
