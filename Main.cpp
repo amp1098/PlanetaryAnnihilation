@@ -26,28 +26,15 @@ int main(void)
 	int playerID = 1;
 
 	Ship playerShip(
-		playerID, "ship", 1.0f, WHITE, 100.0f, false);
+		playerID, "ship", 1.0f, WHITE, 100.0f, false
+	);
 
 	Missile testMissile1(
-		3, "missile", 1.0f, YELLOW,
-		{ 300.0f, 800.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
-		0.0f, 0.0f, 0.0f, 0.0f,
-		1.0f, Polygons::poly_missile(),
-		playerID, 0,
-		false, false, true, true);
+		3, "missile", 1.0f, GREEN, 10.0f, false
+	);
 
-	Missile testMissile2(
-		5, "missile", 1.0f, YELLOW,
-		{ 1000.0f, 1200.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f },
-		0.0f, 0.0f, 0.0f, 0.0f,
-		1.0f, Polygons::poly_missile(),
-		playerID, 0,
-		false, false, true, true);
-
-	//Planetoid planet1(
-	//	2, 1000.0f, WHITE,
-	//	{300.0f, 0.0f},
-	//	circle_maker(100.0f, 30), false, false, true
+	//Missile testMissile2(
+	//	5, "missile", 1.0f, GREEN, 100.0f, false
 	//);
 
 	Planetoid planet2(
