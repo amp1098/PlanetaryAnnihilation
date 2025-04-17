@@ -23,51 +23,53 @@ float angle_of_vec_diff_dbug(Vector2 vec1, Vector2 vec2) { // remove later, alre
 	return clamp_angle(atan2(vec_res.y, vec_res.x));
 };
 
-void draw_entity(int ID) { // render entity with ID <int>(ID) on screen
-	std::vector<Vector2> points{ ECS_obj.get_entity_components(ID).m_shape };
-	Vector2 translate{ ECS_obj.get_entity_components(ID).m_position };
-	Vector2 velocity{ ECS_obj.get_entity_components(ID).m_velocity };
-	Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
-	float rotate_angle{ ECS_obj.get_entity_components(ID).m_angle };
-	Color color{ ECS_obj.get_entity_components(ID).m_color };
-	int target_ID{ ECS_obj.get_entity_components(ID).m_target_id };
+void draw_entity(int ID) { // render entity with ID <int>(ID) on screen if its spawned
+	if (ECS_obj.get_entity_components(ID).m_is_spawned) {
+		std::vector<Vector2> points{ ECS_obj.get_entity_components(ID).m_shape };
+		Vector2 translate{ ECS_obj.get_entity_components(ID).m_position };
+		Vector2 velocity{ ECS_obj.get_entity_components(ID).m_velocity };
+		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
+		float rotate_angle{ ECS_obj.get_entity_components(ID).m_angle };
+		Color color{ ECS_obj.get_entity_components(ID).m_color };
+		int target_ID{ ECS_obj.get_entity_components(ID).m_target_id };
 
-	// uncomment to debug forces on objects
+		draw_lines(points, translate, rotate_angle, color);
 
-	draw_lines(points, translate, rotate_angle, color);
+		// uncomment to debug forces on objects
 
-	//DrawLineV(translate, force * 10 + translate, RED);
+		//DrawLineV(translate, force * 10 + translate, RED);
 
-	//DrawLineV(translate, velocity + translate, BLUE);
+		//DrawLineV(translate, velocity + translate, BLUE);
 
-	if (ECS_obj.get_entity_components(ID).m_name == "ship" && target_ID != 0) {
-		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, rotate_angle) + translate, BLUE); // ship angle
-		DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, angle_of_vec_diff_dbug(ECS_obj.get_entity_components(target_ID).m_position, translate)) + translate, BLUE); // target angle
-	};
+		if (ECS_obj.get_entity_components(ID).m_name == "ship" && target_ID != 0) {
+			DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, rotate_angle) + translate, BLUE); // ship angle
+			DrawLineV(translate, Vector2Rotate(Vector2UnitX * 100, angle_of_vec_diff_dbug(ECS_obj.get_entity_components(target_ID).m_position, translate)) + translate, BLUE); // target angle
+		};
 
-	if (ECS_obj.get_entity_components(ID).m_name == "ship") {
+		if (ECS_obj.get_entity_components(ID).m_name == "ship") {
 
-		float health = ECS_obj.get_entity_components(ID).m_health;
+			float health = ECS_obj.get_entity_components(ID).m_health;
 
-		DrawText(
-			TextFormat("Health: %01f ", health),
-			ECS_obj.get_entity_components(ID).m_position.x,
-			ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
-			30,
-			RED
-		);
-	};
+			DrawText(
+				TextFormat("Health: %01f ", health),
+				ECS_obj.get_entity_components(ID).m_position.x,
+				ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+				30,
+				RED
+			);
+		};
 
-	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
+		if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 
-		float fuelmass = ECS_obj.get_entity_components(ID).m_fuelmass;
+			float fuelmass = ECS_obj.get_entity_components(ID).m_fuelmass;
 
-		DrawText(
-			TextFormat("Fuelmass: %01f ", fuelmass),
-			ECS_obj.get_entity_components(ID).m_position.x,
-			ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
-			30,
-			GREEN
-		);
+			DrawText(
+				TextFormat("Fuelmass: %01f ", fuelmass),
+				ECS_obj.get_entity_components(ID).m_position.x,
+				ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+				30,
+				GREEN
+			);
+		};
 	};
 };
