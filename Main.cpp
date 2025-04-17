@@ -26,11 +26,11 @@ int main(void)
 	int playerID = 1;
 
 	Ship playerShip(
-		playerID, "ship", 1.0f, WHITE, 100.0f, false
+		playerID, "ship", 1.0f, WHITE, 100.0f, true
 	);
 
 	Missile testMissile1(
-		3, "missile", 1.0f, GREEN, 10.0f, false
+		3, "missile", 1.0f, GREEN, 10.0f, true
 	);
 
 	Planetoid planet2(

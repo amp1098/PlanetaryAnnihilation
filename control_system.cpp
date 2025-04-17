@@ -44,7 +44,7 @@ void missile_control(int ID) { // aims at target and thrusts
 
 			force = thrust; // engines won't push if turning fast
 
-			fuelmass = std::max(fuelmass - 0.005f, 0.0f); // subtract fuelmass while engines are on, stop when 0
+			fuelmass = std::max(fuelmass - 0.05f, 0.0f); // subtract fuelmass while engines are on, stop when 0
 		}
 		else {
 
@@ -60,6 +60,7 @@ void missile_control(int ID) { // aims at target and thrusts
 
 		ECS_obj.set_fuelmass(ID, fuelmass);
 
+		std::cout << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
 	};
 };
 

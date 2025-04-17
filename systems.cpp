@@ -23,11 +23,22 @@ void use_systems() {
 
 		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
 
-			if (!ECS_obj.get_entity_components(ID).m_is_spawned) { // spawns entity if is_spawned is false
+			if (!ECS_obj.get_entity_components(ID).m_is_spawned && ECS_obj.get_entity_components(ID).m_name == "groundlaser") { 
+				// spawns groundlaser if groundlaser is_spawned is false
 				
 				random_spawn_on_planetoid(ID); // spawns objects on planetoids
-				
 
+			};
+
+			if (ECS_obj.get_entity_components(ID).m_name == "missile" &&
+				FloatEquals(ECS_obj.get_entity_components(ID).m_fuelmass, 0.0f) && 
+				ECS_obj.get_entity_components(ID).m_is_spawned
+				) {
+				// if missile fuel is zero, it spawns an explosion at its position
+
+				spawn_explosion(ID);
+
+				ECS_obj.set_is_spawned(ID, false); // despawn missile
 			};
 
 			draw_entity(ID); // drawing to screen
@@ -35,9 +46,6 @@ void use_systems() {
 			missile_control(ID); // makes missiles move
 			groundlaser_control(ID); // makes groundlasers aim
 			physics_update(ID); // updating physics components
-
-			
-
 			
 		};
 		
