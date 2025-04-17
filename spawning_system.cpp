@@ -48,14 +48,6 @@ void random_spawn_on_planetoid() { // find an entity and put it on a planetoid
 		true
 	);
 
-	//if (ECS_obj.get_entity_components(ID).m_name == "groundlaser") {  // if entity is called groundlaser, update it
-
-	//	ECS_obj.set_is_spawned(ID, true);
-
-	//	ECS_obj.set_position(ID, translate + ECS_obj.get_entity_components(planetoid_ID).m_position);  // move it to point on planetoid shape
-
-	//};
-
 };
 
 void spawn_explosion(int parent_id) { // spawn explosion entity at parent_id
