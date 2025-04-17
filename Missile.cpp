@@ -11,7 +11,7 @@ Missile::Missile(
 	m_mass = mass;
 	m_color = color;
 
-	m_position = {0.0f, 0.0f};
+	m_position = {100.0f, 50.0f};
 	m_velocity = { 0.0f, 0.0f };
 	m_acceleration = { 0.0f, 0.0f };
 	m_force = { 0.0f, 0.0f };
@@ -36,7 +36,7 @@ Missile::Missile(
 
 	ECS_obj.set_color(ID, color);
 
-	ECS_obj.set_position(ID, { 0.0f, 0.0f });
+	ECS_obj.set_position(ID, m_position);
 
 	ECS_obj.set_shape(ID, Polygons::poly_missile());
 
