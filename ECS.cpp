@@ -23,7 +23,7 @@ void ECS::ECS_update(int key, entity_row_type components) { // adds components t
 };
 
 void ECS::set_entity_components(
-	int ID, std::string name, float mass, Color color,
+	int ID, std::string name, float mass, float fuelmass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	float health, std::vector<Vector2> shape, int target_id, int parent_id, 
@@ -34,6 +34,7 @@ void ECS::set_entity_components(
 		{
 			name,
 			mass,
+			fuelmass,
 			color,
 			position, velocity, acceleration, force,
 			angle, angvel, angacc, torque,
@@ -49,7 +50,7 @@ entity_row_type ECS::get_entity_components(int ID) {
 };
 
 void ECS::update_entity_components(
-	int ID, std::string name, float mass, Color color,
+	int ID, std::string name, float mass, float fuelmass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	float health, std::vector<Vector2> shape, int target_id, int parent_id,
@@ -59,6 +60,7 @@ void ECS::update_entity_components(
 	ECS_map[ID] =
 	{ 
 		name,
+		fuelmass,
 		mass,
 		color,
 		position, velocity, acceleration, force,
@@ -72,7 +74,7 @@ void ECS::update_entity_components(
 void ECS::set_name(int ID, std::string name) {
 	ECS_map[ID] = {
 		name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -85,7 +87,20 @@ void ECS::set_name(int ID, std::string name) {
 void ECS::ECS::set_mass(int ID, float mass) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		mass,
+		mass, ECS_map[ID].m_fuelmass,
+		ECS_map[ID].m_color,
+		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
+		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
+		ECS_map[ID].m_health, ECS_map[ID].m_shape,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
+	};
+};
+
+void ECS::ECS::set_fuelmass(int ID, float fuelmass) {
+	ECS_map[ID] = {
+		ECS_map[ID].m_name,
+		ECS_map[ID].m_mass, fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -98,7 +113,7 @@ void ECS::ECS::set_mass(int ID, float mass) {
 void ECS::set_color(int ID, Color color) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -111,7 +126,7 @@ void ECS::set_color(int ID, Color color) {
 void ECS::set_position(int ID, Vector2 position) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -124,7 +139,7 @@ void ECS::set_position(int ID, Vector2 position) {
 void ECS::set_velocity(int ID, Vector2 velocity) {
 	ECS_map[ID] = {
 	ECS_map[ID].m_name,
-	ECS_map[ID].m_mass,
+	ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 	ECS_map[ID].m_color,
 	ECS_map[ID].m_position, velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 	ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -137,7 +152,7 @@ void ECS::set_velocity(int ID, Vector2 velocity) {
 void ECS::set_acceleration(int ID, Vector2 acceleration) {
 	ECS_map[ID] = {
 	ECS_map[ID].m_name,
-	ECS_map[ID].m_mass,
+	ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 	ECS_map[ID].m_color,
 	ECS_map[ID].m_position, ECS_map[ID].m_velocity, acceleration, ECS_map[ID].m_force,
 	ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -150,7 +165,7 @@ void ECS::set_acceleration(int ID, Vector2 acceleration) {
 void ECS::set_force(int ID, Vector2 force) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -163,7 +178,7 @@ void ECS::set_force(int ID, Vector2 force) {
 void ECS::set_angle(int ID, float angle) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -176,7 +191,7 @@ void ECS::set_angle(int ID, float angle) {
 void ECS::set_angvel(int ID, float angvel) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -189,7 +204,7 @@ void ECS::set_angvel(int ID, float angvel) {
 void ECS::set_angacc(int ID, float angacc) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, angacc, ECS_map[ID].m_torque,
@@ -202,7 +217,7 @@ void ECS::set_angacc(int ID, float angacc) {
 void ECS::set_torque(int ID, float torque) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, torque,
@@ -215,7 +230,7 @@ void ECS::set_torque(int ID, float torque) {
 void ECS::set_health(int ID, float health) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -228,7 +243,7 @@ void ECS::set_health(int ID, float health) {
 void ECS::set_shape(int ID, std::vector<Vector2> shape) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -241,7 +256,7 @@ void ECS::set_shape(int ID, std::vector<Vector2> shape) {
 void ECS::set_target_id(int ID, int target_id) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -254,7 +269,7 @@ void ECS::set_target_id(int ID, int target_id) {
 void ECS::set_parent_id(int ID, int parent_id) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -267,7 +282,7 @@ void ECS::set_parent_id(int ID, int parent_id) {
 void ECS::set_is_targeted(int ID, bool is_targeted) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -280,7 +295,7 @@ void ECS::set_is_targeted(int ID, bool is_targeted) {
 void ECS::set_has_gravity(int ID, bool has_gravity) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -293,7 +308,7 @@ void ECS::set_has_gravity(int ID, bool has_gravity) {
 void ECS::set_is_movable(int ID, bool is_movable) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
@@ -306,7 +321,7 @@ void ECS::set_is_movable(int ID, bool is_movable) {
 void ECS::set_is_spawned(int ID, bool is_spawned) {
 	ECS_map[ID] = {
 		ECS_map[ID].m_name,
-		ECS_map[ID].m_mass,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
 		ECS_map[ID].m_color,
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,

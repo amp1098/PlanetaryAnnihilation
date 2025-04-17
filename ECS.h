@@ -32,7 +32,7 @@ namespace EntityComponentSystem {
 		void ECS_update(int key, entity_row_type components);
 
 		void set_entity_components(
-			int ID, std::string name, float mass, Color color,
+			int ID, std::string name, float mass, float fuelmass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
 			float health, std::vector<Vector2> shape, int target_id, int parent_id, 
@@ -42,7 +42,7 @@ namespace EntityComponentSystem {
 		entity_row_type get_entity_components(int ID);
 
 		void update_entity_components(
-			int ID, std::string name, float mass, Color color,
+			int ID, std::string name, float mass, float fuelmass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
 			float health, std::vector<Vector2> shape, int target_id, int parent_id, 
@@ -54,6 +54,8 @@ namespace EntityComponentSystem {
 		void set_name(int ID, std::string name);
 
 		void set_mass(int ID, float mass);
+
+		void set_fuelmass(int ID, float fuelmass);
 
 		void set_color(int ID, Color color);
 
