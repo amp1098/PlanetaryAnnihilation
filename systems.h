@@ -9,6 +9,8 @@
 
 #include "control_system.h" // updates forces/torques of entities based on keyboard inputs
 
+void use_initializer_systems();
+
 void use_systems();
 
 #endif

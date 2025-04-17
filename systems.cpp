@@ -10,6 +10,14 @@
 
 #include "collision_system.h" // checks for collisions
 
+void use_initializer_systems() { // these systems should only be run at the start of the game
+	
+	for (int i = 0; i < 20; i++) {
+		random_spawn_on_planetoid();
+	};
+
+}
+
 void use_systems() {
 
 	//for each entity in the ECS, update the components with the available systems
@@ -22,13 +30,6 @@ void use_systems() {
 		// ignoring the values
 
 		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
-
-			if (!ECS_obj.get_entity_components(ID).m_is_spawned && ECS_obj.get_entity_components(ID).m_name == "groundlaser") { 
-				// spawns groundlaser if groundlaser is_spawned is false
-				
-				random_spawn_on_planetoid(ID); // spawns objects on planetoids
-
-			};
 
 			if (ECS_obj.get_entity_components(ID).m_name == "missile" &&
 				FloatEquals(ECS_obj.get_entity_components(ID).m_fuelmass, 0.0f) && 
