@@ -49,10 +49,6 @@ int return_id_colliding_planetoid(int ent_id) { // returns of ID of planetoid en
 
 			result = ids[index];
 
-			//std::cout << "ID: " << ids[0] << std::endl;
-
-			//std::cout << "Result: " << result << std::endl;
-
 		};
 
 	};
@@ -64,8 +60,6 @@ int return_id_colliding_planetoid(int ent_id) { // returns of ID of planetoid en
 void collision_health_response(int ent_id) { // if entity is colliding with planetoid, make its health 0
 	
 	if ( return_id_colliding_planetoid(ent_id) != 0) { // if returned ID is 0, no collision is occuring
-
-		std::cout << "health subtracted" << std::endl;
 
 		ECS_obj.set_health(ent_id, 0.0f);
 

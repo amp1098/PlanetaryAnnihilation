@@ -60,7 +60,6 @@ void missile_control(int ID) { // aims at target and thrusts
 
 		ECS_obj.set_fuelmass(ID, fuelmass);
 
-		std::cout << ECS_obj.get_entity_components(ID).m_is_spawned << std::endl;
 	};
 };
 
