@@ -8,6 +8,7 @@
 EntityRow::EntityRow() { // default constructor, does not take arguments
 	m_name = "default_construct_ignore";
 	m_mass = 1.0f;
+	m_fuelmass = 1.0f;
 	m_color = BLANK;
 
 	m_position = { 0.0f, 0.0f };
@@ -31,7 +32,7 @@ EntityRow::EntityRow() { // default constructor, does not take arguments
 };
 
 EntityRow::EntityRow(
-	std::string name, float mass, Color color,
+	std::string name, float mass, float fuelmass, Color color,
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	float health, std::vector<Vector2> shape, int target_id, int parent_id, 
@@ -40,6 +41,7 @@ EntityRow::EntityRow(
 { // constructor, takes arguments
 	m_name = name;
 	m_mass = mass;
+	m_fuelmass = fuelmass;
 	m_color = color;
 
 	m_position = position;

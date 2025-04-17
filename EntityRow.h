@@ -11,7 +11,8 @@ class EntityRow { // contains components for physics objects
 public:
 
 	std::string m_name;
-	float m_mass;
+	float m_mass; // dry mass
+	float m_fuelmass; // wet mass
 	Color m_color;
 
 	// LINEAR COMPONENTS
@@ -38,7 +39,7 @@ public:
 	EntityRow();
 
 	EntityRow(
-		std::string name, float mass, Color color,
+		std::string name, float mass, float fuelmass, Color color,
 		Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 		float angle, float angvel, float angacc, float torque,
 		float health, std::vector<Vector2> shape, int target_id, int parent_id,
