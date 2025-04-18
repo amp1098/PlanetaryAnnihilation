@@ -49,29 +49,9 @@ void spawn_explosion(int parent_id) { // spawn explosion entity at parent_id
 	// getting parent id stuff 
 	Vector2 position{ ECS_obj.get_entity_components(parent_id).m_position };
 
-	
-
-	ECS_obj.set_entity_components(
-		to_spawn_id,
-		"explosion",
-		1.0f,
-		1.0f,
-		BLUE,
+	Explosion explosion(
+		to_spawn_id, "explosion", 1.0f, BLUE, 10.0f,
 		position,
-		Vector2Zero(),
-		Vector2Zero(),
-		Vector2Zero(),
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		1.0f,
-		Polygons::poly_explosion(),
-		0,
-		parent_id,
-		false,
-		false,
-		false,
 		true
 	);
 

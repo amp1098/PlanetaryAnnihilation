@@ -1,5 +1,5 @@
-#ifndef MISSILE_H
-#define MISSILE_H
+#ifndef EXPLOSION_H
+#define EXPLOSION_H
 
 #include "Entity.h"
 #include "polygons.h"
@@ -35,6 +35,7 @@ public:
 
 	Explosion(
 		int ID, std::string name, float fuelmass, Color color, float health,
+		Vector2 position,
 		bool is_spawned
 	);
 
