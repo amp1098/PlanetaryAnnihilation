@@ -41,13 +41,6 @@ int main(void)
 
 	use_initializer_systems();
 
-	//for (int i = 0; i < 20; i++) {
-	//	GroundLaser laser(
-	//		i + 6, "groundlaser", 1.0f, WHITE, 10.0f, false
-	//	);
-	//};
-	
-
 	Camera2D camera = { 0 };
 
 	camera.target = { 1.0f, 2.0f };

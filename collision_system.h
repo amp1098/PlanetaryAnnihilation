@@ -12,4 +12,10 @@ int return_id_colliding_planetoid(int ent_id);
 
 void collision_health_response(int ent_id);
 
+bool check_collision_explosion(int ent_id, int explosion_id);
+
+int return_id_colliding_explosion(int ent_id);
+
+void explosion_health_response(int ent_id);
+
 #endif
