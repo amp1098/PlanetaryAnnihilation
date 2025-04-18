@@ -51,7 +51,7 @@ void use_systems() {
 
 				float current_health{ ECS_obj.get_entity_components(ID).m_health };
 
-				ECS_obj.set_health(ID, current_health - 1.0f);
+				ECS_obj.set_health(ID, current_health - 5.0f);
 			};
 
 			draw_entity(ID); // drawing to screen

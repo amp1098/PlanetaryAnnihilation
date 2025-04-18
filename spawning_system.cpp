@@ -63,11 +63,7 @@ void despawn_dead_entity(int ent_id) { // anything with 0 health should be remov
 
 	if (FloatEquals(health, 0.0f)) {
 
-		std::cout << "found dead thing" << std::endl;
-
 		ECS_obj.set_is_spawned(ent_id, false);
-
-		std::cout << "removed dead thing, yuck" << std::endl;
 
 	};
 
