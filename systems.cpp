@@ -16,12 +16,12 @@
 
 
 void use_initializer_systems() { // these systems should only be run at the start of the game
-	
+
 	for (int i = 0; i < 20; i++) {
 		random_spawn_on_planetoid();
 	};
 
-}
+};
 
 void use_systems() {
 
@@ -34,10 +34,10 @@ void use_systems() {
 		int ID = iter->first; // dereferencing iterator pointer, unsure how this works
 		// ignoring the values
 
-		if (ID != 0) { // 0 ID is a garbage spot, used to trash entities by overwriting them
+		if ( ID != 0 ) { // 0 is default ID, ignorable
 
 			if (ECS_obj.get_entity_components(ID).m_name == "missile" &&
-				FloatEquals(ECS_obj.get_entity_components(ID).m_fuelmass, 0.0f) && 
+				FloatEquals(ECS_obj.get_entity_components(ID).m_fuelmass, 0.0f) &&
 				ECS_obj.get_entity_components(ID).m_is_spawned
 				) {
 				// if missile fuel is zero, it spawns an explosion at its position
@@ -47,14 +47,22 @@ void use_systems() {
 				ECS_obj.set_is_spawned(ID, false); // despawn missile
 			};
 
+			if (ECS_obj.get_entity_components(ID).m_name == "explosion") {
+
+				float current_health{ ECS_obj.get_entity_components(ID).m_health };
+
+				ECS_obj.set_health(ID, current_health - 1.0f);
+			};
+
 			draw_entity(ID); // drawing to screen
 			thrust_check(ID); // checking for keyboard inputs
 			missile_control(ID); // makes missiles move
 			groundlaser_control(ID); // makes groundlasers aim
 			physics_update(ID); // updating physics components
-			
-		};
 
+			despawn_dead_entity(ID);
+
+		};
 		collision_health_response(1);  // static for now, just handling playerID collisions
 
 		if (return_id_colliding_explosion(1) != 0) { // explosion colliding with player ship

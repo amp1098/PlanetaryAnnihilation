@@ -56,3 +56,19 @@ void spawn_explosion(int parent_id) { // spawn explosion entity at parent_id
 	);
 
 };
+
+void despawn_dead_entity(int ent_id) { // anything with 0 health should be removed from the ECS
+
+	float health{ ECS_obj.get_entity_components(ent_id).m_health };
+
+	if (FloatEquals(health, 0.0f)) {
+
+		std::cout << "found dead thing" << std::endl;
+
+		ECS_obj.set_is_spawned(ent_id, false);
+
+		std::cout << "removed dead thing, yuck" << std::endl;
+
+	};
+
+};

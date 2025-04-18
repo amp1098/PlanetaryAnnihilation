@@ -67,3 +67,8 @@ The easiest solution is to just say "planetoid collisoin == delete entity". I ca
 handle health. When an entity's health == 0, it is deleted. When the player's health == 0, the game 
 ends.
 
+
+=== 
+
+I should maybe make the health component an integer... why is it a float?
+

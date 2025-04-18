@@ -12,4 +12,6 @@ void random_spawn_on_planetoid();
 
 void spawn_explosion(int parent_id);
 
+void despawn_dead_entity(int ent_id);
+
 #endif
