@@ -57,17 +57,15 @@ void use_systems() {
 
 		collision_health_response(1);  // static for now, just handling playerID collisions
 
-		// hacky shit cuz idk how the heck else to do this
-
 		if (return_id_colliding_explosion(1) != 0) { // explosion colliding with player ship
 
-			take_damage(1, 15.0f);
+			if (!ECS_obj.get_entity_components(1).m_invincible) { 
 
-			ECS_obj.set_invincible(1, true);
+				take_damage(1, 15.0f);
 
-			WaitTime(2.0);
+			};
 
-			ECS_obj.set_invincible(1, false);
+			make_invincible(1, 2000);
 
 		};
 
