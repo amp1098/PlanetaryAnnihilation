@@ -9,6 +9,6 @@
 
 void take_damage(int ent_id, float damage);
 
-void make_invincible(int ent_id);
+void make_invincible(int ent_id, int frames);
 
 #endif

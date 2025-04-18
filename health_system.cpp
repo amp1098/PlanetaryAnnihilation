@@ -10,18 +10,35 @@ void take_damage(int ent_id, float damage) {
 
 };
 
-void make_invincible(int ent_id) { // when called, should make an entity invincible for ~60 frames (~1s)
+void make_invincible(int ent_id, int frames) { // when called, should make an entity invincible for # of frames
 
-	double init_time{ GetTime() }; // gets time in seconds since InitWindow called
+	int iframes_counter{ ECS_obj.get_entity_components(ent_id).m_invincible_counter };
 
-	if (init_time < init_time + GetFrameTime() * 60.0f) {
+	bool invincible{ ECS_obj.get_entity_components(ent_id).m_invincible };
 
-		init_time += GetFrameTime();
+	if (iframes_counter == 0 && !invincible) { // if counter is at 0
+
+		ECS_obj.set_invincible_counter(ent_id, frames);
+
+	}
+	else if (iframes_counter > 0 && !invincible) { // if counter not 0 and ent not invincible
+
+		ECS_obj.set_invincible_counter(ent_id, iframes_counter - 1);
 
 		ECS_obj.set_invincible(ent_id, true);
 
+	}
+	else if (iframes_counter > 0 && invincible) {// if counter not 0 and ent invincible
+
+		ECS_obj.set_invincible_counter(ent_id, iframes_counter - 1);
+
+	}
+	else { // if counter at 0 and ent invincible
+
+		ECS_obj.set_invincible(ent_id, false);
+
 	};
 
-	ECS_obj.set_invincible(ent_id, false);
+
 
 };
