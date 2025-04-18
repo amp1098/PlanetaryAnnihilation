@@ -35,7 +35,8 @@ namespace EntityComponentSystem {
 			int ID, std::string name, float mass, float fuelmass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
-			float health, std::vector<Vector2> shape, int target_id, int parent_id, 
+			float health, bool invincible, int invincible_counter,
+			std::vector<Vector2> shape, int target_id, int parent_id, 
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
@@ -45,7 +46,8 @@ namespace EntityComponentSystem {
 			int ID, std::string name, float mass, float fuelmass, Color color,
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
-			float health, std::vector<Vector2> shape, int target_id, int parent_id, 
+			float health, bool invincible, int invincible_counter,
+			std::vector<Vector2> shape, int target_id, int parent_id,
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 		);
 
@@ -76,6 +78,10 @@ namespace EntityComponentSystem {
 		void set_torque(int ID, float torque);
 
 		void set_health(int ID, float health);
+
+		void set_invincible(int ID, bool invincible);
+
+		void set_invincible_counter(int ID, int invincible_counter);
 
 		void set_shape(int ID, std::vector<Vector2> shape);
 

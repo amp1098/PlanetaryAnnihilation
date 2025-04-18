@@ -1,14 +1,19 @@
 // include all the systems here and maybe add some comments describing what they do
 
+#include "systems.h"
+
+// include all the systems here and maybe add some comments describing what they do
+
 #include "drawing_system.h" // draws entities to screen via draw_entity(ID)
 
 #include "physics_system.h" // updates positions of entities based on physical models (kinematics, etc)
 
 #include "control_system.h" // updates forces/torques of entities based on keyboard inputs
 
-#include "spawning_system.h" // moves entities to spawned locaitons
+#include "health_system.h"  // handles damage to entities
 
 #include "collision_system.h" // checks for collisions
+
 
 void use_initializer_systems() { // these systems should only be run at the start of the game
 	
@@ -49,8 +54,22 @@ void use_systems() {
 			physics_update(ID); // updating physics components
 			
 		};
-		
+
 		collision_health_response(1);  // static for now, just handling playerID collisions
+
+		// hacky shit cuz idk how the heck else to do this
+
+		if (return_id_colliding_explosion(1) != 0) { // explosion colliding with player ship
+
+			take_damage(1, 15.0f);
+
+			ECS_obj.set_invincible(1, true);
+
+			WaitTime(2.0);
+
+			ECS_obj.set_invincible(1, false);
+
+		};
 
 	};
 };
