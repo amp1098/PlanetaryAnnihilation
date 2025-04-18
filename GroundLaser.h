@@ -27,6 +27,7 @@ public:
 
 	GroundLaser(
 		int ID, std::string name, float mass, Color color, float health,
+		Vector2 position,
 		bool is_spawned
 	);
 };

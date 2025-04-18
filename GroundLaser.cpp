@@ -3,6 +3,7 @@
 
 GroundLaser::GroundLaser(
 	int ID, std::string name, float mass, Color color, float health,
+	Vector2 position,
 	bool is_spawned
 )
 {
@@ -30,6 +31,8 @@ GroundLaser::GroundLaser(
 	ECS_obj.set_mass(ID, mass);
 
 	ECS_obj.set_color(ID, color);
+
+	ECS_obj.set_position(ID, position);
 
 	ECS_obj.set_shape(ID, Polygons::poly_groundlaser());
 

@@ -24,27 +24,9 @@ void random_spawn_on_planetoid() { // find an entity and put it on a planetoid
 
 	to_spawn_id = max_id + 1;
 
-	ECS_obj.set_entity_components(
-		to_spawn_id,
-		"groundlaser",
-		1.0f,
-		1.0f,
-		WHITE,
+	GroundLaser groundlaser(
+		to_spawn_id, "groundlaser", 1.0f, WHITE, 50.0f, 
 		spawn_point,
-		Vector2Zero(),
-		Vector2Zero(),
-		Vector2Zero(),
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		1.0f,
-		Polygons::poly_groundlaser(),
-		1,
-		planetoid_ID,
-		false,
-		false,
-		false,
 		true
 	);
 
@@ -66,6 +48,8 @@ void spawn_explosion(int parent_id) { // spawn explosion entity at parent_id
 
 	// getting parent id stuff 
 	Vector2 position{ ECS_obj.get_entity_components(parent_id).m_position };
+
+	
 
 	ECS_obj.set_entity_components(
 		to_spawn_id,

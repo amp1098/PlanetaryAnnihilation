@@ -6,6 +6,7 @@
 #include "useful_functions.h"
 #include "polygons.h"
 #include <algorithm> // for max_element
+#include "entities.h"
 
 void random_spawn_on_planetoid();
 
