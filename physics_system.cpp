@@ -100,7 +100,12 @@ float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an
 	Vector2 pos1 = ECS_obj.get_entity_components(ID).m_position;
 	Vector2 pos2 = ECS_obj.get_entity_components(target_ID).m_position;
 
-	return angle_of_vec_diff(pos1, pos2);
+	float angle_of_targeting_system = ECS_obj.get_entity_components(ID).m_angle;
+
+	// found bug! all I did was find the difference of the position vectors! I need to use the angle of the entity that
+	// targeting something to help.
+
+	return angle_of_targeting_system - angle_of_vec_diff(pos1, pos2);
 };
 
 void physics_update(int ID) { // updates physics components when called
