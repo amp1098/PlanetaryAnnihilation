@@ -34,7 +34,7 @@ EntityRow::EntityRow() { // default constructor, does not take arguments
 	m_is_movable = false;
 	m_is_spawned = false;
 
-	m_buffer1 = {};
+	m_buffer1 = {0.0, 0.0};
 };
 
 EntityRow::EntityRow(

@@ -36,7 +36,7 @@ namespace EntityComponentSystem {
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
 			float health, bool invincible, int invincible_counter,
-			std::vector<Vector2> shape, int target_id, int parent_id, 
+			std::vector<Vector2> shape, int target_id, int parent_id, bool uses_prop_nav,
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned,
 			std::vector<float> buffer1
 		);
@@ -48,7 +48,7 @@ namespace EntityComponentSystem {
 			Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 			float angle, float angvel, float angacc, float torque,
 			float health, bool invincible, int invincible_counter,
-			std::vector<Vector2> shape, int target_id, int parent_id,
+			std::vector<Vector2> shape, int target_id, int parent_id, bool uses_prop_nav,
 			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned,
 			std::vector<float> buffer1
 		);

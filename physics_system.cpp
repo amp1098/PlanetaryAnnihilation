@@ -36,8 +36,15 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 };
 
 float num_deriv(float first_value, float second_value) { // returns average rate of change over time interval dt 
-	return (second_value - first_value)/dt
+	return (second_value - first_value) / dt;
 
+};
+
+float num_deriv_array(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
+	float val1 = vals_to_diff.at(0);
+	float val2 = vals_to_diff.at(1);
+
+	return num_deriv(val1, val2);
 };
 
 Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities between two entities with ID = ID1, ID2
@@ -68,13 +75,22 @@ float better_sign_function(float x) {
 float return_accel_propnav(int N, float lambda_dot, float closing_velocity) { // Uses 2D proportional navigation equation
 	// N is a number between 3-5, lambda_dot is the R.O.C. of the Line of Sight angle, and closing velocity is just
 	// relative velocity
-	return N * lambda_dot * closing_velocity
+	return N * lambda_dot * closing_velocity;
+};
+
+float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an entity and its target
+	int target_ID = ECS_obj.get_entity_components(ID).m_target_id;
+
+	Vector2 pos1 = ECS_obj.get_entity_components(ID).m_position;
+	Vector2 pos2 = ECS_obj.get_entity_components(target_ID).m_position;
+
+	angle_of_vec_diff(pos1, pos2);
 };
 
 void physics_update(int ID) { // updates physics components when called
 	// updating physics components via kinematic equations
-	// this cascades changes in the force component to the accel, vel, and pos components
-	// to move physics objects, just change the force component of a given entity ID
+	// this cascades changes in the force/torque component to the accel, vel, and pos (and angular versions) components
+	// to move physics objects, just change the force/torque component of a given entity ID
 	// and call this system to move it around :)
 
 	ECS_obj.get_entity_components(ID);
@@ -94,6 +110,8 @@ void physics_update(int ID) { // updates physics components when called
 
 		std::vector<Vector2> shape{ ECS_obj.get_entity_components(ID).m_shape };
 
+		float moment{ moment_of_inertia(mass, shape) }; // moment of inertia used for torque stuff, not an ECS param
+
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 
 		float angvel{ ECS_obj.get_entity_components(ID).m_angvel };
@@ -107,7 +125,7 @@ void physics_update(int ID) { // updates physics components when called
 		bool uses_prop_nav{ ECS_obj.get_entity_components(ID).m_uses_prop_nav };
 
 		// == TARGETING ==
-		if (target_ID != 0) { // if ID is 0, it's not targeting anything
+		if (target_ID != 0 && not uses_prop_nav) { // if ID is 0, it's not targeting anything
 
 			float spring_constant{ 30000.0f }; // spring constant for damped rotations
 
@@ -130,10 +148,37 @@ void physics_update(int ID) { // updates physics components when called
 
 		if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target, WIP
 
+
+
+			// each frame I need to add the current LOS angle to the target entity to the buffer1 array
+			// while also removing the last element
+			// I can pop_back buffer1 and then insert LOS angle at index 0
+
+			float LOS_angle = return_LOS_angle(ID);
+
+			std::vector<float> angle_buffer = ECS_obj.get_entity_components(ID).m_buffer1;
+
+			angle_buffer.pop_back(); // removes last element
+
+			angle_buffer.insert(angle_buffer.begin(), LOS_angle);
+
+			ECS_obj.set_buffer1(ID, angle_buffer);
+
+			// finding lambda_dot now
+
+			float lambda_dot = num_deriv_array(angle_buffer);
+
+			// finding relative vel
+
+			float closing_vel = Vector2Length(return_rel_vel(ID, target_ID));
+
 			float N = 3; // going to see if 3 is a good start
 
-			//torque += return_accel_propnav(N, )
+			float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
 
+			// now updating torque
+
+			torque += moment * ang_accel_propnav;
 		}
 
 		// == GRAVITY ==
@@ -160,8 +205,6 @@ void physics_update(int ID) { // updates physics components when called
 
 		// angular kinematics (torques, angular velocity, etc)
 		// same principle as previous stuff
-
-		float moment{ moment_of_inertia(mass, shape) }; // moment of inertia used for torque stuff
 
 		angacc = torque / moment;
 
