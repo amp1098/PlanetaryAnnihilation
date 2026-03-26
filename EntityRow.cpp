@@ -25,13 +25,16 @@ EntityRow::EntityRow() { // default constructor, does not take arguments
 	m_invincible = false;
 	m_invincible_counter = 0;
 
-	m_shape = { {30.0f, 0.0f}, {-30.0f, 0.0f}, {0.0f, 30.0f} };
+	m_shape = { {30.0f, 0.0f}, {-30.0f, 0.0f}, {0.0f, 30.0f} }; // default is triangle
 	m_target_id = 0;
 	m_parent_id = 0;
 	m_is_targeted = false;
+	m_uses_prop_nav = false;
 	m_has_gravity = false;
 	m_is_movable = false;
 	m_is_spawned = false;
+
+	m_buffer1 = {};
 };
 
 EntityRow::EntityRow(
@@ -39,8 +42,9 @@ EntityRow::EntityRow(
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	float health, bool invincible, int invincible_counter,
-	std::vector<Vector2> shape, int target_id, int parent_id, 
-	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
+	std::vector<Vector2> shape, int target_id, int parent_id, bool uses_prop_nav,
+	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned,
+	std::vector<float> buffer1
 )
 { // constructor, takes arguments
 	m_name = name;
@@ -65,8 +69,11 @@ EntityRow::EntityRow(
 	m_shape = shape;
 	m_target_id = target_id;
 	m_parent_id = parent_id;
+	m_uses_prop_nav = uses_prop_nav;
 	m_is_targeted = is_targeted;
 	m_has_gravity = has_gravity;
 	m_is_movable = is_movable;
 	m_is_spawned = is_spawned;
+
+	m_buffer1 = buffer1;
 };

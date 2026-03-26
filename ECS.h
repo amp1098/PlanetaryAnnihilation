@@ -37,7 +37,8 @@ namespace EntityComponentSystem {
 			float angle, float angvel, float angacc, float torque,
 			float health, bool invincible, int invincible_counter,
 			std::vector<Vector2> shape, int target_id, int parent_id, 
-			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
+			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned,
+			std::vector<float> buffer1
 		);
 
 		entity_row_type get_entity_components(int ID);
@@ -48,7 +49,8 @@ namespace EntityComponentSystem {
 			float angle, float angvel, float angacc, float torque,
 			float health, bool invincible, int invincible_counter,
 			std::vector<Vector2> shape, int target_id, int parent_id,
-			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
+			bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned,
+			std::vector<float> buffer1
 		);
 
 		/*Setters for all components*/
@@ -89,6 +91,8 @@ namespace EntityComponentSystem {
 
 		void set_parent_id(int ID, int parent_id);
 
+		void set_uses_prop_nav(int ID, bool uses_prop_nav);
+
 		void set_is_targeted(int ID, bool is_targeted);
 
 		void set_has_gravity(int ID, bool has_gravity);
@@ -96,6 +100,8 @@ namespace EntityComponentSystem {
 		void set_is_movable(int ID, bool is_movable);
 
 		void set_is_spawned(int ID, bool is_spawned);
+
+		void set_buffer1(int ID, std::vector<float> buffer1);
 
 		std::map<int, entity_row_type>::iterator start_of_ECS();
 

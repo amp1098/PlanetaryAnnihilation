@@ -27,7 +27,7 @@ void ECS::set_entity_components(
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	float health, bool invincible, int invincible_counter,
-	std::vector<Vector2> shape, int target_id, int parent_id,
+	std::vector<Vector2> shape, int target_id, int parent_id, bool uses_prop_nav,
 	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 ) { // create new entity at ID
 	ECS_update(
@@ -41,7 +41,7 @@ void ECS::set_entity_components(
 			angle, angvel, angacc, torque,
 			health, invincible, invincible_counter,
 			shape,
-			target_id, parent_id, 
+			target_id, parent_id, uses_prop_nav,
 			is_targeted, has_gravity, is_movable, is_spawned
 		}
 	);
@@ -56,7 +56,7 @@ void ECS::update_entity_components(
 	Vector2 position, Vector2 velocity, Vector2 acceleration, Vector2 force,
 	float angle, float angvel, float angacc, float torque,
 	float health, bool invincible, int invincible_counter,
-	std::vector<Vector2> shape, int target_id, int parent_id,
+	std::vector<Vector2> shape, int target_id, int parent_id, bool uses_prop_nav,
 	bool is_targeted, bool has_gravity, bool is_movable, bool is_spawned
 ) { // Update components at known ID
 
@@ -70,7 +70,7 @@ void ECS::update_entity_components(
 		angle, angvel, angacc, torque,
 		health, invincible, invincible_counter,
 		shape,
-		target_id, parent_id,
+		target_id, parent_id, uses_prop_nav,
 		is_targeted, has_gravity, is_movable, is_spawned
 	};
 };
@@ -83,7 +83,7 @@ void ECS::set_name(int ID, std::string name) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -96,7 +96,7 @@ void ECS::ECS::set_mass(int ID, float mass) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -109,7 +109,7 @@ void ECS::ECS::set_fuelmass(int ID, float fuelmass) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -122,7 +122,7 @@ void ECS::set_color(int ID, Color color) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -135,7 +135,7 @@ void ECS::set_position(int ID, Vector2 position) {
 		position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -148,7 +148,7 @@ void ECS::set_velocity(int ID, Vector2 velocity) {
 	ECS_map[ID].m_position, velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 	ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 	ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-	ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+	ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 	ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -161,7 +161,7 @@ void ECS::set_acceleration(int ID, Vector2 acceleration) {
 	ECS_map[ID].m_position, ECS_map[ID].m_velocity, acceleration, ECS_map[ID].m_force,
 	ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 	ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-	ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+	ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 	ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -174,7 +174,7 @@ void ECS::set_force(int ID, Vector2 force) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -187,7 +187,7 @@ void ECS::set_angle(int ID, float angle) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -200,7 +200,7 @@ void ECS::set_angvel(int ID, float angvel) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -213,7 +213,7 @@ void ECS::set_angacc(int ID, float angacc) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -226,7 +226,7 @@ void ECS::set_torque(int ID, float torque) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -239,7 +239,7 @@ void ECS::set_health(int ID, float health) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -252,7 +252,7 @@ void ECS::set_invincible(int ID, bool invincible) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -265,7 +265,7 @@ void ECS::set_invincible_counter(int ID, int invincible_counter) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -279,7 +279,7 @@ void ECS::set_shape(int ID, std::vector<Vector2> shape) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -292,7 +292,7 @@ void ECS::set_target_id(int ID, int target_id) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		target_id, ECS_map[ID].m_parent_id,
+		target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -305,9 +305,23 @@ void ECS::set_parent_id(int ID, int parent_id) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, parent_id,
+		ECS_map[ID].m_target_id, parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
+};
+
+void ECS::set_uses_prop_nav(int ID, bool uses_prop_nav) {
+	ECS_map[ID] = {
+		ECS_map[ID].m_name,
+		ECS_map[ID].m_mass, ECS_map[ID].m_fuelmass,
+		ECS_map[ID].m_color,
+		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
+		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
+		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, uses_prop_nav,
+		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
+	};
+
 };
 
 void ECS::set_is_targeted(int ID, bool is_targeted) {
@@ -318,7 +332,7 @@ void ECS::set_is_targeted(int ID, bool is_targeted) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -331,7 +345,7 @@ void ECS::set_has_gravity(int ID, bool has_gravity) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, has_gravity, ECS_map[ID].m_is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -344,7 +358,7 @@ void ECS::set_is_movable(int ID, bool is_movable) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, is_movable, ECS_map[ID].m_is_spawned
 	};
 };
@@ -357,7 +371,7 @@ void ECS::set_is_spawned(int ID, bool is_spawned) {
 		ECS_map[ID].m_position, ECS_map[ID].m_velocity, ECS_map[ID].m_acceleration, ECS_map[ID].m_force,
 		ECS_map[ID].m_angle, ECS_map[ID].m_angvel, ECS_map[ID].m_angacc, ECS_map[ID].m_torque,
 		ECS_map[ID].m_health, ECS_map[ID].m_invincible, ECS_map[ID].m_invincible_counter, ECS_map[ID].m_shape,
-		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id,
+		ECS_map[ID].m_target_id, ECS_map[ID].m_parent_id, ECS_map[ID].m_uses_prop_nav,
 		ECS_map[ID].m_is_targeted, ECS_map[ID].m_has_gravity, ECS_map[ID].m_is_movable, is_spawned
 	};
 };
@@ -381,7 +395,7 @@ int ECS::number_of_entities() const { // returns number of entities stored in EC
 	return static_cast<int>(std::size(ECS_map));
 };
 
-void ECS::destroy_entity(int ID) { // removes entity from ECS
+void ECS::destroy_entity(int ID) { // removes entity from ECS, effectively deletes it
 	static_cast<int>(ECS_map.erase(ID));
 };
 

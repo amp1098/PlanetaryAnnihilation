@@ -70,5 +70,51 @@ ends.
 
 === 
 
-I should maybe make the health component an integer... why is it a float?
+I should maybe make the health component an integer... why is it a float? It could at least be rounded.
+
+===
+
+Targeting system update idea! The guidance law I've used so far is known as "pursuit" navigation. It's
+a dumb guidance law that works by simply aiming at the taget and going forward. This creates the 
+missile-circles-around-target problem. To fix this, I can try to implement proportional navigation.
+To do this, I need to steer the missile such that the bearing between the target and the missile
+is constant. If the bearing is constant, then the missile is on a collision course.
+
+https://en.wikipedia.org/wiki/Proportional_navigation
+
+I can use the equation
+
+a_n = N * lambda-dot * V
+
+where N is an integer between 3 and 5, inclusive; lambda-dot is the rate of change of the Line-of-Sight (LOS)
+angle; V is the magnitude rate of change of the distance between the target and the missile. a_n is the angular
+acceleration of the missile.
+
+To implement this, I need a way to find the rate of change of the LOS angle in 2D. I could do a simple numerical
+derivative. I could use a buffer array to store the LOS angle for 2 timesteps. It would look like
+
+[1.2, 1.5]
+
+Then I find the average rate of change through division,
+
+lambda-dot = (1.2 + 1.5) / (time2 - time1)
+
+If the change in angle is positive, then the LOS angle is moving counter-clockwise (think unit circle). If it's
+negative, then the LOS angle is moving clockwise. So I don't need to change the sign of the angular acceleration.
+
+The angle buffer array could be stored with each missile. It should be a 1D float array with 2 elements.
+
+To update the buffer array, I would need a method to push elements through an array like so:
+
+initial array [1,2] --> adding element [1,2,3] --> returning trimmed array [2,3]. I bet c++ has a method for this.
+
+Some light research from 
+https://stackoverflow.com/questions/45503324/add-an-element-at-the-beginning-of-an-array-and-shift-the-rest-but-keep-the-size
+tells me that I can use pop_back(). It does change the size of the buffer array temporarily, but I doubt that will
+slow this down that much.
+
+The physics engine turns objects by applying a torque, and since proportional navigation uses angular acceleration, I can use
+T = I*a_n. I also have a way to calculate the moment of inertia for objects.
+
+
 

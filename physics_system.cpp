@@ -35,6 +35,25 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 	return moment;
 };
 
+float num_deriv(float first_value, float second_value) { // returns average rate of change over time interval dt 
+	return (second_value - first_value)/dt
+
+};
+
+Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities between two entities with ID = ID1, ID2
+	// does not account for relativity
+	// ...
+	// YET! 
+	// god help me if I ever get sucked into making this use relativity
+
+	Vector2 vel1 = ECS_obj.get_entity_components(ID1).m_velocity;
+
+	Vector2 vel2 = ECS_obj.get_entity_components(ID2).m_velocity;
+
+	return Vector2Subtract(vel2, vel1);
+
+};
+
 float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2
 	Vector2 vec_res{ vec1 - vec2 };
 
@@ -44,6 +63,12 @@ float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector
 float better_sign_function(float x) {
 	x = 2 * std::signbit(x) - 1;
 	return x;
+};
+
+float return_accel_propnav(int N, float lambda_dot, float closing_velocity) { // Uses 2D proportional navigation equation
+	// N is a number between 3-5, lambda_dot is the R.O.C. of the Line of Sight angle, and closing velocity is just
+	// relative velocity
+	return N * lambda_dot * closing_velocity
 };
 
 void physics_update(int ID) { // updates physics components when called
@@ -79,6 +104,8 @@ void physics_update(int ID) { // updates physics components when called
 
 		int target_ID{ ECS_obj.get_entity_components(ID).m_target_id };
 
+		bool uses_prop_nav{ ECS_obj.get_entity_components(ID).m_uses_prop_nav };
+
 		// == TARGETING ==
 		if (target_ID != 0) { // if ID is 0, it's not targeting anything
 
@@ -98,6 +125,16 @@ void physics_update(int ID) { // updates physics components when called
 
 			/*std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;*/
 		};
+
+		// == TARGETING (PROPORTIONAL NAV) ==
+
+		if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target, WIP
+
+			float N = 3; // going to see if 3 is a good start
+
+			//torque += return_accel_propnav(N, )
+
+		}
 
 		// == GRAVITY ==
 
