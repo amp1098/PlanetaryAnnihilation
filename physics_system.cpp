@@ -35,16 +35,31 @@ float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) {
 	return moment;
 };
 
-float num_deriv(float first_value, float second_value) { // returns average rate of change over time interval dt 
+float num_deriv_backwards(float first_value, float second_value) { // returns average rate of change over time interval dt
+	// uses backwards derivative method, first order error
 	return (second_value - first_value) / dt;
 
 };
 
-float num_deriv_array(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
+float num_deriv_array_backwards(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
 	float val1 = vals_to_diff.at(0);
 	float val2 = vals_to_diff.at(1);
 
-	return num_deriv(val1, val2);
+	return num_deriv_backwards(val1, val2);
+};
+
+float num_deriv_centered(float x_t_pls_1, float x_t_min_1) { // returns average rate of change over time interval dt 
+	// uses centered derivative method, second order error, see ideas.txt
+	return (x_t_pls_1 - x_t_min_1) / (2 * dt);
+
+};
+
+float num_deriv_array_centered(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
+	// takes array with 3 elements
+	float val1 = vals_to_diff.at(0);
+	float val2 = vals_to_diff.at(2);
+
+	return num_deriv_centered(val1, val2);
 };
 
 Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities between two entities with ID = ID1, ID2
@@ -52,6 +67,7 @@ Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities b
 	// ...
 	// YET! 
 	// god help me if I ever get sucked into making this use relativity
+	// honestly it would be best to start over if I do that
 
 	Vector2 vel1 = ECS_obj.get_entity_components(ID1).m_velocity;
 
@@ -156,29 +172,35 @@ void physics_update(int ID) { // updates physics components when called
 
 			std::vector<float> angle_buffer = ECS_obj.get_entity_components(ID).m_buffer1;
 
+			// shifts buffer array: [1,2,3] --> [1,2] 3 --> 0 [1,2] --> [0,1,2,]
+			// buffer array used for discrete derivative 
+
 			angle_buffer.pop_back(); // removes last element
 
 			angle_buffer.insert(angle_buffer.begin(), LOS_angle);
 
 			ECS_obj.set_buffer1(ID, angle_buffer);
 
-			// finding lambda_dot now
+			// finding lambda_dot now with centered derivative method
 
-			float lambda_dot = num_deriv_array(angle_buffer);
+			float lambda_dot = num_deriv_array_centered(angle_buffer);
 
 			// finding relative vel
 
 			float closing_vel = Vector2Length(return_rel_vel(ID, target_ID));
 
-			float N = 3; // going to see if 3 is a good start
+			float N = 4; // going to see if 3 is a good start
 
 			float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
 
 			// now updating torque
 
-			torque -= moment * ang_accel_propnav; // this keeps adding the torque forever, need to check rest of prop nav systems
+			torque =(moment * ang_accel_propnav) / 100 ;
 
-			std::cout << "\r" << "ang_vel : " << ECS_obj.get_entity_components(ID).m_angvel << std::flush;
+			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
+
+			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << std::flush;
+
 		}
 
 		// == GRAVITY ==

@@ -28,13 +28,15 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
 
+		float thrust_magnitude = 50.0f;
+
 		float fuelmass{ ECS_obj.get_entity_components(ID).m_fuelmass };
 
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
 
-		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 100.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 100.0f };
+		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * thrust_magnitude, sin(ECS_obj.get_entity_components(ID).m_angle) * thrust_magnitude };
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 
@@ -44,7 +46,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 			force = thrust;
 
-			fuelmass = std::max(fuelmass - 0.05f, 0.0f); // subtract fuelmass while engines are on, stop when 0
+			fuelmass = std::max(fuelmass - 0.05f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
 		}
 		else {
 

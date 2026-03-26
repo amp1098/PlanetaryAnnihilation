@@ -6,7 +6,7 @@
 #include "useful_functions.h"
 
 float const G = 1000.0f; // for gravity scaling
-float const dt = 0.1f; // for integration
+//float const dt = 0.01f; // for integration
 
 Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2);
 float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points);

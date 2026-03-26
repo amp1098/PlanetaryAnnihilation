@@ -49,10 +49,12 @@ Missile::Missile(
 
 	ECS_obj.set_is_spawned(ID, is_spawned);
 
+	ECS_obj.set_uses_prop_nav(ID, uses_prop_nav);
+
 	ECS_obj.set_is_movable(ID, true);
 
 	ECS_obj.set_has_gravity(ID, false);
 
-	ECS_obj.set_uses_prop_nav(ID, uses_prop_nav);
+	ECS_obj.set_buffer1(ID, { 0.0f, 0.0f, 0.0f });
 
 };

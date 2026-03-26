@@ -99,6 +99,17 @@ Then I find the average rate of change through division,
 
 lambda-dot = (1.2 + 1.5) / (time2 - time1)
 
+For the difference in time, I can use dt. This is a first-order error backwards derivative. For my game,
+this seems to lead to errors. To correct this, I can use a second-order error centered derivative. Let's say
+our buffer array looks like this:
+
+B1: [x_t+1, x_t, x_t-1] (first in, first out, where x_t-1 occurs at t-1, an earlier time)
+
+lamdba-dot = (x_t+1 - x_t-1)/(2dt)
+
+This way, I can reduce errors quickly by just making dt a little smaller. To reduce errors for a first order method,
+I would need much, much smaller dt values.
+
 If the change in angle is positive, then the LOS angle is moving counter-clockwise (think unit circle). If it's
 negative, then the LOS angle is moving clockwise. So I don't need to change the sign of the angular acceleration.
 
