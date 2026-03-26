@@ -204,7 +204,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
 
-			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " and torque: " << torque << std::flush;
+			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " and closing vel: " << closing_vel << std::flush;
 
 		}
 
