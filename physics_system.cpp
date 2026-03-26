@@ -192,7 +192,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			// finding relative vel
 
-			float closing_vel = Vector2Length(return_rel_vel(ID, target_ID));
+			float closing_vel = - Vector2Length(return_rel_vel(ID, target_ID));
 
 			float N = 4; // going to see if 3 is a good start
 
@@ -204,7 +204,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
 
-			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " and closing vel: " << closing_vel << std::flush;
+			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
 
 		}
 
