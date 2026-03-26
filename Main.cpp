@@ -30,7 +30,7 @@ int main(void)
 	);
 
 	Missile testMissile1(
-		3, "missile", 5.0f, GREEN, 10.0f, true
+		3, "missile", 50.0f, GREEN, 10.0f, true, true
 	);
 
 	Planetoid planet2(

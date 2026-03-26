@@ -32,9 +32,11 @@ public:
 	bool m_is_movable;
 	bool m_is_spawned;
 
+	bool m_uses_prop_nav;
+
 	Missile(
 		int ID, std::string name, float fuelmass, Color color, float health,
-		bool is_spawned
+		bool is_spawned, bool uses_prop_nav
 	);
 };
 

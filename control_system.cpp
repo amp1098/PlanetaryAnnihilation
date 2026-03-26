@@ -24,7 +24,7 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 	};
 };
 
-void missile_control(int ID) { // aims at target and thrusts
+void missile_control(int ID) { // trys to fly into player's ship, turns into explosion when fuel is out
 	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
 
@@ -38,11 +38,11 @@ void missile_control(int ID) { // aims at target and thrusts
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 
-		float turn_force{ 5000.0f };
+		//float turn_force{ 5000.0f };
 
-		if (abs(ECS_obj.get_entity_components(ID).m_angvel) <= 0.1f && fuelmass > 0.0f) {
+		if ( fuelmass > 0.0f) {
 
-			force = thrust; // engines won't push if turning fast
+			force = thrust;
 
 			fuelmass = std::max(fuelmass - 0.05f, 0.0f); // subtract fuelmass while engines are on, stop when 0
 		}
@@ -52,7 +52,7 @@ void missile_control(int ID) { // aims at target and thrusts
 
 		};
 
-		torque = turn_force; // twist right
+		//torque = turn_force; // twist right
 
 		ECS_obj.set_force(ID, force);
 
@@ -63,7 +63,7 @@ void missile_control(int ID) { // aims at target and thrusts
 	};
 };
 
-void groundlaser_control(int ID) { // applies linear force until velocity relative to target reaches a certain value
+void groundlaser_control(int ID) { // rotates groundlaser entity to point at player ship
 	if (ECS_obj.get_entity_components(ID).m_name == "groundlaser") {
 		// initializing local vars
 

@@ -3,7 +3,7 @@
 
 Missile::Missile(
 	int ID, std::string name, float fuelmass, Color color, float health,
-	bool is_spawned
+	bool is_spawned, bool uses_prop_nav
 )
 { // constructor, takes arguments
 	m_ID = ID;
@@ -31,6 +31,8 @@ Missile::Missile(
 	m_is_movable = true;
 	m_is_spawned = is_spawned;
 
+	m_uses_prop_nav = uses_prop_nav;
+
 	ECS_obj.set_name(ID, name);
 
 	ECS_obj.set_mass(ID, m_mass);
@@ -50,5 +52,7 @@ Missile::Missile(
 	ECS_obj.set_is_movable(ID, true);
 
 	ECS_obj.set_has_gravity(ID, false);
+
+	ECS_obj.set_uses_prop_nav(ID, uses_prop_nav);
 
 };

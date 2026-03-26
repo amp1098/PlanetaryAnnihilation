@@ -84,7 +84,7 @@ float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an
 	Vector2 pos1 = ECS_obj.get_entity_components(ID).m_position;
 	Vector2 pos2 = ECS_obj.get_entity_components(target_ID).m_position;
 
-	angle_of_vec_diff(pos1, pos2);
+	return angle_of_vec_diff(pos1, pos2);
 };
 
 void physics_update(int ID) { // updates physics components when called
@@ -125,7 +125,7 @@ void physics_update(int ID) { // updates physics components when called
 		bool uses_prop_nav{ ECS_obj.get_entity_components(ID).m_uses_prop_nav };
 
 		// == TARGETING ==
-		if (target_ID != 0 && not uses_prop_nav) { // if ID is 0, it's not targeting anything
+		if (target_ID != 0 && !uses_prop_nav) { // if ID is 0, it's not targeting anything
 
 			float spring_constant{ 30000.0f }; // spring constant for damped rotations
 
@@ -147,8 +147,6 @@ void physics_update(int ID) { // updates physics components when called
 		// == TARGETING (PROPORTIONAL NAV) ==
 
 		if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target, WIP
-
-
 
 			// each frame I need to add the current LOS angle to the target entity to the buffer1 array
 			// while also removing the last element
@@ -178,7 +176,9 @@ void physics_update(int ID) { // updates physics components when called
 
 			// now updating torque
 
-			torque += moment * ang_accel_propnav;
+			torque -= moment * ang_accel_propnav; // this keeps adding the torque forever, need to check rest of prop nav systems
+
+			std::cout << "\r" << "ang_vel : " << ECS_obj.get_entity_components(ID).m_angvel << std::flush;
 		}
 
 		// == GRAVITY ==
