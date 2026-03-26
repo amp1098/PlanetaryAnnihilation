@@ -105,7 +105,7 @@ float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an
 	// found bug! all I did was find the difference of the position vectors! I need to use the angle of the entity that
 	// targeting something to help.
 
-	return angle_of_targeting_system - angle_of_vec_diff(pos1, pos2);
+	return  angle_of_vec_diff(pos1, pos2) - angle_of_targeting_system;
 };
 
 void physics_update(int ID) { // updates physics components when called
@@ -200,11 +200,11 @@ void physics_update(int ID) { // updates physics components when called
 
 			// now updating torque
 
-			torque =(moment * ang_accel_propnav) / 100 ;
+			torque = (moment * ang_accel_propnav) / 100 ;
 
 			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
 
-			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << std::flush;
+			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " and torque: " << torque << std::flush;
 
 		}
 
