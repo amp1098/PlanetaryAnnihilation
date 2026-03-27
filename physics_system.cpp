@@ -83,6 +83,13 @@ float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector
 	return clamp_angle(atan2(vec_res.y, vec_res.x) + PI); // the PI is needed due to left handed coordinate system
 };
 
+float angle_of_vec_diff_unclamped(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2, does not use clamp
+	// (see useful_functions.cpp)
+	Vector2 vec_res{ vec2 - vec1 };
+
+	return atan2(vec_res.y, vec_res.x);
+};
+
 float better_sign_function(float x) {
 	x = 2 * std::signbit(x) - 1;
 	return x;
@@ -94,7 +101,8 @@ float return_accel_propnav(int N, float lambda_dot, float closing_velocity) { //
 	return N * lambda_dot * closing_velocity;
 };
 
-float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an entity and its target
+float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an entity with an ID and its target
+	// mathematically, compares the angle of the vector connecting two entities to the angle of the targeting entity
 	int target_ID = ECS_obj.get_entity_components(ID).m_target_id;
 
 	Vector2 pos1 = ECS_obj.get_entity_components(ID).m_position;
@@ -102,8 +110,6 @@ float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an
 
 	float angle_of_targeting_system = ECS_obj.get_entity_components(ID).m_angle;
 
-	// found bug! all I did was find the difference of the position vectors! I need to use the angle of the entity that
-	// targeting something to help.
 
 	return  angle_of_vec_diff(pos1, pos2) - angle_of_targeting_system;
 };
@@ -163,6 +169,14 @@ void physics_update(int ID) { // updates physics components when called
 			torque += -spring_constant * (angle - target_angle) - damping * angvel; // see ideas.txt
 
 			/*std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;*/
+
+			// === DEBUGGING === //
+
+			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
+
+			//std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
+
+
 		};
 
 		// == TARGETING (PROPORTIONAL NAV) ==
@@ -194,18 +208,27 @@ void physics_update(int ID) { // updates physics components when called
 
 			float closing_vel = - Vector2Length(return_rel_vel(ID, target_ID));
 
-			float N = 4; // going to see if 3 is a good start
+			float N = 3; // going to see if 3 is a good start
 
 			float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
 
 			// now updating torque
 
-			torque = (moment * ang_accel_propnav) / 100 ;
+			torque = - (moment * ang_accel_propnav) / 200; // need to adjust mass of missile later
+
+			// === DEBUGGING === //
+
+			Vector2 X = ECS_obj.get_entity_components(ID).m_position;
+
+			Vector2 Y = ECS_obj.get_entity_components(target_ID).m_position;
+
+			float look_angle = ECS_obj.get_entity_components(ID).m_angle;
 
 			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
 
-			std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
+			//std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
 
+			std::cout << "\r" << "angular acceleration " << ECS_obj.get_entity_components(ID).m_name << " : " << ang_accel_propnav << std::flush;
 		}
 
 		// == GRAVITY ==

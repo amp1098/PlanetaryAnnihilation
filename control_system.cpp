@@ -5,7 +5,7 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		// initializing local vars
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
-		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 10.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 10.0f };
+		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 50.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 50.0f };
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 		float turn_force{ 1500.0f };
@@ -40,7 +40,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 
-		//float turn_force{ 5000.0f };
+		float turn_force{ 5000.0f };
 
 		if ( fuelmass > 0.0f) {
 
@@ -54,7 +54,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		};
 
-		//torque = turn_force; // twist right
+		torque = turn_force; // twist right
 
 		ECS_obj.set_force(ID, force);
 

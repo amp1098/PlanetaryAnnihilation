@@ -12,7 +12,7 @@ Missile::Missile(
 	m_fuelmass = fuelmass;
 	m_color = color;
 
-	m_position = {100.0f, 50.0f};
+	m_position = {-200.0f, 50.0f};
 	m_velocity = { 0.0f, 0.0f };
 	m_acceleration = { 0.0f, 0.0f };
 	m_force = { 0.0f, 0.0f };

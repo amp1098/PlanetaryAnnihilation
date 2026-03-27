@@ -63,8 +63,20 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen if its s
 
 			float fuelmass = ECS_obj.get_entity_components(ID).m_fuelmass;
 
+			Vector2 pos = ECS_obj.get_entity_components(ID).m_position;
+
+				/*DrawText(
+					TextFormat("Fuelmass: %01f ", fuelmass),
+					ECS_obj.get_entity_components(ID).m_position.x,
+					ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+					30,
+					GREEN
+				);*/
+
+			float angle_stuff = rotate_angle - 0 * Vector2Angle(ECS_obj.get_entity_components(target_ID).m_position, pos);
+
 			DrawText(
-				TextFormat("Fuelmass: %01f ", fuelmass),
+				TextFormat("Angle: %01f ", round(angle_stuff * 180 / PI)),
 				ECS_obj.get_entity_components(ID).m_position.x,
 				ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
 				30,

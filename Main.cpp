@@ -33,11 +33,11 @@ int main(void)
 		3, "missile", 50.0f, GREEN, 10.0f, true, true
 	);
 
-	Planetoid planet2(
+	/*Planetoid planet2(
 		4, 10000.0f, WHITE,
 		{ 5000.0f, 5000.0f },
 		circle_maker(5000.0f, 500), false, true, true
-	);
+	);*/
 
 	use_initializer_systems();
 
