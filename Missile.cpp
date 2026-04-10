@@ -8,17 +8,17 @@ Missile::Missile(
 { // constructor, takes arguments
 	m_ID = ID;
 	m_name = name;
-	m_mass = 3.0f;
+	m_mass = 300.0f;
 	m_fuelmass = fuelmass;
 	m_color = color;
 
-	m_position = {-200.0f, 50.0f};
+	m_position = {-500.0f, -300.0f};
 	m_velocity = { 0.0f, 0.0f };
 	m_acceleration = { 0.0f, 0.0f };
 	m_force = { 0.0f, 0.0f };
 
 	m_angle = 0.0f;
-	m_angvel = 0.0f;
+	m_angvel = 10.0f;
 	m_angacc = 0.0f;
 	m_torque = 0.0f;
 

@@ -37,6 +37,20 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen if its s
 
 		// uncomment to debug forces on objects
 
+		if (ECS_obj.get_entity_components(ID).m_name == "missile") {
+
+			DrawText(
+				TextFormat("Angle: %01f ", round(rotate_angle * 180 / PI)),
+				ECS_obj.get_entity_components(ID).m_position.x,
+				ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+				30,
+				GREEN
+
+			);
+		};
+
+	
+
 		//DrawLineV(translate, force * 10 + translate, RED);
 
 		//DrawLineV(translate, velocity + translate, BLUE);
@@ -75,13 +89,13 @@ void draw_entity(int ID) { // render entity with ID <int>(ID) on screen if its s
 
 			float angle_stuff = rotate_angle - 0 * Vector2Angle(ECS_obj.get_entity_components(target_ID).m_position, pos);
 
-			DrawText(
-				TextFormat("Angle: %01f ", round(angle_stuff * 180 / PI)),
-				ECS_obj.get_entity_components(ID).m_position.x,
-				ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
-				30,
-				GREEN
-			);
+			//DrawText(
+			//	TextFormat("Angle: %01f ", round(angle_stuff * 180 / PI)),
+			//	ECS_obj.get_entity_components(ID).m_position.x,
+			//	ECS_obj.get_entity_components(ID).m_position.y - 100.0f,
+			//	30,
+			//	GREEN
+			//);
 		};
 	};
 };

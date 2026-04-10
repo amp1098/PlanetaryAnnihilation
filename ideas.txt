@@ -127,5 +127,33 @@ slow this down that much.
 The physics engine turns objects by applying a torque, and since proportional navigation uses angular acceleration, I can use
 T = I*a_n. I also have a way to calculate the moment of inertia for objects.
 
+== UPDATING ANGLE DIFF FUNCTION ==
 
+I notice an issue that's impacting my physics engine in general. Consider the hour hand on a clock.
 
+I have stuff that would find the angular distance the hand is from another point on the clock. Now, on a clock,
+that distance typically involves only one direction of thinking depending on context. If the hour hand was at 12 am, and I
+asked "how far it is from 3 am", then I see the short distance between 12 am and 3 am, and answer "three hours".
+
+This ignores that there are two distances; the major and minor arcs that rotating systems involve! I have an expression that
+finds the difference in the angles of two objects, but it breaks when the two angles are on different sides of the polar axis.
+What I need to do instead is calculate which direction is smaller, and have my systems use that angle instead.
+
+So to fix this: if the difference in angles is greater than 180 degrees, then the result I care about is actually
+360 - the difference in angles.
+
+pseudocode:
+
+angle_diff = angle1 - angle2
+if angle_diff < 180:
+	return angle_diff
+else:
+	return 360 - angle_diff
+
+\\ update on angles
+
+I am annoyed. Apparently Vector2Angle is bugged. Going to try Vector2LineAngle now.
+
+Tried futzing with some different methods. Vector2Angle seems fine, but I did end up using a better method to find the LOS angle.
+Instead of subtracting the angle of each vector, I subtracted the vectors of the relative position vector with a "pointing vector"
+of the targeting system. Then, I found the angle of that.

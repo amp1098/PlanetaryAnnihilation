@@ -80,14 +80,40 @@ Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities b
 float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2
 	Vector2 vec_res{ vec1 - vec2 };
 
-	return clamp_angle(atan2(vec_res.y, vec_res.x) + PI); // the PI is needed due to left handed coordinate system
+	float angle_diff = clamp_angle(atan2(vec_res.y, vec_res.x) + PI ); // the PI is needed due to left handed coordinate system
+
+	return angle_diff;
+
 };
 
 float angle_of_vec_diff_unclamped(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2, does not use clamp
 	// (see useful_functions.cpp)
 	Vector2 vec_res{ vec2 - vec1 };
 
-	return atan2(vec_res.y, vec_res.x);
+	float angle_output = atan2(vec_res.y, vec_res.x);
+
+	if (angle_output < PI) {
+
+		return angle_output;
+
+	}
+	else {
+
+		return 2 * PI - angle_output;
+	
+	};
+};
+
+float minimum_angle(float input_angle) { // returns abs_val minimum of input_angle and 2 * PI - input_angle
+
+	if (abs(input_angle) <= 2 * PI - abs(input_angle)) {
+		return input_angle;
+	}
+	else {
+		return 2 * PI - input_angle;
+	};
+
+
 };
 
 float better_sign_function(float x) {
@@ -102,16 +128,19 @@ float return_accel_propnav(int N, float lambda_dot, float closing_velocity) { //
 };
 
 float return_LOS_angle(int ID) { // returns Line of Sight (LOS) angle between an entity with an ID and its target
-	// mathematically, compares the angle of the vector connecting two entities to the angle of the targeting entity
+	// mathematically, compares the angle of the vector difference of the positions of two entities to the angle of the targeting entity
 	int target_ID = ECS_obj.get_entity_components(ID).m_target_id;
 
 	Vector2 pos1 = ECS_obj.get_entity_components(ID).m_position;
 	Vector2 pos2 = ECS_obj.get_entity_components(target_ID).m_position;
 
-	float angle_of_targeting_system = ECS_obj.get_entity_components(ID).m_angle;
+	float system_angle = ECS_obj.get_entity_components(ID).m_angle;
 
+	Vector2 pointing_vector = { cos(system_angle), sin(system_angle) };
+	
+	Vector2 diff_positional_vector = Vector2Normalize(Vector2Subtract(pos2, pos1));
 
-	return  angle_of_vec_diff(pos1, pos2) - angle_of_targeting_system;
+	return Vector2Angle(pointing_vector, diff_positional_vector);
 };
 
 void physics_update(int ID) { // updates physics components when called
@@ -154,7 +183,7 @@ void physics_update(int ID) { // updates physics components when called
 		// == TARGETING ==
 		if (target_ID != 0 && !uses_prop_nav) { // if ID is 0, it's not targeting anything
 
-			float spring_constant{ 30000.0f }; // spring constant for damped rotations
+			float spring_constant{ 300000.0f }; // spring constant for damped rotations
 
 			float damping{ 2 * sqrt(spring_constant * moment_of_inertia(mass, shape)) }; // see ideas.txt
 
@@ -163,12 +192,21 @@ void physics_update(int ID) { // updates physics components when called
 			// angle to target is the angle of the vector difference of targeting entity and targeted entity
 
 			float target_angle{
+
 				angle_of_vec_diff(position, target_position)
+
 			};
 
-			torque += -spring_constant * (angle - target_angle) - damping * angvel; // see ideas.txt
+			// finding shortest angular displacement and applying proportional torque
 
-			/*std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;*/
+			if (angle - target_angle > PI) { 
+				torque += -spring_constant * ((angle - target_angle))- damping * angvel; // see ideas.txt
+			}
+			else {
+				torque += -spring_constant * (angle - target_angle)-damping * angvel;
+			};
+
+			//std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;
 
 			// === DEBUGGING === //
 
@@ -200,7 +238,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			ECS_obj.set_buffer1(ID, angle_buffer);
 
-			// finding lambda_dot now with centered derivative method
+			// finding lambda_dot now with centered derivative method, taking abs value
 
 			float lambda_dot = num_deriv_array_centered(angle_buffer);
 
@@ -214,7 +252,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			// now updating torque
 
-			torque = - (moment * ang_accel_propnav) / 200; // need to adjust mass of missile later
+			torque = - (moment * ang_accel_propnav) / 50; // need to adjust mass of missile later
 
 			// === DEBUGGING === //
 
@@ -228,7 +266,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			//std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
 
-			std::cout << "\r" << "angular acceleration " << ECS_obj.get_entity_components(ID).m_name << " : " << ang_accel_propnav << std::flush;
+			std::cout << "\r" << "angle " << ECS_obj.get_entity_components(ID).m_name << " : " << LOS_angle * 180 / PI << std::flush;
 		}
 
 		// == GRAVITY ==

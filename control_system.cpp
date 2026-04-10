@@ -18,6 +18,14 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		else if (IsKeyDown(KEY_LEFT)) torque = -turn_force; // twist left
 		else torque = 0.0f; // torque returns to zero otherwise
 
+		if (IsKeyDown(KEY_SPACE)) {  // brake
+			ECS_obj.set_velocity(ID, { 0.0f, 0.0f });
+			ECS_obj.set_force(ID, { 0.0f, 0.0f });
+			ECS_obj.set_torque(ID, 0);
+			ECS_obj.set_angvel(ID, 0);
+			ECS_obj.set_angacc(ID, 0);
+		};
+
 		ECS_obj.set_force(ID, force);
 
 		ECS_obj.set_torque(ID, torque);
@@ -28,7 +36,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
 
-		float thrust_magnitude = 10.0f;
+		float thrust_magnitude = 3000.0f;
 
 		float fuelmass{ ECS_obj.get_entity_components(ID).m_fuelmass };
 
@@ -77,10 +85,10 @@ void groundlaser_control(int ID) { // rotates groundlaser entity to point at pla
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 
-		float turn_force{ 1500.0f };
+		float turn_force{ 10.0f };
 
-		if (abs(ECS_obj.get_entity_components(ID).m_angvel) <= 0.1f) force = thrust; // engines won't push if turning fast
-		else force = { 0.0f, 0.0f };
+		//if (abs(ECS_obj.get_entity_components(ID).m_angvel) <= 0.1f) force = thrust; // engines won't push if turning fast
+		//else force = { 0.0f, 0.0f };
 
 		torque = turn_force; // twist right
 
