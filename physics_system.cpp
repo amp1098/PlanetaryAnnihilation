@@ -23,16 +23,33 @@ Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns g
 
 };
 
-float moment_of_inertia(float mass_of_each_point, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
+float moment_of_inertia(float mass_of_object, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
 	float moment{};
 
-	Vector2 center_of_points{}; // we can subtract this from each element in points to move to {0,0}
+	float mass_of_each_point{ mass_of_object / std::size(points) };
 
-	for (int i = 0; i < std::size(points); i++) {
+	// TODO: shouldnt center of points be calculated?
+	// just find mean
+	// center_of_points = {mean(points.x), mean(points.y)}
+	Vector2 center_of_points{ Vector2Mean(points)}; // we can subtract this from each element in points to move to {0,0}
+
+	for (int i = 0; i < std::size(points); i++) { // for each index corresponding to each point
 		moment += mass_of_each_point * Vector2LengthSqr(points[i] - center_of_points);
 	};
 
 	return moment;
+};
+
+float minimum_angle(float input_angle) { // returns abs_val minimum of input_angle and 2 * PI - input_angle
+
+	if (abs(input_angle) <= 2 * PI - abs(input_angle)) {
+		return input_angle;
+	}
+	else {
+		return copysignf(input_angle, input_angle) * (2 * PI - abs(input_angle));
+	};
+
+
 };
 
 float num_deriv_backwards(float first_value, float second_value) { // returns average rate of change over time interval dt
@@ -54,20 +71,38 @@ float num_deriv_centered(float x_t_pls_1, float x_t_min_1) { // returns average 
 
 };
 
-float num_deriv_array_centered(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
-	// takes array with 3 elements
-	float val1 = vals_to_diff.at(0);
-	float val2 = vals_to_diff.at(2);
+float num_deriv_centered_angles(float x_t_pls_1, float x_t_min_1) { // returns average ROC of angles, uses minumum angle function
+	return minimum_angle((x_t_pls_1 - x_t_min_1)) / (2 * dt);
 
-	return num_deriv_centered(val1, val2);
 };
 
+float num_deriv_array_centered(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
+	// takes array with 3 elements
+	float val1 = vals_to_diff.at(0); // t-1
+	float val2 = vals_to_diff.at(2); // t+1
+
+	return num_deriv_centered(val2, val1);
+
+};
+
+/*float clamp_signed_float(float input, float clamp_value) { // if |input| > clamp_value, return sign(input) * clamp_value
+	
+	float sign_val{};
+
+	if (input == 0.0f) { sign_val = 0.0f; }
+	else if (input < 0.0f) { sign_val = -1.0f; }
+	else { sign_val = 1.0f; }
+
+	if (abs(input) > clamp_value) {
+
+		return sign_val * clamp_value;
+
+	}
+	else return input % (2 * PI);
+
+}; */
+
 Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities between two entities with ID = ID1, ID2
-	// does not account for relativity
-	// ...
-	// YET! 
-	// god help me if I ever get sucked into making this use relativity
-	// honestly it would be best to start over if I do that
 
 	Vector2 vel1 = ECS_obj.get_entity_components(ID1).m_velocity;
 
@@ -102,18 +137,6 @@ float angle_of_vec_diff_unclamped(Vector2 vec1, Vector2 vec2) { // returns angle
 		return 2 * PI - angle_output;
 	
 	};
-};
-
-float minimum_angle(float input_angle) { // returns abs_val minimum of input_angle and 2 * PI - input_angle
-
-	if (abs(input_angle) <= 2 * PI - abs(input_angle)) {
-		return input_angle;
-	}
-	else {
-		return 2 * PI - input_angle;
-	};
-
-
 };
 
 float better_sign_function(float x) {
@@ -183,43 +206,32 @@ void physics_update(int ID) { // updates physics components when called
 		// == TARGETING ==
 		if (target_ID != 0 && !uses_prop_nav) { // if ID is 0, it's not targeting anything
 
-			float spring_constant{ 300000.0f }; // spring constant for damped rotations
+			float spring_constant{ 1000.0f }; // spring constant for damped rotations
 
 			float damping{ 2 * sqrt(spring_constant * moment_of_inertia(mass, shape)) }; // see ideas.txt
 
 			Vector2 target_position{ ECS_obj.get_entity_components(target_ID).m_position };
 
-			// angle to target is the angle of the vector difference of targeting entity and targeted entity
+			Vector2 relative_position{ Vector2Normalize(Vector2Subtract(target_position, position))};
 
-			float target_angle{
+			Vector2 pointing_vector{ cos(angle), sin(angle) };
 
-				angle_of_vec_diff(position, target_position)
+			// angle to target is the angle of the relative position of target and entity
 
-			};
+			float target_angle{ Vector2LineAngle(pointing_vector, relative_position)};
 
 			// finding shortest angular displacement and applying proportional torque
 
-			if (angle - target_angle > PI) { 
-				torque += -spring_constant * ((angle - target_angle))- damping * angvel; // see ideas.txt
-			}
-			else {
-				torque += -spring_constant * (angle - target_angle)-damping * angvel;
-			};
+			torque += -spring_constant * target_angle - damping * angvel;
 
-			//std::cout << "\r" << "angle : " << angle << " | tar angle : " << target_angle << std::flush;
-
-			// === DEBUGGING === //
-
-			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
-
-			//std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
+			//std::cout << "\r" << "angle : " << round(angle * 180 / PI) <<  std::flush;
 
 
 		};
 
 		// == TARGETING (PROPORTIONAL NAV) ==
 
-		if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target, WIP
+		if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target
 
 			// each frame I need to add the current LOS angle to the target entity to the buffer1 array
 			// while also removing the last element
@@ -238,21 +250,35 @@ void physics_update(int ID) { // updates physics components when called
 
 			ECS_obj.set_buffer1(ID, angle_buffer);
 
-			// finding lambda_dot now with centered derivative method, taking abs value
+			// finding lambda_dot now with centered derivative method
 
 			float lambda_dot = num_deriv_array_centered(angle_buffer);
 
 			// finding relative vel
 
-			float closing_vel = - Vector2Length(return_rel_vel(ID, target_ID));
+			//float closing_vel = - Vector2Length(return_rel_vel(ID, target_ID));
 
-			float N = 3; // going to see if 3 is a good start
+			// finding closing velocity CORRECTLY
+
+			//https://gamedev.stackexchange.com/questions/118162/how-to-calculate-the-closing-speed-of-two-objects
+
+			Vector2 relative_position = Vector2Subtract(position, ECS_obj.get_entity_components(target_ID).m_position);
+
+			Vector2 relative_velocity = return_rel_vel(ID, target_ID);
+
+			float magnitude_rel_pos = Vector2Length(relative_position);
+
+			float dot_relvel_relpos = Vector2DotProduct(relative_position, relative_velocity);
+
+			float closing_vel = - dot_relvel_relpos / magnitude_rel_pos;
+
+			float N = 1.0f;
 
 			float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
 
 			// now updating torque
 
-			torque = - (moment * ang_accel_propnav) / 50; // need to adjust mass of missile later
+			torque = - (moment * ang_accel_propnav);
 
 			// === DEBUGGING === //
 
@@ -261,12 +287,8 @@ void physics_update(int ID) { // updates physics components when called
 			Vector2 Y = ECS_obj.get_entity_components(target_ID).m_position;
 
 			float look_angle = ECS_obj.get_entity_components(ID).m_angle;
-
-			//std::cout << "\r" << "lambda_dot : " << lambda_dot << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1) << ", " << angle_buffer.at(1) << std::flush;
-
-			//std::cout << "\r" << "LOS angle : " << LOS_angle * 180 / PI << " | lambda_dot " << lambda_dot << " | closing vel " << closing_vel << std::flush;
-
-			std::cout << "\r" << "angle " << ECS_obj.get_entity_components(ID).m_name << " : " << LOS_angle * 180 / PI << std::flush;
+			
+			std::cout << "\r" << "lambda_dot : " << (angle_buffer.at(2) - angle_buffer.at(0)) / (2 * dt) << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1)<< ", " << angle_buffer.at(2)<< std::flush;
 		}
 
 		// == GRAVITY ==

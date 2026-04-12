@@ -13,4 +13,8 @@ float clamp_angle(float angle);
 
 std::vector<Vector2> circle_maker(float radius, int vertices);
 
+float mean(std::vector<float> input_vector);
+
+Vector2 Vector2Mean(std::vector<Vector2> input_vectors);
+
 #endif

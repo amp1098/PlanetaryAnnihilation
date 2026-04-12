@@ -5,10 +5,10 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		// initializing local vars
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
-		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 50.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 50.0f };
+		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 600.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 600.0f };
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
-		float turn_force{ 1500.0f };
+		float turn_force{ 100000.0f };
 
 		if (IsKeyDown(KEY_UP)) force = thrust; // push up
 		else if (IsKeyDown(KEY_DOWN)) force = Vector2Negate(thrust); // push down
@@ -36,7 +36,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
 
-		float thrust_magnitude = 3000.0f;
+		float thrust_magnitude = 0.0f;
 
 		float fuelmass{ ECS_obj.get_entity_components(ID).m_fuelmass };
 
@@ -46,15 +46,15 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * thrust_magnitude, sin(ECS_obj.get_entity_components(ID).m_angle) * thrust_magnitude };
 
-		float torque{ ECS_obj.get_entity_components(ID).m_torque };
+		//float torque{ ECS_obj.get_entity_components(ID).m_torque };
 
-		float turn_force{ 5000.0f };
+		//float turn_force{ 500.0f };
 
 		if ( fuelmass > 0.0f) {
 
 			force = thrust;
 
-			fuelmass = std::max(fuelmass - 0.05f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
+			fuelmass = std::max(fuelmass - 1.0f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
 		}
 		else {
 
@@ -62,11 +62,11 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		};
 
-		torque = turn_force; // twist right
+		//torque = turn_force; // twist right
 
 		ECS_obj.set_force(ID, force);
 
-		ECS_obj.set_torque(ID, torque);
+		//ECS_obj.set_torque(ID, torque);
 
 		ECS_obj.set_fuelmass(ID, fuelmass);
 
@@ -79,20 +79,11 @@ void groundlaser_control(int ID) { // rotates groundlaser entity to point at pla
 
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 
-		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
-
-		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 30.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 30.0f };
-
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
 
 		float turn_force{ 10.0f };
 
-		//if (abs(ECS_obj.get_entity_components(ID).m_angvel) <= 0.1f) force = thrust; // engines won't push if turning fast
-		//else force = { 0.0f, 0.0f };
-
 		torque = turn_force; // twist right
-
-		ECS_obj.set_force(ID, force);
 
 		ECS_obj.set_torque(ID, torque);
 

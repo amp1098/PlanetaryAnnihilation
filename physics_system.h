@@ -14,6 +14,10 @@ float angle_of_vec_diff(Vector2 vec1, Vector2 vec2);
 
 float better_sign_function(float x);
 
+float return_accel_propnav(int N, float lambda_dot, float closing_velocity);
+
+float return_LOS_angle(int ID);
+
 void physics_update(int ID);
 #endif // !PHYSICS_SYSTEM_H
 

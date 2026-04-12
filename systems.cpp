@@ -17,9 +17,9 @@
 
 void use_initializer_systems() { // these systems should only be run at the start of the game
 
-	for (int i = 0; i < 20; i++) {
+	/*for (int i = 0; i < 20; i++) {
 		random_spawn_on_planetoid();
-	};
+	};*/
 
 };
 
@@ -58,7 +58,11 @@ void use_systems() {
 			thrust_check(ID); // checking for keyboard inputs
 			missile_control(ID); // makes missiles move
 			groundlaser_control(ID); // makes groundlasers aim
-			physics_update(ID); // updating physics components
+
+			if (IsKeyDown(KEY_BACKSPACE)) {// updating physics components
+				physics_update(ID);
+			} 
+			
 
 			despawn_dead_entity(ID);
 

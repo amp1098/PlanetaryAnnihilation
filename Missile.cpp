@@ -8,7 +8,7 @@ Missile::Missile(
 { // constructor, takes arguments
 	m_ID = ID;
 	m_name = name;
-	m_mass = 300.0f;
+	m_mass = 100.0f;
 	m_fuelmass = fuelmass;
 	m_color = color;
 

@@ -21,7 +21,7 @@ int main(void)
 
 	int spacing = 0;
 
-	// adding a ship object
+	// adding objects
 	
 	int playerID = 1;
 
@@ -32,6 +32,13 @@ int main(void)
 	Missile testMissile1(
 		3, "missile", 50.0f, GREEN, 10.0f, true, true
 	);
+
+	GroundLaser groundlasertest(7, "testlaser", 20.0f, WHITE, 100.0f, { 200.0f, 0.0f }, true);
+
+	/*int ID, std::string name, float mass, Color color, float health,
+	Vector2 position,
+	bool is_spawned
+)*/
 
 	/*Planetoid planet2(
 		4, 10000.0f, WHITE,
