@@ -54,7 +54,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 			force = thrust;
 
-			fuelmass = std::max(fuelmass - 1.0f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
+			fuelmass = std::max(fuelmass - 0 * 1.0f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
 		}
 		else {
 

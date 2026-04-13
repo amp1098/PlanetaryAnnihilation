@@ -72,7 +72,17 @@ float num_deriv_centered(float x_t_pls_1, float x_t_min_1) { // returns average 
 };
 
 float num_deriv_centered_angles(float x_t_pls_1, float x_t_min_1) { // returns average ROC of angles, uses minumum angle function
-	return minimum_angle((x_t_pls_1 - x_t_min_1)) / (2 * dt);
+
+	float angle_diff = x_t_min_1 - x_t_pls_1;
+
+	float sign_of_difference = copysignf(1, angle_diff); // gets sign of the difference, needed to fix jump in derivative
+
+	float numerator{};
+
+	if (abs(angle_diff) >= PI) { numerator = sign_of_difference * (abs(angle_diff) - (2 * PI)); }
+	else { numerator = angle_diff; }
+
+	return numerator / (2 * dt);
 
 };
 
@@ -81,7 +91,7 @@ float num_deriv_array_centered(std::vector<float> vals_to_diff) { // works like 
 	float val1 = vals_to_diff.at(0); // t-1
 	float val2 = vals_to_diff.at(2); // t+1
 
-	return num_deriv_centered(val2, val1);
+	return num_deriv_centered_angles(val2, val1);
 
 };
 
@@ -278,7 +288,7 @@ void physics_update(int ID) { // updates physics components when called
 
 			// now updating torque
 
-			torque = - (moment * ang_accel_propnav);
+			torque = (moment * ang_accel_propnav);
 
 			// === DEBUGGING === //
 
@@ -288,7 +298,9 @@ void physics_update(int ID) { // updates physics components when called
 
 			float look_angle = ECS_obj.get_entity_components(ID).m_angle;
 			
-			std::cout << "\r" << "lambda_dot : " << (angle_buffer.at(2) - angle_buffer.at(0)) / (2 * dt) << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1)<< ", " << angle_buffer.at(2)<< std::flush;
+			//std::cout << "\r" << "lambda_dot : " << (angle_buffer.at(2) - angle_buffer.at(0)) / (2 * dt) << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1)<< ", " << angle_buffer.at(2) << "|| num deriv" << num_deriv_array_centered(angle_buffer) << std::flush;
+		
+			std::cout << ang_accel_propnav << ", " << std::flush;
 		}
 
 		// == GRAVITY ==

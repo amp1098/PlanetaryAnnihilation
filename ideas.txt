@@ -175,3 +175,9 @@ Perhaps I could treat these as special cases. If two angles are within a certain
 [180.1, -180.2] --> [180.1 - 180, 180.2 - 180] --> [0.1, 0,2]
 
 I could also clamp the maximum value! This would eliminate the instabilities that keep showing up. I'll try that real quick.
+
+UPDATE:
+
+https://www.desmos.com/calculator/leu2wkdp74 got annoyed so I made a quick numerical derivative example
+
+uses an if-else thing based on the size of the difference of the angles.
