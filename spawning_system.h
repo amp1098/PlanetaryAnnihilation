@@ -8,10 +8,14 @@
 #include <algorithm> // for max_element
 #include "entities.h"
 
+int return_unused_id();
+
 void random_spawn_on_planetoid();
 
 void spawn_explosion(int parent_id);
 
 void despawn_dead_entity(int ent_id);
+
+void spawn_missile_at_position(Vector2 position);
 
 #endif

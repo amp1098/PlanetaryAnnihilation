@@ -1,4 +1,20 @@
 #include "spawning_system.h"
+#include "ECS_obj.h"
+
+int return_unused_id() { // returns an integer that has not been used as an ID in the ECS yet
+
+	std::vector<int> ids{ ECS_obj.return_all_ids() }; // all current IDs
+
+	int max_id{ 0 }; // initializing maximum ID
+
+	int output_id{ 0 }; // this will be 1+max_id
+
+	max_id = *std::max_element(ids.begin(), ids.end()); // stolen from stack exchange, pointer required for some reason
+
+	output_id = max_id + 1;
+
+	return output_id;
+};
 
 void random_spawn_on_planetoid() { // find an entity and put it on a planetoid
 
@@ -63,9 +79,16 @@ void despawn_dead_entity(int ent_id) { // anything with 0 health should be remov
 
 	if (FloatEquals(health, 0.0f)) {
 
-		ECS_obj.set_is_spawned(ent_id, false);
+		ECS_obj.destroy_entity(ent_id); // WIP breaks game if ship dies
 
 	};
 
 };
 
+void spawn_missile_at_position(Vector2 position) { // creates an entity that is a member of the Missile class
+
+	int id = return_unused_id();
+
+	Missile(id, "missile", 100.0f, WHITE, position, 100.0f, true, true);
+
+};

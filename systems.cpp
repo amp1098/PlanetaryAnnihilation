@@ -59,9 +59,7 @@ void use_systems() {
 			missile_control(ID); // makes missiles move
 			groundlaser_control(ID); // makes groundlasers aim
 
-			if (IsKeyDown(KEY_BACKSPACE)) {// updating physics components
-				physics_update(ID);
-			} 
+			physics_update(ID);
 			
 
 			despawn_dead_entity(ID);

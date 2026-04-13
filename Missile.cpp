@@ -2,7 +2,7 @@
 #include "polygons.h"
 
 Missile::Missile(
-	int ID, std::string name, float fuelmass, Color color, float health,
+	int ID, std::string name, float fuelmass, Color color, Vector2 position, float health,
 	bool is_spawned, bool uses_prop_nav
 )
 { // constructor, takes arguments
@@ -12,7 +12,7 @@ Missile::Missile(
 	m_fuelmass = fuelmass;
 	m_color = color;
 
-	m_position = {-500.0f, -300.0f};
+	m_position = position;
 	m_velocity = { 0.0f, 0.0f };
 	m_acceleration = { 0.0f, 0.0f };
 	m_force = { 0.0f, 0.0f };

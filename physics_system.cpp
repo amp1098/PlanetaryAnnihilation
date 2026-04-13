@@ -280,15 +280,15 @@ void physics_update(int ID) { // updates physics components when called
 
 			float dot_relvel_relpos = Vector2DotProduct(relative_position, relative_velocity);
 
-			float closing_vel = - dot_relvel_relpos / magnitude_rel_pos;
+			float closing_vel = - abs(dot_relvel_relpos / magnitude_rel_pos);
 
-			float N = 1.0f;
+			float N = 3.0f;
 
 			float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
 
 			// now updating torque
 
-			torque = (moment * ang_accel_propnav);
+			torque = - (moment * ang_accel_propnav) / 5.0f;
 
 			// === DEBUGGING === //
 
@@ -300,7 +300,7 @@ void physics_update(int ID) { // updates physics components when called
 			
 			//std::cout << "\r" << "lambda_dot : " << (angle_buffer.at(2) - angle_buffer.at(0)) / (2 * dt) << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1)<< ", " << angle_buffer.at(2) << "|| num deriv" << num_deriv_array_centered(angle_buffer) << std::flush;
 		
-			std::cout << ang_accel_propnav << ", " << std::flush;
+			//std::cout << ang_accel_propnav << ", " << std::flush;
 		}
 
 		// == GRAVITY ==

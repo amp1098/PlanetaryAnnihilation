@@ -35,7 +35,7 @@ public:
 	bool m_uses_prop_nav;
 
 	Missile(
-		int ID, std::string name, float fuelmass, Color color, float health,
+		int ID, std::string name, float fuelmass, Color color, Vector2 position, float health,
 		bool is_spawned, bool uses_prop_nav
 	);
 };

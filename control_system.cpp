@@ -5,10 +5,10 @@ void thrust_check(int ID) { // checks if KEY_UP/KEY_DOWN is pressed and updates 
 		// initializing local vars
 		float angle{ ECS_obj.get_entity_components(ID).m_angle };
 		Vector2 force{ ECS_obj.get_entity_components(ID).m_force };
-		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 600.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 600.0f };
+		Vector2 thrust{ cos(ECS_obj.get_entity_components(ID).m_angle) * 2.0f, sin(ECS_obj.get_entity_components(ID).m_angle) * 2.0f };
 
 		float torque{ ECS_obj.get_entity_components(ID).m_torque };
-		float turn_force{ 100000.0f };
+		float turn_force{ 50.0f };
 
 		if (IsKeyDown(KEY_UP)) force = thrust; // push up
 		else if (IsKeyDown(KEY_DOWN)) force = Vector2Negate(thrust); // push down
@@ -36,7 +36,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
 
-		float thrust_magnitude = 0.0f;
+		float thrust_magnitude = 30.0f;
 
 		float fuelmass{ ECS_obj.get_entity_components(ID).m_fuelmass };
 
@@ -54,7 +54,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 			force = thrust;
 
-			fuelmass = std::max(fuelmass - 0 * 1.0f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
+			fuelmass = std::max(fuelmass - 0.1f * dt, 0.0f); // subtract fuelmass while engines are on, stop when 0, based on dt
 		}
 		else {
 
