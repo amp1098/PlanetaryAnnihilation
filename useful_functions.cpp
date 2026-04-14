@@ -10,7 +10,7 @@ Vector2 center_of_points(std::vector<Vector2> points) { // finds vector average 
 	result = result / std::size(points); // scaling down according to size of array
 
 	return result;
-};
+}
 
 
 float clamp_angle(float angle) { // helper function to clamp angles to [0,2pi)
@@ -19,7 +19,7 @@ float clamp_angle(float angle) { // helper function to clamp angles to [0,2pi)
 		angle += 2 * PI;
 	};
 	return angle;
-};
+}
 
 std::vector<Vector2> circle_maker(float radius, int vertices) { // returns a vector of Vector2s representing a circular polyon
 	std::vector<Vector2> result{};
@@ -34,7 +34,7 @@ std::vector<Vector2> circle_maker(float radius, int vertices) { // returns a vec
 	};
 
 	return result;
-};
+}
 
 float mean(std::vector<float> input_vector) { // iterates over elements of vector, finds arithmetic mean
 
@@ -50,7 +50,7 @@ float mean(std::vector<float> input_vector) { // iterates over elements of vecto
 
 	return result;
 
-};
+}
 
 Vector2 Vector2Mean(std::vector<Vector2> input_vectors) { // iterates over vector of Vector2 objects, finds mean, custom :)
 
@@ -66,4 +66,92 @@ Vector2 Vector2Mean(std::vector<Vector2> input_vectors) { // iterates over vecto
 
 	return result;
 
-};
+}
+
+float minimum_angle(float input_angle) { // returns abs_val minimum of input_angle and 2 * PI - input_angle
+
+	if (abs(input_angle) <= 2 * PI - abs(input_angle)) {
+		return input_angle;
+	}
+	else {
+		return copysignf(input_angle, input_angle) * (2 * PI - abs(input_angle));
+	};
+
+
+}
+
+float num_deriv_backwards(float first_value, float second_value) { // returns average rate of change over time interval dt
+	// uses backwards derivative method, first order error
+	return (second_value - first_value) / dt;
+
+}
+
+float num_deriv_array_backwards(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
+	float val1 = vals_to_diff.at(0);
+	float val2 = vals_to_diff.at(1);
+
+	return num_deriv_backwards(val1, val2);
+}
+
+float num_deriv_centered(float x_t_pls_1, float x_t_min_1) { // returns average rate of change over time interval dt 
+	// uses centered derivative method, second order error, see ideas.txt
+	return (x_t_pls_1 - x_t_min_1) / (2 * dt);
+
+}
+
+float num_deriv_centered_angles(float x_t_pls_1, float x_t_min_1) { // returns average ROC of angles, uses minumum angle function
+
+	float angle_diff = x_t_min_1 - x_t_pls_1;
+
+	float sign_of_difference = copysignf(1, angle_diff); // gets sign of the difference, needed to fix jump in derivative
+
+	float numerator{};
+
+	if (abs(angle_diff) >= PI) { numerator = sign_of_difference * (abs(angle_diff) - (2 * PI)); }
+	else { numerator = angle_diff; }
+
+	return numerator / (2 * dt);
+
+}
+
+float num_deriv_array_centered(std::vector<float> vals_to_diff) { // works like num_deriv but accepts std::vector<float> type
+	// takes array with 3 elements
+	float val1 = vals_to_diff.at(0); // t-1
+	float val2 = vals_to_diff.at(2); // t+1
+
+	return num_deriv_centered_angles(val2, val1);
+
+}
+
+float angle_of_vec_diff(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2
+	Vector2 vec_res{ vec1 - vec2 };
+
+	float angle_diff = clamp_angle(atan2(vec_res.y, vec_res.x) + PI); // the PI is needed due to left handed coordinate system
+
+	return angle_diff;
+
+}
+
+float angle_of_vec_diff_unclamped(Vector2 vec1, Vector2 vec2) { // returns angle of vector difference of vec1 and vec2, does not use clamp
+	// (see useful_functions.cpp)
+	Vector2 vec_res{ vec2 - vec1 };
+
+	float angle_output = atan2(vec_res.y, vec_res.x);
+
+	if (angle_output < PI) {
+
+		return angle_output;
+
+	}
+	else {
+
+		return 2 * PI - angle_output;
+
+	};
+}
+
+float better_sign_function(float x) {
+	x = 2 * signbit(x) - 1;
+	return x;
+}
+

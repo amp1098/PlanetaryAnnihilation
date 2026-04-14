@@ -36,6 +36,10 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 	if (ECS_obj.get_entity_components(ID).m_name == "missile") {
 		// initializing local vars
 
+		int target_ID = ECS_obj.get_entity_components(ID).m_target_id;
+
+		Vector2 position = ECS_obj.get_entity_components(ID).m_position;
+
 		float thrust_magnitude = 30.0f;
 
 		float fuelmass{ ECS_obj.get_entity_components(ID).m_fuelmass };
@@ -61,8 +65,6 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 			force = { 0.0f, 0.0f };
 
 		};
-
-		//torque = turn_force; // twist right
 
 		ECS_obj.set_force(ID, force);
 

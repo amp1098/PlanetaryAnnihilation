@@ -10,16 +10,20 @@ bool check_collision_planetoid(int ent_id, int planetoid_id) { // Returns true i
 
 	std::vector<Vector2> translated_planetoid_shape{};
 
-	for (int i = 0; i < std::size(planetoid_shape); i++) { // translating planetoid_shape so collisions match where planetoid is
+	size_t entity_shape_size = std::size(entity_shape);
+
+	size_t planetoid_shape_size = std::size(planetoid_shape);
+
+	for (int i = 0; i < planetoid_shape_size; i++) { // translating planetoid_shape so collisions match where planetoid is
 		translated_planetoid_shape.push_back(planetoid_shape[i] + planetoid_position);
 	};
 
 	// maybe iterate through each point on entity shape and check for collisions?
 	// the (Vector2*)planetoid_shape.data() is a typecast, I think
 
-	for (int i = 0; i < std::size(entity_shape); i++) { // iterating through indices in entity_shape
+	for (int i = 0; i < entity_shape_size; i++) { // iterating through indices in entity_shape
 
-		if (CheckCollisionPointPoly(entity_shape[i] + entity_position, (Vector2*)translated_planetoid_shape.data(), std::size(planetoid_shape))) {
+		if (CheckCollisionPointPoly(entity_shape[i] + entity_position, (Vector2*)translated_planetoid_shape.data(), int(planetoid_shape_size))) {
 
 			return true;
 
@@ -65,18 +69,21 @@ bool check_collision_explosion(int ent_id, int explosion_id) { // Returns true i
 	std::vector<Vector2> explosion_shape{ ECS_obj.get_entity_components(explosion_id).m_shape };
 	Vector2 explosion_position{ ECS_obj.get_entity_components(explosion_id).m_position };
 
-	std::vector<Vector2> translated_planetoid_shape{};
+	std::vector<Vector2> translated_explosion_shape{};
 
-	for (int i = 0; i < std::size(explosion_shape); i++) { // translating planetoid_shape so collisions match where planetoid is
-		translated_planetoid_shape.push_back(explosion_shape[i] + explosion_position);
+	size_t entity_shape_size = std::size(entity_shape);
+
+	size_t explosion_shape_size = std::size(explosion_shape);
+
+	for (int i = 0; i < explosion_shape_size; i++) { // translating explosiion_shape so collisions match where explosion is
+		translated_explosion_shape.push_back(explosion_shape[i] + explosion_position);
 	};
 
 	// maybe iterate through each point on entity shape and check for collisions?
-	// the (Vector2*)planetoid_shape.data() is a typecast, I think
 
-	for (int i = 0; i < std::size(entity_shape); i++) { // iterating through indices in entity_shape
+	for (int i = 0; i < entity_shape_size; i++) { // iterating through indices in entity_shape
 
-		if (CheckCollisionPointPoly(entity_shape[i] + entity_position, (Vector2*)translated_planetoid_shape.data(), std::size(explosion_shape))) {
+		if (CheckCollisionPointPoly(entity_shape[i] + entity_position, (Vector2*)translated_explosion_shape.data(), int(explosion_shape_size))) {
 
 			return true;
 
