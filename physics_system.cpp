@@ -22,22 +22,22 @@ Vector2 univ_grav(float m1, float m2, Vector2 pos1, Vector2 pos2) { // returns g
 
 };
 
-float moment_of_inertia(float mass_of_object, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
-	float moment{};
-
-	float mass_of_each_point{ mass_of_object / std::size(points) };
-
-	// TODO: shouldnt center of points be calculated?
-	// just find mean
-	// center_of_points = {mean(points.x), mean(points.y)}
-	Vector2 center_of_points{ Vector2Mean(points)}; // we can subtract this from each element in points to move to {0,0}
-
-	for (int i = 0; i < std::size(points); i++) { // for each index corresponding to each point
-		moment += mass_of_each_point * Vector2LengthSqr(points[i] - center_of_points);
-	};
-
-	return moment;
-};
+//float moment_of_inertia(float mass_of_object, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
+//	float moment{};
+//
+//	float mass_of_each_point{ mass_of_object / std::size(points) };
+//
+//	// TODO: shouldnt center of points be calculated?
+//	// just find mean
+//	// center_of_points = {mean(points.x), mean(points.y)}
+//	Vector2 center_of_points{ Vector2Mean(points)}; // we can subtract this from each element in points to move to {0,0}
+//
+//	for (int i = 0; i < std::size(points); i++) { // for each index corresponding to each point
+//		moment += mass_of_each_point * Vector2LengthSqr(points[i] - center_of_points);
+//	};
+//
+//	return moment;
+//};
 
 
 Vector2 return_rel_vel(int ID1, int ID2) { // returns difference of velocities between two entities with ID = ID1, ID2
@@ -137,67 +137,67 @@ void physics_update(int ID) { // updates physics components when called
 
 		// == TARGETING (PROPORTIONAL NAV) ==
 
-		if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target
+		//if (target_ID != 0 && uses_prop_nav){ // iD == 0 means no target
 
-			// each frame I need to add the current LOS angle to the target entity to the buffer1 array
-			// while also removing the last element
-			// I can pop_back buffer1 and then insert LOS angle at index 0
+		//	// each frame I need to add the current LOS angle to the target entity to the buffer1 array
+		//	// while also removing the last element
+		//	// I can pop_back buffer1 and then insert LOS angle at index 0
 
-			float LOS_angle = return_LOS_angle(ID);
+		//	float LOS_angle = return_LOS_angle(ID);
 
-			std::vector<float> angle_buffer = ECS_obj.get_entity_components(ID).m_buffer1;
+		//	std::vector<float> angle_buffer = ECS_obj.get_entity_components(ID).m_buffer1;
 
-			// shifts buffer array: [1,2,3] --> [1,2] 3 --> 0 [1,2] --> [0,1,2,]
-			// buffer array used for discrete derivative 
+		//	// shifts buffer array: [1,2,3] --> [1,2] 3 --> 0 [1,2] --> [0,1,2,]
+		//	// buffer array used for discrete derivative 
 
-			angle_buffer.pop_back(); // removes last element
+		//	angle_buffer.pop_back(); // removes last element
 
-			angle_buffer.insert(angle_buffer.begin(), LOS_angle);
+		//	angle_buffer.insert(angle_buffer.begin(), LOS_angle);
 
-			ECS_obj.set_buffer1(ID, angle_buffer);
+		//	ECS_obj.set_buffer1(ID, angle_buffer);
 
-			// finding lambda_dot now with centered derivative method
+		//	// finding lambda_dot now with centered derivative method
 
-			float lambda_dot = num_deriv_array_centered(angle_buffer);
+		//	float lambda_dot = num_deriv_array_centered(angle_buffer);
 
-			// finding relative vel
+		//	// finding relative vel
 
-			//float closing_vel = - Vector2Length(return_rel_vel(ID, target_ID));
+		//	//float closing_vel = - Vector2Length(return_rel_vel(ID, target_ID));
 
-			// finding closing velocity CORRECTLY
+		//	// finding closing velocity CORRECTLY
 
-			//https://gamedev.stackexchange.com/questions/118162/how-to-calculate-the-closing-speed-of-two-objects
+		//	//https://gamedev.stackexchange.com/questions/118162/how-to-calculate-the-closing-speed-of-two-objects
 
-			Vector2 relative_position = Vector2Subtract(position, ECS_obj.get_entity_components(target_ID).m_position);
+		//	Vector2 relative_position = Vector2Subtract(position, ECS_obj.get_entity_components(target_ID).m_position);
 
-			Vector2 relative_velocity = return_rel_vel(ID, target_ID);
+		//	Vector2 relative_velocity = return_rel_vel(ID, target_ID);
 
-			float magnitude_rel_pos = Vector2Length(relative_position);
+		//	float magnitude_rel_pos = Vector2Length(relative_position);
 
-			float dot_relvel_relpos = Vector2DotProduct(relative_position, relative_velocity);
+		//	float dot_relvel_relpos = Vector2DotProduct(relative_position, relative_velocity);
 
-			float closing_vel = - abs(dot_relvel_relpos / magnitude_rel_pos);
+		//	float closing_vel = - abs(dot_relvel_relpos / magnitude_rel_pos);
 
-			float N = 3.0f;
+		//	float N = 3.0f;
 
-			float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
+		//	float ang_accel_propnav = return_accel_propnav(N, lambda_dot, closing_vel);
 
-			// now updating torque
+		//	// now updating torque
 
-			torque = - (moment * ang_accel_propnav) / 5.0f;
+		//	torque = - (moment * ang_accel_propnav) / 5.0f;
 
-			// === DEBUGGING === //
+		//	// === DEBUGGING === //
 
-			Vector2 X = ECS_obj.get_entity_components(ID).m_position;
+		//	Vector2 X = ECS_obj.get_entity_components(ID).m_position;
 
-			Vector2 Y = ECS_obj.get_entity_components(target_ID).m_position;
+		//	Vector2 Y = ECS_obj.get_entity_components(target_ID).m_position;
 
-			float look_angle = ECS_obj.get_entity_components(ID).m_angle;
-			
-			//std::cout << "\r" << "lambda_dot : " << (angle_buffer.at(2) - angle_buffer.at(0)) / (2 * dt) << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1)<< ", " << angle_buffer.at(2) << "|| num deriv" << num_deriv_array_centered(angle_buffer) << std::flush;
-		
-			//std::cout << ang_accel_propnav << ", " << std::flush;
-		}
+		//	float look_angle = ECS_obj.get_entity_components(ID).m_angle;
+		//	
+		//	//std::cout << "\r" << "lambda_dot : " << (angle_buffer.at(2) - angle_buffer.at(0)) / (2 * dt) << " vs angle buffer " << angle_buffer.at(0) << ", " << angle_buffer.at(1)<< ", " << angle_buffer.at(2) << "|| num deriv" << num_deriv_array_centered(angle_buffer) << std::flush;
+		//
+		//	//std::cout << ang_accel_propnav << ", " << std::flush;
+		//}
 
 		// == GRAVITY ==
 

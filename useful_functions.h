@@ -37,4 +37,10 @@ float angle_of_vec_diff_unclamped(Vector2 vec1, Vector2 vec2);
 
 float better_sign_function(float x);
 
+Vector3 Vector2_as_Vector3(Vector2 vec);
+
+float Vector2CrossProductLength(Vector2 vec1, Vector2 vec2);
+
+float moment_of_inertia(float mass_of_object, std::vector<Vector2> points);
+
 #endif

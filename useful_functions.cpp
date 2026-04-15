@@ -155,3 +155,43 @@ float better_sign_function(float x) {
 	return x;
 }
 
+Vector3 Vector2_as_Vector3(Vector2 vec) { // projects 2D vector into 3D space with a third zero element
+
+	Vector3 output_vec{};
+
+	output_vec = { vec.x, vec.y, 0.0f };
+
+	return output_vec;
+
+};
+
+float Vector2CrossProductLength(Vector2 vec1, Vector2 vec2) { // finds cross product of 2D vectors by projecting into 3D and back to 2D
+
+	Vector3 proj_vec1{ Vector2_as_Vector3(vec1) };
+
+	Vector3 proj_vec2{ Vector2_as_Vector3(vec2) };
+
+	Vector3 cross_product{ Vector3CrossProduct(proj_vec1, proj_vec2) };
+
+	float output{ Vector3Length(cross_product) };
+
+	return output;
+
+};
+
+float moment_of_inertia(float mass_of_object, std::vector<Vector2> points) { // for uniform point masses, assuming points are relative to COM
+	float moment{};
+
+	float mass_of_each_point{ mass_of_object / std::size(points) };
+
+	// TODO: shouldnt center of points be calculated?
+	// just find mean
+	// center_of_points = {mean(points.x), mean(points.y)}
+	Vector2 center_of_points{ Vector2Mean(points) }; // we can subtract this from each element in points to move to {0,0}
+
+	for (int i = 0; i < std::size(points); i++) { // for each index corresponding to each point
+		moment += mass_of_each_point * Vector2LengthSqr(points[i] - center_of_points);
+	};
+
+	return moment;
+};
