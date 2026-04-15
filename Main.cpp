@@ -31,7 +31,7 @@ int main(void)
 
 	spawn_missile_at_position({ -300.0f, 200.0f });
 
-	//spawn_missile_at_position({ 320.0f, -220.0f });
+	spawn_missile_at_position({ 320.0f, -220.0f });
 
 	
 	/*Missile testMissile1(

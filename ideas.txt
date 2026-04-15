@@ -181,3 +181,7 @@ UPDATE:
 https://www.desmos.com/calculator/leu2wkdp74 got annoyed so I made a quick numerical derivative example
 
 uses an if-else thing based on the size of the difference of the angles.
+
+FINAL PROP NAV UPDATE FOR NOW
+
+I thought proportional navigation used angular stuff. It uses linear stuff. I fixed it now.

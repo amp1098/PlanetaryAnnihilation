@@ -62,13 +62,9 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		// Going to use 3D prop nav equation. All 2D systems are planar cases of 3D systems.
 
-		// ang_acc = N * Vector_relativevel X Vector_rotationlos
+		Vector3 acc{}; // linear acceleration, used to turn velocity vector of missile
 
-		// Vector_rotationlos = (Vector_relativepos X Vector_relativevel) / modsqr(Vector_relativepos)
-
-		Vector3 acc{};
-
-		float N{ 5.0f };
+		float N{ 5.0f }; // scaling factor, usually between 3 and 5
 
 		Vector3 relative_vel3{
 
@@ -76,7 +72,7 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		};
 
-		Vector3 rotation_LOS_vec{};
+		Vector3 rotation_LOS_vec{}; // rotation vector for line of site
 
 		Vector3 relative_pos3{
 
@@ -84,17 +80,9 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		};
 
-		rotation_LOS_vec = Vector3CrossProduct(relative_pos3, relative_vel3) / Vector3LengthSqr(relative_pos3);
+		rotation_LOS_vec = Vector3CrossProduct(relative_pos3, relative_vel3) / Vector3LengthSqr(relative_pos3); // from wikipedia
 
 		float rotation_LOS_rate{ rotation_LOS_vec.z };
-
-		//float closing_velocity = - abs(Vector2DotProduct(tar_velocity - velocity, tar_position - position) / Vector2LengthSqr(tar_position - position));
-
-		
-
-		//ang_acc = N * rotation_LOS_rate * closing_velocity;
-
-		//ang_acc = Vector3CrossProduct(Vector3Scale(relative_vel3, N), rotation_LOS_vec).y; // WIP
 
 		acc = Vector3CrossProduct(Vector3Scale(Vector3Normalize(relative_pos3), Vector3Length(relative_vel3) * -N), rotation_LOS_vec);
 
@@ -121,16 +109,12 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		};
 
-
+		ECS_obj.set_angle(ID, atan2f(force.y, force.x)); // hacky, forces  angle of missile to match current force vector, very jittery
+		// real solution involve PID stuff lol
 
 		// === PROPORTIONAL NAVIGATION V2 === //
-		
-		
-		ECS_obj.set_angle(ID, atan2f(force.y, force.x));
 
 		ECS_obj.set_force(ID, force);
-
-		//ECS_obj.set_torque(ID, torque);
 
 		ECS_obj.set_fuelmass(ID, fuelmass);
 
