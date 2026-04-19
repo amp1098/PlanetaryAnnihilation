@@ -94,8 +94,6 @@ void missile_control(int ID) { // trys to fly into player's ship, turns into exp
 
 		Vector2 vel_perp_norm{ Vector2Normalize({ -velocity.y, velocity.x}) };
 
-		std::cout << "\r" << vel_perp_norm.x << "\t" << std::flush;
-
 		
 		if (fuelmass > 0.0f) {
 

@@ -79,7 +79,7 @@ void despawn_dead_entity(int ent_id) { // anything with 0 health should be remov
 
 	if (FloatEquals(health, 0.0f)) {
 
-		ECS_obj.destroy_entity(ent_id); // WIP breaks game if ship dies
+		//ECS_obj.destroy_entity(ent_id); // WIP breaks game if ship dies
 
 	};
 

@@ -26,39 +26,26 @@ int main(void)
 	int playerID = 1;
 
 	Ship playerShip(
+
 		playerID, "ship", 1.0f, WHITE, 100.0f, true
+
 	);
+
+	ECS_obj.destroy_entity(1);
 
 	spawn_missile_at_position({ -300.0f, 200.0f });
 
 	spawn_missile_at_position({ 320.0f, -220.0f });
 
-	
-	/*Missile testMissile1(
-		3, "missile", 50.0f, GREEN, {-500.0f, 300.0f}, 10.0f, true, true
-	);
-
-	Missile testMissile2(
-		3, "missile", 50.0f, GREEN, { -505.0f, 302.0f }, 10.0f, true, true
-	);
-
-	Missile testMissile3(
-		3, "missile", 50.0f, GREEN, { -550.0f, 370.0f }, 10.0f, true, true
-	); */
 
 
-	//GroundLaser groundlasertest(7, "testlaser", 20.0f, WHITE, 100.0f, { 200.0f, 0.0f }, true);
 
-	/*int ID, std::string name, float mass, Color color, float health,
-	Vector2 position,
-	bool is_spawned
-)*/
 
-	/*Planetoid planet2(
-		4, 10000.0f, WHITE,
-		{ 5000.0f, 5000.0f },
-		circle_maker(5000.0f, 500), false, true, true
-	);*/
+	//Planetoid planet2(
+	//	4, 10000.0f, WHITE,
+	//	{ 5000.0f, 5000.0f },
+	//	circle_maker(5000.0f, 500), false, true, true
+	//);
 
 	use_initializer_systems();
 

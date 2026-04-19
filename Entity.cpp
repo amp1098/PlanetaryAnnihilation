@@ -22,4 +22,6 @@ Entity::~Entity() { // destructor, object removal also  removes it from ECS
 
 void Entity::remove() const {
 	ECS_obj.destroy_entity(m_ID);
+
+	//std::cout << "\n" << m_ID << std::flush;
 };

@@ -432,19 +432,34 @@ std::map<int, entity_row_type>::iterator ECS::end_of_ECS() { // used to end iter
 };
 
 /*
+
 NOTE: The reason why I'm not just iterating through the ECS with a simple counter
+
 (i.e., for (int i=0;i<number_of_entities;i++)) is because I want to allow for
+
 any IDs to be used. For example, if I only have two entities of ID 1 and 324, I should
+
 be able to iterate over both of them despite how 1 and 324 are not consecutive integers.
+
 */
 
 int ECS::number_of_entities() const { // returns number of entities stored in ECS
+
 	return static_cast<int>(std::size(ECS_map));
+
 };
 
-void ECS::destroy_entity(int ID) { // removes entity from ECS, effectively deletes it
-	static_cast<int>(ECS_map.erase(ID));
-};
+
+
+//void ECS::ECS_update(int key, entity_row_type components) { // adds components to ECS, should be called when a new entity is made
+//	ECS_map.insert(
+//		std::pair<int, entity_row_type>(key,
+//			EntityRow(
+//				components
+//			)
+//		)
+//	);
+//};
 
 std::vector<int> ECS::return_all_ids() {
 	std::vector<int> ids{};
@@ -487,4 +502,20 @@ std::vector<int> ECS::return_ids_with_name(std::string name) {
 	return ids;
 };
 
+void ECS::destroy_entity(int ID) { // removes entity from ECS, effectively deletes it
+	// broken, throws errors for non-0 IDs
+
+	std::vector<int> ids{ return_all_ids() }; // making array of all IDs to iterate through;
+
+	for (auto& element : ids) {
+
+		std::cout << ID << std::flush;
+		
+		if (element == ID) { ECS_map.erase(ID); }
+
+	}
+
+
+
+};
 
